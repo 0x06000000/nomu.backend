@@ -339,13 +339,11 @@
         });
       }
       const apiUrl = new URL(\uC0AC\uC5C5\uC7A5\uC7A5\uC870\uD68C_API_URL);
-      const encodedServiceKey = encodeURIComponent(SERVICE_KEY);
-      apiUrl.searchParams.set("serviceKey", encodedServiceKey);
+      apiUrl.searchParams.set("serviceKey", SERVICE_KEY);
       apiUrl.searchParams.set("v_saeopjaDrno", businessNumber);
       apiUrl.searchParams.set("opaBoheomFg", opaBoheomFg);
       apiUrl.searchParams.set("pageNo", pageNo);
       apiUrl.searchParams.set("numOfRows", numOfRows);
-      console.log(1111111111111111, apiUrl.toString());
       const apiResponse = await fetch(apiUrl.toString(), {
         headers: {
           "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"

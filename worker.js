@@ -77,14 +77,12 @@ async function handleBusinessAPI(url, corsHeaders) {
         // Build API URL
         const apiUrl = new URL(사업장장조회_API_URL);
         // URL 인코딩된 serviceKey 사용
-        const encodedServiceKey = encodeURIComponent(SERVICE_KEY);
-        apiUrl.searchParams.set('serviceKey', encodedServiceKey);
+        apiUrl.searchParams.set('serviceKey', SERVICE_KEY);
         apiUrl.searchParams.set('v_saeopjaDrno', businessNumber);
         apiUrl.searchParams.set('opaBoheomFg', opaBoheomFg);
         apiUrl.searchParams.set('pageNo', pageNo);
         apiUrl.searchParams.set('numOfRows', numOfRows);
 
-        console.log(1111111111111111,apiUrl.toString());
         // Fetch from API with headers
         const apiResponse = await fetch(apiUrl.toString(), {
             headers: {
