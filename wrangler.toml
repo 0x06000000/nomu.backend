@@ -3,10 +3,10 @@ main = "worker.js"
 compatibility_date = "2024-01-01"
 
 [env.production]
-name = "gyeongbuk-worker-prod"
+name = "nomubackend-prod"
 
 [env.staging]
-name = "gyeongbuk-worker-staging"
+name = "nomubackend-staging"
 
 # KV Namespace for additional caching (optional)
 # [[kv_namespaces]]
@@ -16,5 +16,3 @@ name = "gyeongbuk-worker-staging"
 
 # Environment variables (optional)
 [vars]
-ENVIRONMENT = "production"
-CACHE_TTL = "86400" 
