@@ -1,12 +1,8 @@
-// Cloudflare Worker for 근로복지공단 API caching
-// Deploy this to Cloudflare Workers to cache API responses
+// Cloudflare Worker for 근로복지공단 API proxy
+// Simple proxy to call the 근로복지공단 API
 
 const API_BASE_URL = 'https://apis.data.go.kr/B490001/gySjbPstateInfoService';
 const SERVICE_KEY = 'iaxjwmL9Hxpw3MSZ6XSYR0wcx1bWX0+18BmyAuILHPob+Qjn/F+Vt3sez2SsejjveYC0Ck+4EsAENKZ6JB2jTA==';
-
-// Cache configuration
-const CACHE_TTL = 24 * 60 * 60; // 24 hours in seconds
-const CACHE_NAME = 'gyeongbuk-worker-cache';
 
 addEventListener('fetch', event => {
   event.respondWith(handleRequest(event.request));
@@ -77,28 +73,7 @@ async function handleBusinessAPI(url, corsHeaders) {
       });
     }
 
-    // Create cache key
-    const cacheKey = `business:${businessNumber}:${opaBoheomFg}:${pageNo}:${numOfRows}`;
-    
-    // Try to get from cache first
-    const cache = caches.default;
-    const cachedResponse = await cache.match(cacheKey);
-    
-    if (cachedResponse) {
-      console.log('Cache hit for:', cacheKey);
-      return new Response(cachedResponse.body, {
-        status: 200,
-        headers: {
-          ...corsHeaders,
-          'X-Cache': 'HIT',
-          'X-Cache-Key': cacheKey
-        }
-      });
-    }
-
-    // If not in cache, fetch from API
-    console.log('Cache miss, fetching from API for:', cacheKey);
-    
+    // Build API URL
     const apiUrl = new URL(API_BASE_URL);
     apiUrl.searchParams.set('serviceKey', SERVICE_KEY);
     apiUrl.searchParams.set('getSaeopJongryuSearchSrvc', '');
@@ -107,6 +82,7 @@ async function handleBusinessAPI(url, corsHeaders) {
     apiUrl.searchParams.set('pageNo', pageNo);
     apiUrl.searchParams.set('numOfRows', numOfRows);
 
+    // Fetch from API
     const apiResponse = await fetch(apiUrl.toString());
     
     if (!apiResponse.ok) {
@@ -118,21 +94,11 @@ async function handleBusinessAPI(url, corsHeaders) {
     // Parse XML response and convert to JSON
     const jsonData = await parseXMLResponse(apiData);
     
-    // Create response with cache headers
+    // Create response
     const response = new Response(JSON.stringify(jsonData), {
       status: 200,
-      headers: {
-        ...corsHeaders,
-        'X-Cache': 'MISS',
-        'X-Cache-Key': cacheKey,
-        'Cache-Control': `public, max-age=${CACHE_TTL}`
-      }
+      headers: corsHeaders
     });
-
-    // Store in cache
-    const cacheResponse = response.clone();
-    const cacheRequest = new Request(cacheKey);
-    await cache.put(cacheRequest, cacheResponse);
 
     return response;
 
@@ -218,7 +184,7 @@ async function parseXMLResponse(xmlString) {
 async function handleHealthCheck() {
   return new Response(JSON.stringify({
     status: 'healthy',
-    service: '근로복지공단 API Cache Worker',
+    service: '근로복지공단 API Proxy Worker',
     timestamp: new Date().toISOString(),
     endpoints: {
       '/api/business': '사업자 정보 조회 (GET)',
