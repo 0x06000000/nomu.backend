@@ -375,45 +375,38 @@
     }
   }
   __name(handleBusinessAPI, "handleBusinessAPI");
+  function convertXmlToJson(xmlString) {
+    const jsonData = {};
+    for (const result of xmlString.matchAll(/(?:<(\w*)(?:\s[^>]*)*>)((?:(?!<\1).)*)(?:<\/\1>)|<(\w*)(?:\s*)*\/>/gm)) {
+      const key = result[1] || result[3];
+      const value = result[2] && convertXmlToJson(result[2]);
+      jsonData[key] = (value && Object.keys(value).length ? value : result[2]) || null;
+    }
+    return jsonData;
+  }
+  __name(convertXmlToJson, "convertXmlToJson");
   async function parseXMLResponse(xmlString) {
     try {
-      const responseMatch = xmlString.match(/<responseBody>(.*?)<\/responseBody>/s);
-      if (!responseMatch) {
-        throw new Error("Invalid XML response format");
-      }
-      const responseBody = responseMatch[1];
-      const items = [];
-      const itemRegex = /<item>(.*?)<\/item>/gs;
-      let itemMatch;
-      while ((itemMatch = itemRegex.exec(responseBody)) !== null) {
-        const itemXml = itemMatch[1];
-        const item = {};
-        const fieldRegex = /<([^>]+)>([^<]*)<\/\1>/g;
-        let fieldMatch;
-        while ((fieldMatch = fieldRegex.exec(itemXml)) !== null) {
-          const fieldName = fieldMatch[1];
-          const fieldValue = fieldMatch[2];
-          item[fieldName] = fieldValue;
+      const parsedData = convertXmlToJson(xmlString);
+      const responseBody = parsedData.responseBody || parsedData;
+      const items = responseBody.items ? Array.isArray(responseBody.items.item) ? responseBody.items.item : [responseBody.items.item] : [];
+      const header = responseBody.header || {};
+      const cleanItems = items.filter((item) => item && typeof item === "object").map((item) => {
+        const cleanItem = {};
+        for (const [key, value] of Object.entries(item)) {
+          if (value !== null && value !== void 0) {
+            cleanItem[key] = value;
+          }
         }
-        items.push(item);
-      }
-      const headerMatch = responseBody.match(/<header>(.*?)<\/header>/s);
-      let header = {};
-      if (headerMatch) {
-        const headerXml = headerMatch[1];
-        const fieldRegex = /<([^>]+)>([^<]*)<\/\1>/g;
-        let fieldMatch;
-        while ((fieldMatch = fieldRegex.exec(headerXml)) !== null) {
-          const fieldName = fieldMatch[1];
-          const fieldValue = fieldMatch[2];
-          header[fieldName] = fieldValue;
-        }
-      }
+        return cleanItem;
+      });
       return {
         header,
-        items,
-        totalCount: items.length,
-        cachedAt: (/* @__PURE__ */ new Date()).toISOString()
+        items: cleanItems,
+        totalCount: cleanItems.length,
+        cachedAt: (/* @__PURE__ */ new Date()).toISOString(),
+        rawData: parsedData
+        // Include raw parsed data for debugging
       };
     } catch (error) {
       console.error("XML parsing error:", error);

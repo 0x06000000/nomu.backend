@@ -124,69 +124,60 @@ async function handleBusinessAPI(url, corsHeaders) {
     }
 }
 
-// Simple XML to JSON parser for the API response
+// Advanced XML to JSON parser for the API response
+function convertXmlToJson(xmlString) {
+  const jsonData = {};
+  for (const result of xmlString.matchAll(/(?:<(\w*)(?:\s[^>]*)*>)((?:(?!<\1).)*)(?:<\/\1>)|<(\w*)(?:\s*)*\/>/gm)) {
+    const key = result[1] || result[3];
+    const value = result[2] && convertXmlToJson(result[2]);
+    jsonData[key] = ((value && Object.keys(value).length) ? value : result[2]) || null;
+  }
+  return jsonData;
+}
+
 async function parseXMLResponse(xmlString) {
-    try {
-        // Extract the response body from XML
-        const responseMatch = xmlString.match(/<responseBody>(.*?)<\/responseBody>/s);
-        if (!responseMatch) {
-            throw new Error('Invalid XML response format');
+  try {
+    // Parse the entire XML string
+    const parsedData = convertXmlToJson(xmlString);
+    
+    // Extract response body if it exists
+    const responseBody = parsedData.responseBody || parsedData;
+    
+    // Extract items array if it exists
+    const items = responseBody.items ? 
+      (Array.isArray(responseBody.items.item) ? responseBody.items.item : [responseBody.items.item]) : 
+      [];
+    
+    // Extract header information
+    const header = responseBody.header || {};
+    
+    // Filter out null values and clean up the data
+    const cleanItems = items.filter(item => item && typeof item === 'object').map(item => {
+      const cleanItem = {};
+      for (const [key, value] of Object.entries(item)) {
+        if (value !== null && value !== undefined) {
+          cleanItem[key] = value;
         }
+      }
+      return cleanItem;
+    });
 
-        const responseBody = responseMatch[1];
+    return {
+      header,
+      items: cleanItems,
+      totalCount: cleanItems.length,
+      cachedAt: new Date().toISOString(),
+      rawData: parsedData // Include raw parsed data for debugging
+    };
 
-        // Parse items
-        const items = [];
-        const itemRegex = /<item>(.*?)<\/item>/gs;
-        let itemMatch;
-
-        while ((itemMatch = itemRegex.exec(responseBody)) !== null) {
-            const itemXml = itemMatch[1];
-            const item = {};
-
-            // Extract all fields from the item
-            const fieldRegex = /<([^>]+)>([^<]*)<\/\1>/g;
-            let fieldMatch;
-
-            while ((fieldMatch = fieldRegex.exec(itemXml)) !== null) {
-                const fieldName = fieldMatch[1];
-                const fieldValue = fieldMatch[2];
-                item[fieldName] = fieldValue;
-            }
-
-            items.push(item);
-        }
-
-        // Extract header information
-        const headerMatch = responseBody.match(/<header>(.*?)<\/header>/s);
-        let header = {};
-        if (headerMatch) {
-            const headerXml = headerMatch[1];
-            const fieldRegex = /<([^>]+)>([^<]*)<\/\1>/g;
-            let fieldMatch;
-
-            while ((fieldMatch = fieldRegex.exec(headerXml)) !== null) {
-                const fieldName = fieldMatch[1];
-                const fieldValue = fieldMatch[2];
-                header[fieldName] = fieldValue;
-            }
-        }
-
-        return {
-            header,
-            items,
-            totalCount: items.length,
-            cachedAt: new Date().toISOString()
-        };
-
-    } catch (error) {
-        console.error('XML parsing error:', error);
-        return {
-            error: 'XML 파싱 오류',
-            originalResponse: xmlString,
-            details: error.message
-        };
-    }
+  } catch (error) {
+    console.error('XML parsing error:', error);
+    return {
+      error: 'XML 파싱 오류',
+      originalResponse: xmlString,
+      details: error.message
+    };
+  }
 }
 
 // Health check endpoint
