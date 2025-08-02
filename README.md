@@ -24,7 +24,7 @@ cd backend
 wrangler deploy
 ```
 
-배포 후 제공되는 URL을 메모해두세요 (예: `https://gyeongbuk-worker.your-subdomain.workers.dev`)
+배포 후 제공되는 URL을 메모해두세요 (예: `https://nomubackend.your-subdomain.workers.dev`)
 
 ## 📋 API 사용법
 
@@ -78,7 +78,7 @@ GET /health
 `frontend/composables/useWorkerAPI.ts` 파일에서 `WORKER_URL`을 배포된 URL로 변경:
 
 ```typescript
-const WORKER_URL = 'https://your-worker.your-subdomain.workers.dev'
+const WORKER_URL = 'https://nomubackend.your-subdomain.workers.dev'
 ```
 
 ### 2. Vue 컴포넌트에서 사용
