@@ -2,7 +2,7 @@
   var __defProp = Object.defineProperty;
   var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
 
-  // .wrangler/tmp/bundle-jqZrb5/checked-fetch.js
+  // .wrangler/tmp/bundle-lQDOWD/checked-fetch.js
   var urls = /* @__PURE__ */ new Set();
   function checkURL(request, init) {
     const url = request instanceof URL ? request : new URL(
@@ -277,7 +277,7 @@
   }, "jsonError");
   var middleware_miniflare3_json_error_default = jsonError;
 
-  // .wrangler/tmp/bundle-jqZrb5/middleware-insertion-facade.js
+  // .wrangler/tmp/bundle-lQDOWD/middleware-insertion-facade.js
   __facade_registerInternal__([middleware_ensure_req_body_drained_default, middleware_miniflare3_json_error_default]);
 
   // worker.js
@@ -355,7 +355,7 @@
         throw new Error(`API request failed: ${apiResponse.status} ${apiResponse.statusText} - ${errorText}`);
       }
       const apiData = await apiResponse.text();
-      const jsonData = await parseXMLResponse(apiData);
+      const jsonData = await convertXmlToJson(apiData);
       const response = new Response(JSON.stringify(jsonData), {
         status: 200,
         headers: corsHeaders
@@ -383,39 +383,6 @@
     return jsonData;
   }
   __name(convertXmlToJson, "convertXmlToJson");
-  async function parseXMLResponse(xmlString) {
-    try {
-      const parsedData = convertXmlToJson(xmlString);
-      const responseBody = parsedData.responseBody || parsedData;
-      const items = responseBody.items ? Array.isArray(responseBody.items.item) ? responseBody.items.item : [responseBody.items.item] : [];
-      const header = responseBody.header || {};
-      const cleanItems = items.filter((item) => item && typeof item === "object").map((item) => {
-        const cleanItem = {};
-        for (const [key, value] of Object.entries(item)) {
-          if (value !== null && value !== void 0) {
-            cleanItem[key] = value;
-          }
-        }
-        return cleanItem;
-      });
-      return {
-        header,
-        items: cleanItems,
-        totalCount: cleanItems.length,
-        cachedAt: (/* @__PURE__ */ new Date()).toISOString(),
-        rawData: parsedData
-        // Include raw parsed data for debugging
-      };
-    } catch (error) {
-      console.error("XML parsing error:", error);
-      return {
-        error: "XML \uD30C\uC2F1 \uC624\uB958",
-        originalResponse: xmlString,
-        details: error.message
-      };
-    }
-  }
-  __name(parseXMLResponse, "parseXMLResponse");
   async function handleHealthCheck() {
     return new Response(JSON.stringify({
       status: "healthy",

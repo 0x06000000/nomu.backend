@@ -99,7 +99,7 @@ async function handleBusinessAPI(url, corsHeaders) {
         const apiData = await apiResponse.text();
 
         // Parse XML response and convert to JSON
-        const jsonData = await parseXMLResponse(apiData);
+        const jsonData = await convertXmlToJson(apiData);
 
         // Create response
         const response = new Response(JSON.stringify(jsonData), {
@@ -131,51 +131,6 @@ function convertXmlToJson(xmlString) {
     jsonData[key] = ((value && Object.keys(value).length) ? value : result[2]) || null;
   }
   return jsonData;
-}
-
-async function parseXMLResponse(xmlString) {
-  try {
-    // Parse the entire XML string
-    const parsedData = convertXmlToJson(xmlString);
-    
-    // Extract response body if it exists
-    const responseBody = parsedData.responseBody || parsedData;
-    
-    // Extract items array if it exists
-    const items = responseBody.items ? 
-      (Array.isArray(responseBody.items.item) ? responseBody.items.item : [responseBody.items.item]) : 
-      [];
-    
-    // Extract header information
-    const header = responseBody.header || {};
-    
-    // Filter out null values and clean up the data
-    const cleanItems = items.filter(item => item && typeof item === 'object').map(item => {
-      const cleanItem = {};
-      for (const [key, value] of Object.entries(item)) {
-        if (value !== null && value !== undefined) {
-          cleanItem[key] = value;
-        }
-      }
-      return cleanItem;
-    });
-
-    return {
-      header,
-      items: cleanItems,
-      totalCount: cleanItems.length,
-      cachedAt: new Date().toISOString(),
-      rawData: parsedData // Include raw parsed data for debugging
-    };
-
-  } catch (error) {
-    console.error('XML parsing error:', error);
-    return {
-      error: 'XML 파싱 오류',
-      originalResponse: xmlString,
-      details: error.message
-    };
-  }
 }
 
 // Health check endpoint
