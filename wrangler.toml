@@ -1,0 +1,20 @@
+name = "gyeongbuk-worker"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+[env.production]
+name = "gyeongbuk-worker-prod"
+
+[env.staging]
+name = "gyeongbuk-worker-staging"
+
+# KV Namespace for additional caching (optional)
+# [[kv_namespaces]]
+# binding = "CACHE"
+# id = "your-kv-namespace-id"
+# preview_id = "your-preview-kv-namespace-id"
+
+# Environment variables (optional)
+[vars]
+ENVIRONMENT = "production"
+CACHE_TTL = "86400" 
