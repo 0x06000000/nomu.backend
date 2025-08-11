@@ -28,8 +28,8 @@ router.get('/health', (request: Request, env: Env, ctx: any) => {
   });
 });
 
-router.get('/industrial-accident-insurance-premium-rate', async (request: Request, env: Env, ctx: any) => {
-  return IndustrialAccidentInsurancePremiumRateController.searchIndustryRates(request, env);
+router.get('/industrial-accident-insurance-premium-rate', async (request: Request,  env: Env, ctx: any) => {
+  return IndustrialAccidentInsurancePremiumRateController.searchIndustryRates(request, corsHeaders, env);
 });
 
 router.get('/juso-search', async (request: Request, env: Env, ctx: any) => {
