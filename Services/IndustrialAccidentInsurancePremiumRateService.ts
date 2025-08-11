@@ -1,4 +1,4 @@
-import xml2js from 'xml-js';
+import { xml2json } from 'xml-js';
 
 export interface IndustrialAccidentInsuranceConfiguration {
     apiKey: string;
@@ -75,7 +75,7 @@ export class IndustrialAccidentInsurancePremiumRateService {
                 throw new Error('API가 빈 응답을 반환했습니다');
             }
 
-            const jsonData = JSON.parse(xml2js.xml2json(xmlText, {compact: true, spaces: 2}));
+            const jsonData = JSON.parse(xml2json(xmlText, {compact: true, spaces: 2}));
             console.log('변환된 JSON:', JSON.stringify(jsonData, null, 2));
 
             return jsonData as ApiResponse;
