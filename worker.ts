@@ -14,6 +14,7 @@ const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': '*',
   'Access-Control-Allow-Headers': '*',
+  'Content-Type': 'application/json',
 };
 
 // 라우터 생성
