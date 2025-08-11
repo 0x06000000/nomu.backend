@@ -51,14 +51,7 @@ export class IndustrialAccidentInsurancePremiumRateService {
 
             // fetch 옵션 추가
             const response = await fetch(apiUrl.toString(), {
-                method: 'GET',
-                headers: {
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-                    'Accept': 'application/json, text/plain, */*',
-                    'Accept-Language': 'ko-KR,ko;q=0.9,en;q=0.8',
-                    'Referer': 'https://apis.data.go.kr/',
-                    'Origin': 'https://apis.data.go.kr'
-                }
+                method: 'GET'
             });
 
             if (!response.ok) {
