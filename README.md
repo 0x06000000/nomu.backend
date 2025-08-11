@@ -1,204 +1,146 @@
-# Cloudflare Worker - 근로복지공단 API 캐싱 서버
+# 노무닷컴 API Worker
 
-이 Worker는 근로복지공단의 Open API 호출을 캐싱하여 API 사용량 제한을 우회하고 응답 속도를 개선합니다.
+Cloudflare Workers를 사용한 근로복지공단 API 프록시 서버입니다.
 
-## 🚀 배포 방법
+## 🚀 TypeScript 지원
 
-### 1. Cloudflare 계정 설정
-1. [Cloudflare](https://cloudflare.com)에 가입
-2. Workers & Pages 서비스 활성화
+이 프로젝트는 [Cloudflare Workers의 TypeScript 지원](https://developers.cloudflare.com/workers/languages/typescript/)을 활용하여 타입 안전성을 확보했습니다.
 
-### 2. Wrangler CLI 설치
+### 주요 개선사항
+
+- **타입 안전성**: 모든 API 응답과 요청에 대한 타입 정의
+- **인터페이스 정의**: 네이버 OAuth, 도로명주소 API, 사업자 정보 API 응답 타입
+- **에러 처리**: 타입이 지정된 에러 응답 구조
+- **개발 경험**: IntelliSense 지원으로 더 나은 개발 경험
+
+## 📦 설치 및 설정
+
+### 1. 의존성 설치
+
 ```bash
-npm install -g wrangler
+npm install
 ```
 
-### 3. Cloudflare 로그인
+### 2. 타입 생성
+
 ```bash
-wrangler login
+npm run generate-types
 ```
 
-### 4. Worker 배포
+### 3. 개발 서버 실행
+
 ```bash
-cd backend
-wrangler deploy
+npm run dev
 ```
 
-배포 후 제공되는 URL을 메모해두세요 (예: `https://gyeongbuk-worker.your-subdomain.workers.dev`)
+### 4. 배포
 
-## 📋 API 사용법
+```bash
+# 스테이징 배포
+npm run deploy:staging
 
-### 사업자 정보 조회
+# 프로덕션 배포
+npm run deploy:production
 ```
-GET /api/business?businessNumber=1234567890&opaBoheomFg=1&pageNo=1&numOfRows=10
+
+## 🔧 환경 설정
+
+### 환경 변수 설정
+
+```bash
+# 네이버 OAuth 시크릿 설정
+wrangler secret put NAVER_CLIENT_SECRET
+
+# 기타 환경 변수
+wrangler secret put SERVICE_KEY
+wrangler secret put JUSO_API_KEY
 ```
 
-#### 파라미터
-- `businessNumber` (필수): 사업자등록번호
-- `opaBoheomFg` (선택): 산재/고용 구분 (1: 산재, 2: 고용, 기본값: 1)
-- `pageNo` (선택): 페이지 번호 (기본값: 1)
-- `numOfRows` (선택): 목록 건수 (기본값: 10)
+### wrangler.toml 설정
 
-#### 응답 예시
-```json
-{
-  "header": {
-    "resultCode": "00",
-    "resultMsg": "NORMAL SERVICE"
-  },
-  "items": [
-    {
-      "addr": "강원 원주시 우산공단길 10 (우산동)",
-      "gyEopjongNm": "기타 가정용 전기기기 제조업",
-      "opaBoheomFg": "2",
-      "post": "26336",
-      "saeopjangNm": "한일전기(주)",
-      "sangsiInwonCnt": "271",
-      "seongripDt": "19950701",
-      "gyEopjongCd": "28519",
-      "saeopjaDrno": "1234567890",
-      "sjEopjongCd": "28519",
-      "sjEopjongNm": "기타 가정용 전기기기 제조업",
-      "saeopFg": "1"
-    }
-  ],
-  "totalCount": 1,
-  "cachedAt": "2024-01-15T10:30:00.000Z"
-}
+```toml
+name = "nomubackend"
+main = "worker.ts"
+compatibility_date = "2024-01-01"
+
+[env.production]
+name = "nomubackend"
+
+[env.staging]
+name = "nomubackend-staging"
+
+[env.development]
+name = "nomubackend-dev"
 ```
+
+## 📋 API 엔드포인트
 
 ### 헬스 체크
-```
-GET /health
-```
+- **GET** `/health` - 서비스 상태 확인
 
-## 🔧 프론트엔드 연동
+### 사업자 정보 조회
+- **GET** `/business?businessNumber={사업자번호}` - 사업자 정보 조회
 
-### 1. Worker URL 설정
-`frontend/composables/useWorkerAPI.ts` 파일에서 `WORKER_URL`을 배포된 URL로 변경:
+### 도로명주소 검색
+- **GET** `/juso-search?keyword={검색어}` - 도로명주소 검색
 
-```typescript
-const WORKER_URL = 'https://your-worker.your-subdomain.workers.dev'
-```
+### 네이버 OAuth
+- **GET** `/naver/login` - 네이버 로그인 URL 생성
+- **GET** `/naver/callback?code={code}&state={state}` - 네이버 OAuth 콜백 처리
 
-### 2. Vue 컴포넌트에서 사용
-```vue
-<script setup>
-import { useWorkerAPI } from '~/composables/useWorkerAPI'
+## 🛠️ 개발
 
-const { 
-  loading, 
-  error, 
-  data, 
-  fetchBusinessInfo, 
-  isCached,
-  businessCount 
-} = useWorkerAPI()
+### 타입 체크
 
-const businessNumber = ref('')
-
-const searchBusiness = async () => {
-  await fetchBusinessInfo({
-    businessNumber: businessNumber.value,
-    opaBoheomFg: '1', // 산재보험
-    pageNo: 1,
-    numOfRows: 10
-  })
-}
-</script>
-
-<template>
-  <div>
-    <input v-model="businessNumber" placeholder="사업자등록번호" />
-    <button @click="searchBusiness" :disabled="loading">
-      {{ loading ? '검색 중...' : '검색' }}
-    </button>
-    
-    <div v-if="error" class="error">{{ error }}</div>
-    
-    <div v-if="data && data.items.length > 0">
-      <p>총 {{ businessCount }}개 사업장</p>
-      <p v-if="isCached">캐시된 데이터 ({{ new Date(data.cachedAt).toLocaleString() }})</p>
-      
-      <div v-for="item in data.items" :key="item.saeopjaDrno">
-        <h3>{{ item.saeopjangNm }}</h3>
-        <p>주소: {{ item.addr }}</p>
-        <p>산재업종: {{ item.sjEopjongNm }}</p>
-        <p>상시인원: {{ item.sangsiInwonCnt }}명</p>
-      </div>
-    </div>
-  </div>
-</template>
-```
-
-## ⚙️ 캐시 설정
-
-- **캐시 TTL**: 24시간 (86400초)
-- **캐시 키**: `business:{사업자번호}:{보험구분}:{페이지}:{건수}`
-- **캐시 히트 헤더**: `X-Cache: HIT/MISS`
-
-## 🔍 모니터링
-
-### 로그 확인
-Cloudflare Dashboard에서 Worker 로그를 확인할 수 있습니다:
-1. Cloudflare Dashboard → Workers & Pages
-2. 해당 Worker 선택
-3. Logs 탭에서 실시간 로그 확인
-
-### 성능 지표
-- 요청 수
-- 캐시 히트율
-- 응답 시간
-- 오류율
-
-## 🛠️ 개발 및 테스트
-
-### 로컬 개발
 ```bash
-wrangler dev
+npm run type-check
 ```
 
-### 테스트
+### 타입 생성
+
 ```bash
-# 사업자 정보 조회 테스트
-curl "https://your-worker.your-subdomain.workers.dev/api/business?businessNumber=1234567890"
-
-# 헬스 체크 테스트
-curl "https://your-worker.your-subdomain.workers.dev/health"
+npm run generate-types
 ```
 
-## 📊 무료 플랜 제한
+### 빌드 테스트
 
-Cloudflare Workers 무료 플랜:
-- **일일 요청 수**: 100,000개
-- **CPU 시간**: 10ms/요청
-- **메모리**: 128MB
-- **스크립트 크기**: 1MB
-
-## 🔒 보안 고려사항
-
-1. **API 키 보호**: Worker 내부에서만 API 키 사용
-2. **CORS 설정**: 필요한 도메인만 허용
-3. **요청 제한**: 필요시 rate limiting 추가
-4. **에러 처리**: 민감한 정보 노출 방지
-
-## 🚨 문제 해결
-
-### 일반적인 오류
-1. **API 키 오류**: 인증키 확인
-2. **CORS 오류**: 프론트엔드 도메인 확인
-3. **캐시 미스**: 첫 요청 시 정상
-4. **타임아웃**: API 응답 지연 시
-
-### 디버깅
 ```bash
-# Worker 로그 확인
-wrangler tail
-
-# 환경 변수 확인
-wrangler secret list
+npm run build
 ```
 
-## 📝 라이센스
+## 📁 프로젝트 구조
 
-이 프로젝트는 MIT 라이센스 하에 배포됩니다. 
+```
+backend/
+├── worker.ts              # 메인 Worker 파일 (TypeScript)
+├── wrangler.toml         # Wrangler 설정
+├── tsconfig.json         # TypeScript 설정
+├── package.json          # 프로젝트 의존성
+└── README.md            # 프로젝트 문서
+```
+
+## 🔒 보안
+
+- **환경 변수**: 민감한 정보는 `wrangler secret`으로 관리
+- **CORS**: 적절한 CORS 헤더 설정
+- **에러 처리**: 민감한 정보가 노출되지 않도록 에러 메시지 관리
+
+## 🚀 배포
+
+### 스테이징 환경
+
+```bash
+npm run deploy:staging
+```
+
+### 프로덕션 환경
+
+```bash
+npm run deploy:production
+```
+
+## 📚 참고 자료
+
+- [Cloudflare Workers TypeScript 가이드](https://developers.cloudflare.com/workers/languages/typescript/)
+- [Wrangler CLI 문서](https://developers.cloudflare.com/workers/wrangler/)
+- [Workers 런타임 API](https://developers.cloudflare.com/workers/runtime-apis/) 

@@ -1,0 +1,42 @@
+{
+  "name": "nomubackend",
+  "version": "1.0.0",
+  "description": "Cloudflare Worker for 근로복지공단 API proxy",
+  "main": "worker.ts",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "deploy:staging": "wrangler deploy --env staging",
+    "deploy:production": "wrangler deploy --env production",
+    "generate-types": "wrangler types",
+    "type-check": "npm run generate-types && tsc --noEmit",
+    "build": "npm run generate-types && tsc --noEmit"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241218.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "wrangler": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "cloudflare",
+    "workers",
+    "api",
+    "proxy",
+    "typescript"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "@prisma/adapter-d1": "^6.13.0",
+    "@prisma/client": "^6.13.0",
+    "@prisma/extension-accelerate": "^2.0.2",
+    "itty-router": "^5.0.21",
+    "jose": "^6.0.12",
+    "prisma": "^6.13.0",
+    "zod": "^4.0.17"
+  }
+}

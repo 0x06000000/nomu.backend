@@ -1,23 +1,32 @@
 name = "nomubackend"
-main = "worker.js"
+main = "worker.ts"
 compatibility_date = "2024-01-01"
 
-# Custom domain configuration
-[[routes]]
-pattern = "api.nomu.buildman.kr/*"
-zone_name = "buildman.kr"
+[[d1_databases]]
+binding = "DB"
+database_name = "nomu-db"
+database_id = "10102c31-11e2-4c86-8b6c-51cf9aaba78e"
+migrations_dir = "prisma/migrations"
 
 [env.production]
-name = "nomubackend-prod"
+name = "nomubackend"
 
 [env.staging]
 name = "nomubackend-staging"
 
-# KV Namespace for additional caching (optional)
-# [[kv_namespaces]]
-# binding = "CACHE"
-# id = "your-kv-namespace-id"
-# preview_id = "your-preview-kv-namespace-id"
+# 개발 환경 설정
+[env.development]
+name = "nomubackend-dev"
 
-# Environment variables (optional)
+# 환경 변수 (실제 값으로 변경 필요)
 [vars]
+# API_KEYS = "your-api-keys"
+
+# 시크릿 (wrangler secret put으로 설정)
+# NAVER_CLIENT_SECRET = "your-secret"
+# NAVER_CLIENT_ID = "your-client-id"
+# SERVICE_KEY = "your-service-key"
+# JUSO_API_KEY = "your-juso-api-key"
+# NAVER_REDIRECT_URI = "your-redirect-uri"
+# BUSINESS_QUERY_API_URL = "your-business-api-url"
+# JUSO_API_URL = "your-juso-api-url"

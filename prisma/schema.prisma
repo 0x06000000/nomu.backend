@@ -1,0 +1,260 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  output          = "../src/generated/prisma"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               Int               @id @default(autoincrement())
+  email            String            @unique
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  primaryProfile   PrimaryProfile?
+  profiles         Profile[]
+  workspaceMembers WorkspaceMember[]
+}
+
+model Profile {
+  id                       Int                       @id @default(autoincrement())
+  userId                   Int?
+  name                     String
+  birthday                 DateTime?
+  address                  String?
+  phone                    String?
+  createdAt                DateTime                  @default(now())
+  updatedAt                DateTime                  @updatedAt
+  user                     User?                     @relation(fields: [userId], references: [id])
+  talentPools              TalentPool[]
+  workspaceInvitationUsers WorkspaceInvitationUser[]
+  primaryProfile           PrimaryProfile?
+}
+
+model PrimaryProfile {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  profileId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  @@unique([userId])
+  @@unique([profileId])
+}
+
+model Workspace {
+  id                   Int                   @id @default(autoincrement())
+  name                 String
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  companies            Company[]
+  sites                Site[]
+  talentPools          TalentPool[]
+  workspaceMembers     WorkspaceMember[]
+  workspaceOwners      WorkspaceOwner[]
+  workspaceInvitations WorkspaceInvitation[]
+}
+
+model WorkspaceMember {
+  id                          Int                   @id @default(autoincrement())
+  workspaceId                 Int
+  userId                      Int
+  createdAt                   DateTime              @default(now())
+  updatedAt                   DateTime              @updatedAt
+  workspace                   Workspace             @relation(fields: [workspaceId], references: [id])
+  user                        User                  @relation(fields: [userId], references: [id])
+  owners                      WorkspaceOwner[]
+  workspaceInvitationsCreated WorkspaceInvitation[]
+  companiesCreated            Company[]
+
+  @@unique([workspaceId, userId])
+}
+
+model WorkspaceOwner {
+  id                Int             @id @default(autoincrement())
+  workspaceId       Int
+  workspaceMemberId Int
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  workspace         Workspace       @relation(fields: [workspaceId], references: [id])
+  workspaceMember   WorkspaceMember @relation(fields: [workspaceMemberId], references: [id])
+}
+
+model WorkspaceInvitation {
+  id              Int                       @id @default(autoincrement())
+  workspaceId     Int
+  createdBy       Int
+  invitationType  InvitationType
+  invitationCode  String                    @unique
+  expiresAt       DateTime?
+  maxUses         Int?
+  currentUses     Int                       @default(0)
+  isActive        Boolean                   @default(true)
+  createdAt       DateTime                  @default(now())
+  updatedAt       DateTime                  @updatedAt
+  workspace       Workspace                 @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  createdByMember WorkspaceMember           @relation(fields: [createdBy], references: [id])
+  invitationUsers WorkspaceInvitationUser[]
+
+  @@index([workspaceId])
+  @@index([invitationCode])
+  @@index([expiresAt])
+}
+
+model WorkspaceInvitationUser {
+  id           Int                 @id @default(autoincrement())
+  invitationId Int
+  profileId    Int
+  status       InvitationStatus    @default(PENDING)
+  acceptedAt   DateTime?
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+  invitation   WorkspaceInvitation @relation(fields: [invitationId], references: [id], onDelete: Cascade)
+  profile      Profile             @relation(fields: [profileId], references: [id])
+
+  @@unique([invitationId, profileId])
+  @@index([invitationId])
+  @@index([profileId])
+}
+
+model Company {
+  id                   Int                   @id @default(autoincrement())
+  workspaceId          Int
+  name                 String
+  location             String
+  businessNumber       String?
+  managementNumber     String?
+  employeeCount        Int                   @default(0)
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  workspace            Workspace             @relation(fields: [workspaceId], references: [id])
+  companyIndustryCodes CompanyIndustryCode[]
+  dayLaborers          DayLaborer[]
+  employees            Employee[]
+  owners               Owner[]
+  sites                Site[]
+  createdBy            Int
+  createdByMember      WorkspaceMember       @relation(fields: [createdBy], references: [id])
+}
+
+model Employee {
+  id           Int        @id @default(autoincrement())
+  talentPoolId Int
+  companyId    Int
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  company      Company    @relation(fields: [companyId], references: [id])
+  talentPool   TalentPool @relation(fields: [talentPoolId], references: [id])
+  owners       Owner[]
+}
+
+model DayLaborer {
+  id           Int        @id @default(autoincrement())
+  talentPoolId Int
+  companyId    Int
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  company      Company    @relation(fields: [companyId], references: [id])
+  talentPool   TalentPool @relation(fields: [talentPoolId], references: [id])
+}
+
+model Owner {
+  id         Int      @id @default(autoincrement())
+  employeeId Int
+  companyId  Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  company    Company  @relation(fields: [companyId], references: [id])
+  employee   Employee @relation(fields: [employeeId], references: [id])
+}
+
+model Site {
+  id               Int              @id @default(autoincrement())
+  workspaceId      Int
+  companyId        Int
+  name             String
+  location         String
+  startDate        DateTime
+  endDate          DateTime
+  managementNumber String?
+  memo             String?
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  workspace        Workspace        @relation(fields: [workspaceId], references: [id])
+  company          Company          @relation(fields: [companyId], references: [id])
+  siteAttendances  SiteAttendance[]
+}
+
+model SiteAttendance {
+  id           Int        @id @default(autoincrement())
+  talentPoolId Int
+  siteId       Int
+  date         DateTime
+  startTime    DateTime
+  endTime      DateTime
+  amount       Int
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  site         Site       @relation(fields: [siteId], references: [id])
+  talentPool   TalentPool @relation(fields: [talentPoolId], references: [id])
+}
+
+model TalentPool {
+  id              Int              @id @default(autoincrement())
+  workspaceId     Int
+  profileId       Int?
+  name            String
+  birthday        DateTime
+  phone           String
+  address         String
+  memo            String?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  workspace       Workspace        @relation(fields: [workspaceId], references: [id])
+  profile         Profile?         @relation(fields: [profileId], references: [id])
+  employees       Employee[]
+  dayLaborers     DayLaborer[]
+  siteAttendances SiteAttendance[]
+}
+
+model IndustrialAccidentInsurancePremiumRate {
+  id              Int      @id @default(autoincrement())
+  firstLevel      String?
+  firstLevelCode  Int?
+  secondLevel     String?
+  secondLevelCode Int?
+  thirdLevel      String?
+  thirdLevelCode  Int?
+  date            String?
+  rate            Int?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model CompanyIndustryCode {
+  id           Int      @id @default(autoincrement())
+  companyId    Int
+  industryCode Int
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  company      Company  @relation(fields: [companyId], references: [id])
+}
+
+enum InvitationType {
+  PUBLIC
+  PRIVATE
+}
+
+enum InvitationStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
+}

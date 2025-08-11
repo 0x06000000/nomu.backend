@@ -1,0 +1,83 @@
+// 사업자 정보 API 컨트롤러
+
+import { Env } from './common/Env';
+
+export class BusinessController {
+  static async handleBusinessAPI(url: URL, corsHeaders: Record<string, string>, env: Env): Promise<Response> {
+    try {
+      // Extract parameters from the request
+      const searchParams = url.searchParams;
+      const businessNumber = searchParams.get('businessNumber');
+      const pageNo = searchParams.get('pageNo') || '1';
+      const numOfRows = searchParams.get('numOfRows') || '10';
+      const opaBoheomFg = searchParams.get('opaBoheomFg') || '1'; // 1: 산재, 2: 고용
+
+      if (!businessNumber) {
+        const errorResponse = {
+          success: false,
+          error: '사업자등록번호(businessNumber)는 필수입니다.'
+        };
+        return new Response(JSON.stringify(errorResponse), {
+          status: 400,
+          headers: corsHeaders
+        });
+      }
+
+      // Build API URL
+      const apiUrl = new URL('https://apis.data.go.kr/B490001/gySjbPstateInfoService/getGySjBoheomBsshItem');
+      apiUrl.searchParams.set('serviceKey', env.SERVICE_KEY);
+      apiUrl.searchParams.set('v_saeopjaDrno', businessNumber);
+      apiUrl.searchParams.set('opaBoheomFg', opaBoheomFg);
+      apiUrl.searchParams.set('pageNo', pageNo);
+      apiUrl.searchParams.set('numOfRows', numOfRows);
+
+      // Fetch from API with headers
+      const apiResponse = await fetch(apiUrl.toString(), {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+        }
+      });
+      
+      if (!apiResponse.ok) {
+        const errorText = await apiResponse.text();
+        console.error('API Error Response:', errorText);
+        throw new Error(`API request failed: ${apiResponse.status} ${apiResponse.statusText} - ${errorText}`);
+      }
+
+      const apiData = await apiResponse.text();
+
+      // Parse XML response and convert to JSON
+      const jsonData = await this.convertXmlToJson(apiData);
+
+      // Create response
+      return new Response(JSON.stringify(jsonData), {
+        status: 200,
+        headers: corsHeaders
+      });
+
+    } catch (error) {
+      console.error('Worker error:', error);
+
+      const errorResponse = {
+        success: false,
+        error: '서버 오류가 발생했습니다.',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      };
+      return new Response(JSON.stringify(errorResponse), {
+        status: 500,
+        headers: corsHeaders
+      });
+    }
+  }
+
+  // Advanced XML to JSON parser for the API response
+  private static convertXmlToJson(xmlString: string): any {
+    const jsonData: any = {};
+    for (const result of xmlString.matchAll(/(?:<(\w*)(?:\s[^>]*)*>)((?:(?!<\1).)*)(?:<\/\1>)|<(\w*)(?:\s*)*\/>/gm)) {
+      const key = result[1] || result[3];
+      const value = result[2] && this.convertXmlToJson(result[2]);
+      jsonData[key] = ((value && Object.keys(value).length) ? value : result[2]) || null;
+    }
+    return jsonData;
+  }
+} 
