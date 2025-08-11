@@ -1,4 +1,4 @@
-import { convertXmlToJson } from "@/lib/converter";
+import xml2js from 'xml-js';
 
 export interface IndustrialAccidentInsuranceConfiguration {
     apiKey: string;
@@ -53,10 +53,11 @@ export class IndustrialAccidentInsurancePremiumRateService {
             const response = await fetch(apiUrl.toString(), {
                 method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Methods': '*',
-                    'Access-Control-Allow-Headers': '*'
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                    'Accept': 'application/json, text/plain, */*',
+                    'Accept-Language': 'ko-KR,ko;q=0.9,en;q=0.8',
+                    'Referer': 'https://apis.data.go.kr/',
+                    'Origin': 'https://apis.data.go.kr'
                 }
             });
 
@@ -74,7 +75,7 @@ export class IndustrialAccidentInsurancePremiumRateService {
                 throw new Error('API가 빈 응답을 반환했습니다');
             }
 
-            const jsonData = convertXmlToJson(xmlText);
+            const jsonData = JSON.parse(xml2js.xml2json(xmlText, {compact: true, spaces: 2}));
             console.log('변환된 JSON:', JSON.stringify(jsonData, null, 2));
 
             return jsonData as ApiResponse;
