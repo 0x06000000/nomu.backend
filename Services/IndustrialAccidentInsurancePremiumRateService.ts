@@ -16,28 +16,28 @@ interface CommonResponse {
 }
 
 interface IndustryItem {
-    eopjongLevel1: {
+    eopjongLevel1?: {
         _text: string;
     };      // 대분류명
-    eopjongLevel1Cd: {
+    eopjongLevel1Cd?: {
         _text: string;
     };    // 대분류코드
-    eopjongLevel2: {
+    eopjongLevel2?: {
         _text: string;
     };      // 중분류명
-    eopjongLevel2Cd: {
+    eopjongLevel2Cd?: {
         _text: string;
     };    // 중분류코드
-    sjEopjongNm1: {
+    sjEopjongNm1?: {
         _text: string;
     };      // 업종분류명
-    sjEopjongCd: {
+    sjEopjongCd?: {
         _text: string;
     };       // 업종분류코드
-    jyFromDt: {
+    jyFromDt?: {
         _text: string;
     };
-    jyYoyul: {
+    jyYoyul?: {
         _text: string;
     };           // 요율
 }

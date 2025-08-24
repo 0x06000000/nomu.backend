@@ -5,13 +5,13 @@ export type IndustrialAccidentInsurancePremiumRateWithRelations = IndustrialAcci
 
 export interface IIndustrialAccidentInsurancePremiumRateRepository {
     upsertMany(industrialAccidentInsurancePremiumRates: {
-        firstLevel: string;
-        firstLevelCode: number;
-        secondLevel: string;
-        secondLevelCode: number;
-        industryName: string;
-        industryCode: number;
-        date: string;
-        rate: number;
+        firstLevel?: string;
+        firstLevelCode?: number;
+        secondLevel?: string;
+        secondLevelCode?: number;
+        industryName?: string;
+        industryCode?: number;
+        date?: string;
+        rate?: number;
     }[]): Promise<void>;
 }
