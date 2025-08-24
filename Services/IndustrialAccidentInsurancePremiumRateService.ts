@@ -72,7 +72,7 @@ export class IndustrialAccidentInsurancePremiumRateService {
             const jsonData = JSON.parse(xml2json(xmlText, { compact: true, spaces: 2 }));
             console.log('변환된 JSON:', JSON.stringify(jsonData, null, 2));
 
-            return jsonData as ApiResponse;
+            return jsonData.response as ApiResponse;
         } catch (error) {
             console.error('산재보험료율 검색 오류:', error);
             throw error;
