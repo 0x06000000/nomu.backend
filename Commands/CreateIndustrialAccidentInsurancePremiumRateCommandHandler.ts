@@ -10,14 +10,14 @@ export class CreateIndustrialAccidentInsurancePremiumRateCommandHandler {
 
         const items = industryRates.body.items.item;
         const industrialAccidentInsurancePremiumRates = items.map(item => ({
-            firstLevel: item.eopjongLevel1,
-            firstLevelCode: parseInt(item.eopjongLevel1Cd),
-            secondLevel: item.eopjongLevel2,
-            secondLevelCode: parseInt(item.eopjongLevel2Cd),
-            industryName: item.sjEopjongNm1,
-            industryCode: parseInt(item.sjEopjongCd),
-            date: item.jyFromDt,
-            rate: parseFloat(item.jyYoyul),
+            firstLevel: item.eopjongLevel1._text,
+            firstLevelCode: parseInt(item.eopjongLevel1Cd._text),
+            secondLevel: item.eopjongLevel2._text,
+            secondLevelCode: parseInt(item.eopjongLevel2Cd._text),
+            industryName: item.sjEopjongNm1._text,
+            industryCode: parseInt(item.sjEopjongCd._text),
+            date: item.jyFromDt._text,
+            rate: parseFloat(item.jyYoyul._text),
         }));
 
         await this.industrialAccidentInsurancePremiumRateRepository.upsertMany(industrialAccidentInsurancePremiumRates);

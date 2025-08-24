@@ -7,21 +7,39 @@ export interface IndustrialAccidentInsuranceConfiguration {
 }
 
 interface CommonResponse {
-    resultCode: string;
-    resultMsg: string;
+    resultCode: {
+        _text: string;
+    };
+    resultMsg: {
+        _text: string;
+    };
 }
 
 interface IndustryItem {
-    resultCode: string;
-    resultMag: string;
-    jyFromDt: string;
-    eopjongLevel1: string;      // 대분류명
-    eopjongLevel1Cd: string;    // 대분류코드
-    eopjongLevel2: string;      // 중분류명
-    eopjongLevel2Cd: string;    // 중분류코드
-    sjEopjongNm1: string;      // 업종분류명
-    sjEopjongCd: string;       // 업종분류코드
-    jyYoyul: string;           // 요율
+    eopjongLevel1: {
+        _text: string;
+    };      // 대분류명
+    eopjongLevel1Cd: {
+        _text: string;
+    };    // 대분류코드
+    eopjongLevel2: {
+        _text: string;
+    };      // 중분류명
+    eopjongLevel2Cd: {
+        _text: string;
+    };    // 중분류코드
+    sjEopjongNm1: {
+        _text: string;
+    };      // 업종분류명
+    sjEopjongCd: {
+        _text: string;
+    };       // 업종분류코드
+    jyFromDt: {
+        _text: string;
+    };
+    jyYoyul: {
+        _text: string;
+    };           // 요율
 }
 
 interface ApiResponse {
