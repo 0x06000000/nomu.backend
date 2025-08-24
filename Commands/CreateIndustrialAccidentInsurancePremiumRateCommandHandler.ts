@@ -20,7 +20,7 @@ export class CreateIndustrialAccidentInsurancePremiumRateCommandHandler {
             rate: parseFloat(item.jyYoyul),
         }));
 
-        await this.industrialAccidentInsurancePremiumRateRepository.createMany(industrialAccidentInsurancePremiumRates);
+        await this.industrialAccidentInsurancePremiumRateRepository.upsertMany(industrialAccidentInsurancePremiumRates);
         return items;
     }
 }   
