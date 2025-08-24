@@ -20,45 +20,40 @@ export class IndustrialAccidentInsurancePremiumRateRepository implements IIndust
         date: string;
         rate: number;
     }[]): Promise<void> {
-        for (const rate of industrialAccidentInsurancePremiumRates) {
-            // 기존 레코드 찾기
-            const existingRecord = await this.prisma.industrialAccidentInsurancePremiumRate.findFirst({
-                where: {
-                    firstLevel: rate.firstLevel,
-                    firstLevelCode: rate.firstLevelCode,
-                    secondLevel: rate.secondLevel,
-                    secondLevelCode: rate.secondLevelCode,
-                    industryName: rate.industryName,
-                    industryCode: rate.industryCode,
-                    date: rate.date
-                }
-            });
+        const batchSize = 500;
 
-            if (existingRecord) {
-                // 기존 레코드가 있으면 업데이트
-                await this.prisma.industrialAccidentInsurancePremiumRate.update({
-                    where: {
-                        id: existingRecord.id
-                    },
-                    data: {
-                        rate: rate.rate
-                    }
-                });
-            } else {
-                // 없으면 새로 생성
-                await this.prisma.industrialAccidentInsurancePremiumRate.create({
-                    data: {
-                        firstLevel: rate.firstLevel,
-                        firstLevelCode: rate.firstLevelCode,
-                        secondLevel: rate.secondLevel,
-                        secondLevelCode: rate.secondLevelCode,
-                        industryName: rate.industryName,
-                        industryCode: rate.industryCode,
-                        date: rate.date,
-                        rate: rate.rate
-                    }
-                });
-            }
+        for (let i = 0; i < industrialAccidentInsurancePremiumRates.length; i += batchSize) {
+            const batch = industrialAccidentInsurancePremiumRates.slice(i, i + batchSize);
+
+            // Raw SQL로 한 번에 upsert
+            const upsertSQL = `
+                    INSERT INTO IndustrialAccidentInsurancePremiumRate 
+                    (firstLevel, firstLevelCode, secondLevel, secondLevelCode, industryName, industryCode, date, rate, createdAt, updatedAt)
+                    VALUES ${batch.map(() => '(?, ?, ?, ?, ?, ?, ?, ?, datetime(), datetime())').join(', ')}
+                    ON CONFLICT(industryCode)
+                    DO UPDATE SET 
+                        firstLevel = EXCLUDED.firstLevel,
+                        firstLevelCode = EXCLUDED.firstLevelCode,
+                        secondLevel = EXCLUDED.secondLevel,
+                        secondLevelCode = EXCLUDED.secondLevelCode,
+                        industryName = EXCLUDED.industryName,
+                        date = EXCLUDED.date,
+                        rate = EXCLUDED.rate,
+                        updatedAt = datetime()
+                `;
+
+            const values = batch.flatMap(rate => [
+                rate.firstLevel,
+                rate.firstLevelCode,
+                rate.secondLevel,
+                rate.secondLevelCode,
+                rate.industryName,
+                rate.industryCode,
+                rate.date,
+                rate.rate
+            ]);
+
+            await this.prisma.$executeRawUnsafe(upsertSQL, ...values);
         }
     }
 }
