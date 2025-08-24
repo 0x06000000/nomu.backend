@@ -20,27 +20,21 @@ export class IndustrialAccidentInsurancePremiumRateRepository implements IIndust
         date: string;
         rate: number;
     }[]): Promise<void> {
-        const batchSize = 12;
+        const batchSize = 1000;
 
         for (let i = 0; i < industrialAccidentInsurancePremiumRates.length; i += batchSize) {
             const batch = industrialAccidentInsurancePremiumRates.slice(i, i + batchSize);
 
             // Raw SQL로 한 번에 upsert
             const upsertSQL = `
-                    INSERT INTO IndustrialAccidentInsurancePremiumRate 
-                    (firstLevel, firstLevelCode, secondLevel, secondLevelCode, industryName, industryCode, date, rate, createdAt, updatedAt)
-                    VALUES ${batch.map(() => '(?, ?, ?, ?, ?, ?, ?, ?, datetime(), datetime())').join(', ')}
-                    ON CONFLICT(industryCode)
-                    DO UPDATE SET 
-                        firstLevel = EXCLUDED.firstLevel,
-                        firstLevelCode = EXCLUDED.firstLevelCode,
-                        secondLevel = EXCLUDED.secondLevel,
-                        secondLevelCode = EXCLUDED.secondLevelCode,
-                        industryName = EXCLUDED.industryName,
-                        date = EXCLUDED.date,
-                        rate = EXCLUDED.rate,
-                        updatedAt = datetime()
-                `;
+                INSERT INTO IndustrialAccidentInsurancePremiumRate 
+                (firstLevel, firstLevelCode, secondLevel, secondLevelCode, industryName, industryCode, date, rate, createdAt, updatedAt)
+                VALUES ${batch.map(() => '(?, ?, ?, ?, ?, ?, ?, ?, datetime(), datetime())').join(', ')}
+                ON CONFLICT(firstLevel, firstLevelCode, secondLevel, secondLevelCode, industryName, industryCode, date)
+                DO UPDATE SET 
+                    rate = EXCLUDED.rate,
+                    updatedAt = datetime()
+            `;
 
             const values = batch.flatMap(rate => [
                 rate.firstLevel,
