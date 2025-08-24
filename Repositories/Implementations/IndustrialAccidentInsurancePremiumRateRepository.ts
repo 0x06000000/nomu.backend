@@ -2,6 +2,7 @@ import { IIndustrialAccidentInsurancePremiumRateRepository, IndustrialAccidentIn
 import { PrismaClient } from "@/src/generated/prisma";
 import { createPrismaClient } from "@/lib/prisma";
 import { D1Database } from "@cloudflare/workers-types";
+import { normalizeWhitespace } from "@/lib/string";
 
 export class IndustrialAccidentInsurancePremiumRateRepository implements IIndustrialAccidentInsurancePremiumRateRepository {
     private prisma: PrismaClient;
@@ -68,7 +69,7 @@ export class IndustrialAccidentInsurancePremiumRateRepository implements IIndust
         });
 
         return results.map(result => ({
-            firstLevel: result.firstLevel!,
+            firstLevel: normalizeWhitespace(result.firstLevel),
             firstLevelCode: result.firstLevelCode!
         }));
     }
@@ -89,7 +90,7 @@ export class IndustrialAccidentInsurancePremiumRateRepository implements IIndust
         });
 
         return results.map(result => ({
-            secondLevel: result.secondLevel!,
+            secondLevel: normalizeWhitespace(result.secondLevel),
             secondLevelCode: result.secondLevelCode!
         }));
     }
@@ -111,7 +112,7 @@ export class IndustrialAccidentInsurancePremiumRateRepository implements IIndust
         });
 
         return results.map(result => ({
-            industryName: result.industryName!,
+            industryName: normalizeWhitespace(result.industryName),
             industryCode: result.industryCode!
         }));
     }
