@@ -20,7 +20,7 @@ export class IndustrialAccidentInsurancePremiumRateRepository implements IIndust
         date: string;
         rate: number;
     }[]): Promise<void> {
-        const batchSize = 1000;
+        const batchSize = 100;
 
         for (let i = 0; i < industrialAccidentInsurancePremiumRates.length; i += batchSize) {
             const batch = industrialAccidentInsurancePremiumRates.slice(i, i + batchSize);
