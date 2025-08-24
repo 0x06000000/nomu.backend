@@ -12,7 +12,7 @@ import { GetIndustriesQueryHandler } from "@/Queries/GetIndustriesQueryHandler";
 import { Factory } from "@/lib/factory";
 
 export class IndustrialAccidentInsurancePremiumRateController {
-  static async upsertIndustrialAccidentInsurancePremiumRate(request: Request, env: Env): Promise<Response> {
+  static async upsertIndustrialAccidentInsurancePremiumRate(request: Request, corsHeaders: Record<string, string>, env: Env): Promise<Response> {
     const url = new URL(request.url);
     const pageNo = url.searchParams.get('pageNo') || 1;
     const numOfRows = url.searchParams.get('numOfRows') || 10;
@@ -26,32 +26,44 @@ export class IndustrialAccidentInsurancePremiumRateController {
     const handler = new UpsertIndustrialAccidentInsurancePremiumRateCommandHandler(Factory.createIndustrialAccidentInsurancePremiumRateRepository(env), industrialAccidentInsurancePremiumRateService);
     const result = await handler.handle(command);
 
-    return new Response(JSON.stringify(result), { status: 200 });
+    return new Response(JSON.stringify(result), { status: 200, headers: {
+      ...corsHeaders,
+      'Content-Type': 'application/json'
+    } });
   }
 
-  static async getFirstLevels(request: Request, env: Env): Promise<Response> {
+  static async getFirstLevels(request: Request, corsHeaders: Record<string, string>, env: Env): Promise<Response> {
     const query = new GetFirstLevelsQuery();
     const handler = new GetFirstLevelsQueryHandler(Factory.createIndustrialAccidentInsurancePremiumRateRepository(env));
     const result = await handler.handle(query);
-    return new Response(JSON.stringify(result), { status: 200 });
+    return new Response(JSON.stringify(result), { status: 200, headers: {
+      ...corsHeaders,
+      'Content-Type': 'application/json'
+    } });
   }
 
-  static async getSecondLevels(request: Request, env: Env): Promise<Response> {
+  static async getSecondLevels(request: Request, corsHeaders: Record<string, string>, env: Env): Promise<Response> {
     const url = new URL(request.url);
     const firstLevelCode = url.searchParams.get('firstLevelCode') ? parseInt(url.searchParams.get('firstLevelCode')!) : undefined;
     const query = new GetSecondLevelsQuery(firstLevelCode!);
     const handler = new GetSecondLevelsQueryHandler(Factory.createIndustrialAccidentInsurancePremiumRateRepository(env));
     const result = await handler.handle(query);
-    return new Response(JSON.stringify(result), { status: 200 });
+    return new Response(JSON.stringify(result), { status: 200, headers: {
+      ...corsHeaders,
+      'Content-Type': 'application/json'
+    } });
   }
 
-  static async getIndustries(request: Request, env: Env): Promise<Response> {
+  static async getIndustries(request: Request, corsHeaders: Record<string, string>, env: Env): Promise<Response> {
     const url = new URL(request.url);
     const firstLevelCode = url.searchParams.get('firstLevelCode') ? parseInt(url.searchParams.get('firstLevelCode')!) : undefined;
     const secondLevelCode = url.searchParams.get('secondLevelCode') ? parseInt(url.searchParams.get('secondLevelCode')!) : undefined;
     const query = new GetIndustriesQuery(firstLevelCode!, secondLevelCode!);
     const handler = new GetIndustriesQueryHandler(Factory.createIndustrialAccidentInsurancePremiumRateRepository(env));
     const result = await handler.handle(query);
-    return new Response(JSON.stringify(result), { status: 200 });
+    return new Response(JSON.stringify(result), { status: 200, headers: {
+      ...corsHeaders,
+      'Content-Type': 'application/json'
+    } });
   }
 }

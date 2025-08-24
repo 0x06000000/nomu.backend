@@ -14,6 +14,7 @@ const headers = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': '*',
   'Access-Control-Allow-Headers': '*',
+  'Content-Type': 'application/json'
 };
 
 // 라우터 생성
@@ -59,19 +60,19 @@ router.get('/health', (request: Request, env: Env, ctx: any) => {
 });
 
 router.post('/industrial-accident-insurance-premium-rate', async (request: Request, env: Env, ctx: any) => {
-  return IndustrialAccidentInsurancePremiumRateController.upsertIndustrialAccidentInsurancePremiumRate(request, env);
+  return IndustrialAccidentInsurancePremiumRateController.upsertIndustrialAccidentInsurancePremiumRate(request, headers, env);
 });
 
 router.get('/industrial-accident-insurance-premium-rate/first-levels', async (request: Request, env: Env, ctx: any) => {
-  return IndustrialAccidentInsurancePremiumRateController.getFirstLevels(request, env);
+  return IndustrialAccidentInsurancePremiumRateController.getFirstLevels(request, headers, env);
 });
 
 router.get('/industrial-accident-insurance-premium-rate/second-levels', async (request: Request, env: Env, ctx: any) => {
-  return IndustrialAccidentInsurancePremiumRateController.getSecondLevels(request, env);
+  return IndustrialAccidentInsurancePremiumRateController.getSecondLevels(request, headers, env);
 });
 
 router.get('/industrial-accident-insurance-premium-rate/industries', async (request: Request, env: Env, ctx: any) => {
-  return IndustrialAccidentInsurancePremiumRateController.getIndustries(request, env);
+  return IndustrialAccidentInsurancePremiumRateController.getIndustries(request, headers, env);
 });
 
 router.get('/juso-search', async (request: Request, env: Env, ctx: any) => {
