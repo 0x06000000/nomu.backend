@@ -1,4 +1,4 @@
-export class CreateIndustrialAccidentInsurancePremiumRateCommand {
+export class UpsertIndustrialAccidentInsurancePremiumRateCommand {
     pageNumber: number;
     pageSize: number;
 

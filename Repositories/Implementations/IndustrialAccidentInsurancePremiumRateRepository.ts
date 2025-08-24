@@ -20,7 +20,7 @@ export class IndustrialAccidentInsurancePremiumRateRepository implements IIndust
         date: string;
         rate: number;
     }[]): Promise<void> {
-        const batchSize = 12;
+        const batchSize = 10;
 
         for (let i = 0; i < industrialAccidentInsurancePremiumRates.length; i += batchSize) {
             const batch = industrialAccidentInsurancePremiumRates.slice(i, i + batchSize);
@@ -49,5 +49,70 @@ export class IndustrialAccidentInsurancePremiumRateRepository implements IIndust
 
             await this.prisma.$executeRawUnsafe(upsertSQL, ...values);
         }
+    }
+
+    async getFirstLevels(): Promise<{
+        firstLevel: string;
+        firstLevelCode: number;
+    }[]> {
+        const results = await this.prisma.industrialAccidentInsurancePremiumRate.findMany({
+            distinct: ['firstLevel', 'firstLevelCode'],
+            select: {
+                firstLevel: true,
+                firstLevelCode: true
+            },
+            where: {
+                firstLevel: { not: null },
+                firstLevelCode: { not: null }
+            }
+        });
+
+        return results.map(result => ({
+            firstLevel: result.firstLevel!,
+            firstLevelCode: result.firstLevelCode!
+        }));
+    }
+
+    async getSecondLevels(firstLevelCode: number): Promise<{
+        secondLevel: string;
+        secondLevelCode: number;
+    }[]> {
+        const results = await this.prisma.industrialAccidentInsurancePremiumRate.findMany({
+            distinct: ['secondLevel', 'secondLevelCode'],
+            select: {
+                secondLevel: true,
+                secondLevelCode: true
+            },
+            where: {
+                firstLevelCode: firstLevelCode
+            }
+        });
+
+        return results.map(result => ({
+            secondLevel: result.secondLevel!,
+            secondLevelCode: result.secondLevelCode!
+        }));
+    }
+
+    async getIndustries(firstLevelCode: number, secondLevelCode: number): Promise<{
+        industryName: string;
+        industryCode: number;
+    }[]> {
+        const results = await this.prisma.industrialAccidentInsurancePremiumRate.findMany({
+            distinct: ['industryName', 'industryCode'],
+            select: {
+                industryName: true,
+                industryCode: true
+            },
+            where: {
+                firstLevelCode: firstLevelCode,
+                secondLevelCode: secondLevelCode
+            }
+        });
+
+        return results.map(result => ({
+            industryName: result.industryName!,
+            industryCode: result.industryCode!
+        }));
     }
 }

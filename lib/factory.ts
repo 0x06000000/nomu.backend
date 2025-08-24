@@ -17,6 +17,8 @@ import { MemberRepository } from "@/Repositories/Implementations/MemberRepositor
 import { IProfileRepository } from "@/Repositories/Interfaces/IProfileRepository";
 import { ProfileRepository } from "@/Repositories/Implementations/ProfileRepository";
 import { JusoService } from "@/Services/JusoService";
+import { IndustrialAccidentInsurancePremiumRateRepository } from "@/Repositories/Implementations/IndustrialAccidentInsurancePremiumRateRepository";
+import { IIndustrialAccidentInsurancePremiumRateRepository } from "@/Repositories/Interfaces/IIndustrialAccidentInsurancePremiumRateRepository";
 
 export class Factory {
     static createNaverService(env: Env): NaverService {
@@ -64,5 +66,9 @@ export class Factory {
 
     static createProfileRepository(env: Env): IProfileRepository {
         return new ProfileRepository(env.DB);
+    }
+
+    static createIndustrialAccidentInsurancePremiumRateRepository(env: Env): IIndustrialAccidentInsurancePremiumRateRepository {
+        return new IndustrialAccidentInsurancePremiumRateRepository(env.DB);
     }
 }

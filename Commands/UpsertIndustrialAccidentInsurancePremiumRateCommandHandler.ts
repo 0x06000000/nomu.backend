@@ -2,7 +2,7 @@ import { UpsertIndustrialAccidentInsurancePremiumRateCommand } from "./UpsertInd
 import { IIndustrialAccidentInsurancePremiumRateRepository } from "@/Repositories/Interfaces/IIndustrialAccidentInsurancePremiumRateRepository";
 import { IndustrialAccidentInsurancePremiumRateService } from "@/Services/IndustrialAccidentInsurancePremiumRateService";
 
-export class CreateIndustrialAccidentInsurancePremiumRateCommandHandler {
+export class UpsertIndustrialAccidentInsurancePremiumRateCommandHandler {
     constructor(private readonly industrialAccidentInsurancePremiumRateRepository: IIndustrialAccidentInsurancePremiumRateRepository, private readonly industrialAccidentInsurancePremiumRateService: IndustrialAccidentInsurancePremiumRateService) { }
 
     async handle(command: UpsertIndustrialAccidentInsurancePremiumRateCommand) {

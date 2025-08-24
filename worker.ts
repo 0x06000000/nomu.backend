@@ -58,8 +58,20 @@ router.get('/health', (request: Request, env: Env, ctx: any) => {
   });
 });
 
-router.get('/industrial-accident-insurance-premium-rate', async (request: Request, env: Env, ctx: any) => {
-  return IndustrialAccidentInsurancePremiumRateController.createIndustrialAccidentInsurancePremiumRate(request, env);
+router.post('/industrial-accident-insurance-premium-rate', async (request: Request, env: Env, ctx: any) => {
+  return IndustrialAccidentInsurancePremiumRateController.upsertIndustrialAccidentInsurancePremiumRate(request, env);
+});
+
+router.get('/industrial-accident-insurance-premium-rate/first-levels', async (request: Request, env: Env, ctx: any) => {
+  return IndustrialAccidentInsurancePremiumRateController.getFirstLevels(request, env);
+});
+
+router.get('/industrial-accident-insurance-premium-rate/second-levels', async (request: Request, env: Env, ctx: any) => {
+  return IndustrialAccidentInsurancePremiumRateController.getSecondLevels(request, env);
+});
+
+router.get('/industrial-accident-insurance-premium-rate/industries', async (request: Request, env: Env, ctx: any) => {
+  return IndustrialAccidentInsurancePremiumRateController.getIndustries(request, env);
 });
 
 router.get('/juso-search', async (request: Request, env: Env, ctx: any) => {
