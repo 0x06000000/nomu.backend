@@ -9,15 +9,15 @@ export class SiteRepository implements ISiteRepository {
         this.prisma = createPrismaClient(db);
     }
 
-    async add(workspaceId: number, companyId: number, name: string, location: string, startDate: Date, endDate: Date, memo?: string): Promise<SiteWithRelations> {
+    async add(workspaceId: number, companyId: number, name: string, location: string, startDate: Date, endDate: Date, managementNumber?: string, memo?: string): Promise<SiteWithRelations> {
         // FIXME: 워크스페이스에 해당 하는 회사 아이디인지 확인하고 연결해야함.
-
         const site = await this.prisma.site.create({
             data: {
                 name,
                 location,
                 startDate: startDate.toISOString(),
                 endDate: endDate.toISOString(),
+                managementNumber,
                 memo,
                 workspace: {
                     connect: {
@@ -40,14 +40,19 @@ export class SiteRepository implements ISiteRepository {
         return site;
     }
 
-    async update(id: number, name: string, location: string, startDate: Date, endDate: Date, memo?: string): Promise<SiteWithRelations> {
+    async update(id: number, companyId: number, name: string, location: string, startDate: Date, endDate: Date, managementNumber?: string, memo?: string): Promise<SiteWithRelations> {
+        console.log(managementNumber);
+        console.log(memo);
+
         const updatedSite = await this.prisma.site.update({
             where: { id },
             data: {
                 name,
+                companyId,
                 location,
                 startDate,
                 endDate,
+                managementNumber,
                 memo,
             },
             include: {

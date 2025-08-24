@@ -93,3 +93,4 @@ Thumbs.db
 # Cloudflare Workers specific
 .wrangler/
 wrangler.toml.local 
+/src/generated/prisma

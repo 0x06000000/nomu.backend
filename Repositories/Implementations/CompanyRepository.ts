@@ -93,7 +93,6 @@ export class CompanyRepository implements ICompanyRepository {
         const where: Prisma.CompanyWhereInput = {};
 
         if (filter.search) {
-            console.log(filter.search, 111, filter.fields);
             const searchFields = filter.fields || Object.keys(Prisma.CompanyScalarFieldEnum);
 
             const searchConditions = searchFields.map(field => {

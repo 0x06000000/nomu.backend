@@ -44,16 +44,6 @@ export type WorkspaceMember = $Result.DefaultSelection<Prisma.$WorkspaceMemberPa
  */
 export type WorkspaceOwner = $Result.DefaultSelection<Prisma.$WorkspaceOwnerPayload>
 /**
- * Model WorkspaceInvitation
- * 
- */
-export type WorkspaceInvitation = $Result.DefaultSelection<Prisma.$WorkspaceInvitationPayload>
-/**
- * Model WorkspaceInvitationUser
- * 
- */
-export type WorkspaceInvitationUser = $Result.DefaultSelection<Prisma.$WorkspaceInvitationUserPayload>
-/**
  * Model Company
  * 
  */
@@ -73,6 +63,16 @@ export type DayLaborer = $Result.DefaultSelection<Prisma.$DayLaborerPayload>
  * 
  */
 export type Owner = $Result.DefaultSelection<Prisma.$OwnerPayload>
+/**
+ * Model ProjectOwner
+ * 
+ */
+export type ProjectOwner = $Result.DefaultSelection<Prisma.$ProjectOwnerPayload>
+/**
+ * Model Project
+ * 
+ */
+export type Project = $Result.DefaultSelection<Prisma.$ProjectPayload>
 /**
  * Model Site
  * 
@@ -315,26 +315,6 @@ export class PrismaClient<
   get workspaceOwner(): Prisma.WorkspaceOwnerDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.workspaceInvitation`: Exposes CRUD operations for the **WorkspaceInvitation** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more WorkspaceInvitations
-    * const workspaceInvitations = await prisma.workspaceInvitation.findMany()
-    * ```
-    */
-  get workspaceInvitation(): Prisma.WorkspaceInvitationDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.workspaceInvitationUser`: Exposes CRUD operations for the **WorkspaceInvitationUser** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more WorkspaceInvitationUsers
-    * const workspaceInvitationUsers = await prisma.workspaceInvitationUser.findMany()
-    * ```
-    */
-  get workspaceInvitationUser(): Prisma.WorkspaceInvitationUserDelegate<ExtArgs, ClientOptions>;
-
-  /**
    * `prisma.company`: Exposes CRUD operations for the **Company** model.
     * Example usage:
     * ```ts
@@ -373,6 +353,26 @@ export class PrismaClient<
     * ```
     */
   get owner(): Prisma.OwnerDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.projectOwner`: Exposes CRUD operations for the **ProjectOwner** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ProjectOwners
+    * const projectOwners = await prisma.projectOwner.findMany()
+    * ```
+    */
+  get projectOwner(): Prisma.ProjectOwnerDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.project`: Exposes CRUD operations for the **Project** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Projects
+    * const projects = await prisma.project.findMany()
+    * ```
+    */
+  get project(): Prisma.ProjectDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.site`: Exposes CRUD operations for the **Site** model.
@@ -869,12 +869,12 @@ export namespace Prisma {
     Workspace: 'Workspace',
     WorkspaceMember: 'WorkspaceMember',
     WorkspaceOwner: 'WorkspaceOwner',
-    WorkspaceInvitation: 'WorkspaceInvitation',
-    WorkspaceInvitationUser: 'WorkspaceInvitationUser',
     Company: 'Company',
     Employee: 'Employee',
     DayLaborer: 'DayLaborer',
     Owner: 'Owner',
+    ProjectOwner: 'ProjectOwner',
+    Project: 'Project',
     Site: 'Site',
     SiteAttendance: 'SiteAttendance',
     TalentPool: 'TalentPool',
@@ -898,7 +898,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "profile" | "primaryProfile" | "workspace" | "workspaceMember" | "workspaceOwner" | "workspaceInvitation" | "workspaceInvitationUser" | "company" | "employee" | "dayLaborer" | "owner" | "site" | "siteAttendance" | "talentPool" | "industrialAccidentInsurancePremiumRate" | "companyIndustryCode"
+      modelProps: "user" | "profile" | "primaryProfile" | "workspace" | "workspaceMember" | "workspaceOwner" | "company" | "employee" | "dayLaborer" | "owner" | "projectOwner" | "project" | "site" | "siteAttendance" | "talentPool" | "industrialAccidentInsurancePremiumRate" | "companyIndustryCode"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1346,154 +1346,6 @@ export namespace Prisma {
           }
         }
       }
-      WorkspaceInvitation: {
-        payload: Prisma.$WorkspaceInvitationPayload<ExtArgs>
-        fields: Prisma.WorkspaceInvitationFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.WorkspaceInvitationFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WorkspaceInvitationPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.WorkspaceInvitationFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WorkspaceInvitationPayload>
-          }
-          findFirst: {
-            args: Prisma.WorkspaceInvitationFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WorkspaceInvitationPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.WorkspaceInvitationFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WorkspaceInvitationPayload>
-          }
-          findMany: {
-            args: Prisma.WorkspaceInvitationFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WorkspaceInvitationPayload>[]
-          }
-          create: {
-            args: Prisma.WorkspaceInvitationCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WorkspaceInvitationPayload>
-          }
-          createMany: {
-            args: Prisma.WorkspaceInvitationCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.WorkspaceInvitationCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WorkspaceInvitationPayload>[]
-          }
-          delete: {
-            args: Prisma.WorkspaceInvitationDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WorkspaceInvitationPayload>
-          }
-          update: {
-            args: Prisma.WorkspaceInvitationUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WorkspaceInvitationPayload>
-          }
-          deleteMany: {
-            args: Prisma.WorkspaceInvitationDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.WorkspaceInvitationUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.WorkspaceInvitationUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WorkspaceInvitationPayload>[]
-          }
-          upsert: {
-            args: Prisma.WorkspaceInvitationUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WorkspaceInvitationPayload>
-          }
-          aggregate: {
-            args: Prisma.WorkspaceInvitationAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateWorkspaceInvitation>
-          }
-          groupBy: {
-            args: Prisma.WorkspaceInvitationGroupByArgs<ExtArgs>
-            result: $Utils.Optional<WorkspaceInvitationGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.WorkspaceInvitationCountArgs<ExtArgs>
-            result: $Utils.Optional<WorkspaceInvitationCountAggregateOutputType> | number
-          }
-        }
-      }
-      WorkspaceInvitationUser: {
-        payload: Prisma.$WorkspaceInvitationUserPayload<ExtArgs>
-        fields: Prisma.WorkspaceInvitationUserFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.WorkspaceInvitationUserFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WorkspaceInvitationUserPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.WorkspaceInvitationUserFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WorkspaceInvitationUserPayload>
-          }
-          findFirst: {
-            args: Prisma.WorkspaceInvitationUserFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WorkspaceInvitationUserPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.WorkspaceInvitationUserFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WorkspaceInvitationUserPayload>
-          }
-          findMany: {
-            args: Prisma.WorkspaceInvitationUserFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WorkspaceInvitationUserPayload>[]
-          }
-          create: {
-            args: Prisma.WorkspaceInvitationUserCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WorkspaceInvitationUserPayload>
-          }
-          createMany: {
-            args: Prisma.WorkspaceInvitationUserCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.WorkspaceInvitationUserCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WorkspaceInvitationUserPayload>[]
-          }
-          delete: {
-            args: Prisma.WorkspaceInvitationUserDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WorkspaceInvitationUserPayload>
-          }
-          update: {
-            args: Prisma.WorkspaceInvitationUserUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WorkspaceInvitationUserPayload>
-          }
-          deleteMany: {
-            args: Prisma.WorkspaceInvitationUserDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.WorkspaceInvitationUserUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.WorkspaceInvitationUserUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WorkspaceInvitationUserPayload>[]
-          }
-          upsert: {
-            args: Prisma.WorkspaceInvitationUserUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$WorkspaceInvitationUserPayload>
-          }
-          aggregate: {
-            args: Prisma.WorkspaceInvitationUserAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateWorkspaceInvitationUser>
-          }
-          groupBy: {
-            args: Prisma.WorkspaceInvitationUserGroupByArgs<ExtArgs>
-            result: $Utils.Optional<WorkspaceInvitationUserGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.WorkspaceInvitationUserCountArgs<ExtArgs>
-            result: $Utils.Optional<WorkspaceInvitationUserCountAggregateOutputType> | number
-          }
-        }
-      }
       Company: {
         payload: Prisma.$CompanyPayload<ExtArgs>
         fields: Prisma.CompanyFieldRefs
@@ -1787,6 +1639,154 @@ export namespace Prisma {
           count: {
             args: Prisma.OwnerCountArgs<ExtArgs>
             result: $Utils.Optional<OwnerCountAggregateOutputType> | number
+          }
+        }
+      }
+      ProjectOwner: {
+        payload: Prisma.$ProjectOwnerPayload<ExtArgs>
+        fields: Prisma.ProjectOwnerFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ProjectOwnerFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectOwnerPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ProjectOwnerFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectOwnerPayload>
+          }
+          findFirst: {
+            args: Prisma.ProjectOwnerFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectOwnerPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ProjectOwnerFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectOwnerPayload>
+          }
+          findMany: {
+            args: Prisma.ProjectOwnerFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectOwnerPayload>[]
+          }
+          create: {
+            args: Prisma.ProjectOwnerCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectOwnerPayload>
+          }
+          createMany: {
+            args: Prisma.ProjectOwnerCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ProjectOwnerCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectOwnerPayload>[]
+          }
+          delete: {
+            args: Prisma.ProjectOwnerDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectOwnerPayload>
+          }
+          update: {
+            args: Prisma.ProjectOwnerUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectOwnerPayload>
+          }
+          deleteMany: {
+            args: Prisma.ProjectOwnerDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ProjectOwnerUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ProjectOwnerUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectOwnerPayload>[]
+          }
+          upsert: {
+            args: Prisma.ProjectOwnerUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectOwnerPayload>
+          }
+          aggregate: {
+            args: Prisma.ProjectOwnerAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateProjectOwner>
+          }
+          groupBy: {
+            args: Prisma.ProjectOwnerGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ProjectOwnerGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ProjectOwnerCountArgs<ExtArgs>
+            result: $Utils.Optional<ProjectOwnerCountAggregateOutputType> | number
+          }
+        }
+      }
+      Project: {
+        payload: Prisma.$ProjectPayload<ExtArgs>
+        fields: Prisma.ProjectFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ProjectFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ProjectFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectPayload>
+          }
+          findFirst: {
+            args: Prisma.ProjectFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ProjectFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectPayload>
+          }
+          findMany: {
+            args: Prisma.ProjectFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectPayload>[]
+          }
+          create: {
+            args: Prisma.ProjectCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectPayload>
+          }
+          createMany: {
+            args: Prisma.ProjectCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ProjectCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectPayload>[]
+          }
+          delete: {
+            args: Prisma.ProjectDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectPayload>
+          }
+          update: {
+            args: Prisma.ProjectUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectPayload>
+          }
+          deleteMany: {
+            args: Prisma.ProjectDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ProjectUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ProjectUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectPayload>[]
+          }
+          upsert: {
+            args: Prisma.ProjectUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectPayload>
+          }
+          aggregate: {
+            args: Prisma.ProjectAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateProject>
+          }
+          groupBy: {
+            args: Prisma.ProjectGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ProjectGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ProjectCountArgs<ExtArgs>
+            result: $Utils.Optional<ProjectCountAggregateOutputType> | number
           }
         }
       }
@@ -2262,12 +2262,12 @@ export namespace Prisma {
     workspace?: WorkspaceOmit
     workspaceMember?: WorkspaceMemberOmit
     workspaceOwner?: WorkspaceOwnerOmit
-    workspaceInvitation?: WorkspaceInvitationOmit
-    workspaceInvitationUser?: WorkspaceInvitationUserOmit
     company?: CompanyOmit
     employee?: EmployeeOmit
     dayLaborer?: DayLaborerOmit
     owner?: OwnerOmit
+    projectOwner?: ProjectOwnerOmit
+    project?: ProjectOmit
     site?: SiteOmit
     siteAttendance?: SiteAttendanceOmit
     talentPool?: TalentPoolOmit
@@ -2413,12 +2413,12 @@ export namespace Prisma {
 
   export type ProfileCountOutputType = {
     talentPools: number
-    workspaceInvitationUsers: number
+    workspaceMembers: number
   }
 
   export type ProfileCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     talentPools?: boolean | ProfileCountOutputTypeCountTalentPoolsArgs
-    workspaceInvitationUsers?: boolean | ProfileCountOutputTypeCountWorkspaceInvitationUsersArgs
+    workspaceMembers?: boolean | ProfileCountOutputTypeCountWorkspaceMembersArgs
   }
 
   // Custom InputTypes
@@ -2442,8 +2442,8 @@ export namespace Prisma {
   /**
    * ProfileCountOutputType without action
    */
-  export type ProfileCountOutputTypeCountWorkspaceInvitationUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: WorkspaceInvitationUserWhereInput
+  export type ProfileCountOutputTypeCountWorkspaceMembersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WorkspaceMemberWhereInput
   }
 
 
@@ -2457,7 +2457,7 @@ export namespace Prisma {
     talentPools: number
     workspaceMembers: number
     workspaceOwners: number
-    workspaceInvitations: number
+    projects: number
   }
 
   export type WorkspaceCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2466,7 +2466,7 @@ export namespace Prisma {
     talentPools?: boolean | WorkspaceCountOutputTypeCountTalentPoolsArgs
     workspaceMembers?: boolean | WorkspaceCountOutputTypeCountWorkspaceMembersArgs
     workspaceOwners?: boolean | WorkspaceCountOutputTypeCountWorkspaceOwnersArgs
-    workspaceInvitations?: boolean | WorkspaceCountOutputTypeCountWorkspaceInvitationsArgs
+    projects?: boolean | WorkspaceCountOutputTypeCountProjectsArgs
   }
 
   // Custom InputTypes
@@ -2518,8 +2518,8 @@ export namespace Prisma {
   /**
    * WorkspaceCountOutputType without action
    */
-  export type WorkspaceCountOutputTypeCountWorkspaceInvitationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: WorkspaceInvitationWhereInput
+  export type WorkspaceCountOutputTypeCountProjectsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProjectWhereInput
   }
 
 
@@ -2529,14 +2529,14 @@ export namespace Prisma {
 
   export type WorkspaceMemberCountOutputType = {
     owners: number
-    workspaceInvitationsCreated: number
     companiesCreated: number
+    invitedMembers: number
   }
 
   export type WorkspaceMemberCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     owners?: boolean | WorkspaceMemberCountOutputTypeCountOwnersArgs
-    workspaceInvitationsCreated?: boolean | WorkspaceMemberCountOutputTypeCountWorkspaceInvitationsCreatedArgs
     companiesCreated?: boolean | WorkspaceMemberCountOutputTypeCountCompaniesCreatedArgs
+    invitedMembers?: boolean | WorkspaceMemberCountOutputTypeCountInvitedMembersArgs
   }
 
   // Custom InputTypes
@@ -2560,46 +2560,15 @@ export namespace Prisma {
   /**
    * WorkspaceMemberCountOutputType without action
    */
-  export type WorkspaceMemberCountOutputTypeCountWorkspaceInvitationsCreatedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: WorkspaceInvitationWhereInput
+  export type WorkspaceMemberCountOutputTypeCountCompaniesCreatedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CompanyWhereInput
   }
 
   /**
    * WorkspaceMemberCountOutputType without action
    */
-  export type WorkspaceMemberCountOutputTypeCountCompaniesCreatedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: CompanyWhereInput
-  }
-
-
-  /**
-   * Count Type WorkspaceInvitationCountOutputType
-   */
-
-  export type WorkspaceInvitationCountOutputType = {
-    invitationUsers: number
-  }
-
-  export type WorkspaceInvitationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    invitationUsers?: boolean | WorkspaceInvitationCountOutputTypeCountInvitationUsersArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * WorkspaceInvitationCountOutputType without action
-   */
-  export type WorkspaceInvitationCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the WorkspaceInvitationCountOutputType
-     */
-    select?: WorkspaceInvitationCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * WorkspaceInvitationCountOutputType without action
-   */
-  export type WorkspaceInvitationCountOutputTypeCountInvitationUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: WorkspaceInvitationUserWhereInput
+  export type WorkspaceMemberCountOutputTypeCountInvitedMembersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WorkspaceMemberWhereInput
   }
 
 
@@ -2702,6 +2671,46 @@ export namespace Prisma {
 
 
   /**
+   * Count Type ProjectCountOutputType
+   */
+
+  export type ProjectCountOutputType = {
+    projectOwners: number
+    sites: number
+  }
+
+  export type ProjectCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    projectOwners?: boolean | ProjectCountOutputTypeCountProjectOwnersArgs
+    sites?: boolean | ProjectCountOutputTypeCountSitesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ProjectCountOutputType without action
+   */
+  export type ProjectCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectCountOutputType
+     */
+    select?: ProjectCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ProjectCountOutputType without action
+   */
+  export type ProjectCountOutputTypeCountProjectOwnersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProjectOwnerWhereInput
+  }
+
+  /**
+   * ProjectCountOutputType without action
+   */
+  export type ProjectCountOutputTypeCountSitesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SiteWhereInput
+  }
+
+
+  /**
    * Count Type SiteCountOutputType
    */
 
@@ -2778,6 +2787,37 @@ export namespace Prisma {
    */
   export type TalentPoolCountOutputTypeCountSiteAttendancesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SiteAttendanceWhereInput
+  }
+
+
+  /**
+   * Count Type IndustrialAccidentInsurancePremiumRateCountOutputType
+   */
+
+  export type IndustrialAccidentInsurancePremiumRateCountOutputType = {
+    companyIndustryCodes: number
+  }
+
+  export type IndustrialAccidentInsurancePremiumRateCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    companyIndustryCodes?: boolean | IndustrialAccidentInsurancePremiumRateCountOutputTypeCountCompanyIndustryCodesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * IndustrialAccidentInsurancePremiumRateCountOutputType without action
+   */
+  export type IndustrialAccidentInsurancePremiumRateCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the IndustrialAccidentInsurancePremiumRateCountOutputType
+     */
+    select?: IndustrialAccidentInsurancePremiumRateCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * IndustrialAccidentInsurancePremiumRateCountOutputType without action
+   */
+  export type IndustrialAccidentInsurancePremiumRateCountOutputTypeCountCompanyIndustryCodesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CompanyIndustryCodeWhereInput
   }
 
 
@@ -4153,8 +4193,8 @@ export namespace Prisma {
     updatedAt?: boolean
     user?: boolean | Profile$userArgs<ExtArgs>
     talentPools?: boolean | Profile$talentPoolsArgs<ExtArgs>
-    workspaceInvitationUsers?: boolean | Profile$workspaceInvitationUsersArgs<ExtArgs>
     primaryProfile?: boolean | Profile$primaryProfileArgs<ExtArgs>
+    workspaceMembers?: boolean | Profile$workspaceMembersArgs<ExtArgs>
     _count?: boolean | ProfileCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["profile"]>
 
@@ -4197,8 +4237,8 @@ export namespace Prisma {
   export type ProfileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | Profile$userArgs<ExtArgs>
     talentPools?: boolean | Profile$talentPoolsArgs<ExtArgs>
-    workspaceInvitationUsers?: boolean | Profile$workspaceInvitationUsersArgs<ExtArgs>
     primaryProfile?: boolean | Profile$primaryProfileArgs<ExtArgs>
+    workspaceMembers?: boolean | Profile$workspaceMembersArgs<ExtArgs>
     _count?: boolean | ProfileCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ProfileIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4213,8 +4253,8 @@ export namespace Prisma {
     objects: {
       user: Prisma.$UserPayload<ExtArgs> | null
       talentPools: Prisma.$TalentPoolPayload<ExtArgs>[]
-      workspaceInvitationUsers: Prisma.$WorkspaceInvitationUserPayload<ExtArgs>[]
       primaryProfile: Prisma.$PrimaryProfilePayload<ExtArgs> | null
+      workspaceMembers: Prisma.$WorkspaceMemberPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -4621,8 +4661,8 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends Profile$userArgs<ExtArgs> = {}>(args?: Subset<T, Profile$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     talentPools<T extends Profile$talentPoolsArgs<ExtArgs> = {}>(args?: Subset<T, Profile$talentPoolsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TalentPoolPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    workspaceInvitationUsers<T extends Profile$workspaceInvitationUsersArgs<ExtArgs> = {}>(args?: Subset<T, Profile$workspaceInvitationUsersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkspaceInvitationUserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     primaryProfile<T extends Profile$primaryProfileArgs<ExtArgs> = {}>(args?: Subset<T, Profile$primaryProfileArgs<ExtArgs>>): Prisma__PrimaryProfileClient<$Result.GetResult<Prisma.$PrimaryProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    workspaceMembers<T extends Profile$workspaceMembersArgs<ExtArgs> = {}>(args?: Subset<T, Profile$workspaceMembersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkspaceMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5097,30 +5137,6 @@ export namespace Prisma {
   }
 
   /**
-   * Profile.workspaceInvitationUsers
-   */
-  export type Profile$workspaceInvitationUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the WorkspaceInvitationUser
-     */
-    select?: WorkspaceInvitationUserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the WorkspaceInvitationUser
-     */
-    omit?: WorkspaceInvitationUserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WorkspaceInvitationUserInclude<ExtArgs> | null
-    where?: WorkspaceInvitationUserWhereInput
-    orderBy?: WorkspaceInvitationUserOrderByWithRelationInput | WorkspaceInvitationUserOrderByWithRelationInput[]
-    cursor?: WorkspaceInvitationUserWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: WorkspaceInvitationUserScalarFieldEnum | WorkspaceInvitationUserScalarFieldEnum[]
-  }
-
-  /**
    * Profile.primaryProfile
    */
   export type Profile$primaryProfileArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5137,6 +5153,30 @@ export namespace Prisma {
      */
     include?: PrimaryProfileInclude<ExtArgs> | null
     where?: PrimaryProfileWhereInput
+  }
+
+  /**
+   * Profile.workspaceMembers
+   */
+  export type Profile$workspaceMembersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorkspaceMember
+     */
+    select?: WorkspaceMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorkspaceMember
+     */
+    omit?: WorkspaceMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WorkspaceMemberInclude<ExtArgs> | null
+    where?: WorkspaceMemberWhereInput
+    orderBy?: WorkspaceMemberOrderByWithRelationInput | WorkspaceMemberOrderByWithRelationInput[]
+    cursor?: WorkspaceMemberWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: WorkspaceMemberScalarFieldEnum | WorkspaceMemberScalarFieldEnum[]
   }
 
   /**
@@ -6459,7 +6499,7 @@ export namespace Prisma {
     talentPools?: boolean | Workspace$talentPoolsArgs<ExtArgs>
     workspaceMembers?: boolean | Workspace$workspaceMembersArgs<ExtArgs>
     workspaceOwners?: boolean | Workspace$workspaceOwnersArgs<ExtArgs>
-    workspaceInvitations?: boolean | Workspace$workspaceInvitationsArgs<ExtArgs>
+    projects?: boolean | Workspace$projectsArgs<ExtArgs>
     _count?: boolean | WorkspaceCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["workspace"]>
 
@@ -6491,7 +6531,7 @@ export namespace Prisma {
     talentPools?: boolean | Workspace$talentPoolsArgs<ExtArgs>
     workspaceMembers?: boolean | Workspace$workspaceMembersArgs<ExtArgs>
     workspaceOwners?: boolean | Workspace$workspaceOwnersArgs<ExtArgs>
-    workspaceInvitations?: boolean | Workspace$workspaceInvitationsArgs<ExtArgs>
+    projects?: boolean | Workspace$projectsArgs<ExtArgs>
     _count?: boolean | WorkspaceCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type WorkspaceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -6505,7 +6545,7 @@ export namespace Prisma {
       talentPools: Prisma.$TalentPoolPayload<ExtArgs>[]
       workspaceMembers: Prisma.$WorkspaceMemberPayload<ExtArgs>[]
       workspaceOwners: Prisma.$WorkspaceOwnerPayload<ExtArgs>[]
-      workspaceInvitations: Prisma.$WorkspaceInvitationPayload<ExtArgs>[]
+      projects: Prisma.$ProjectPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -6911,7 +6951,7 @@ export namespace Prisma {
     talentPools<T extends Workspace$talentPoolsArgs<ExtArgs> = {}>(args?: Subset<T, Workspace$talentPoolsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TalentPoolPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     workspaceMembers<T extends Workspace$workspaceMembersArgs<ExtArgs> = {}>(args?: Subset<T, Workspace$workspaceMembersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkspaceMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     workspaceOwners<T extends Workspace$workspaceOwnersArgs<ExtArgs> = {}>(args?: Subset<T, Workspace$workspaceOwnersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkspaceOwnerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    workspaceInvitations<T extends Workspace$workspaceInvitationsArgs<ExtArgs> = {}>(args?: Subset<T, Workspace$workspaceInvitationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkspaceInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    projects<T extends Workspace$projectsArgs<ExtArgs> = {}>(args?: Subset<T, Workspace$projectsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7451,27 +7491,27 @@ export namespace Prisma {
   }
 
   /**
-   * Workspace.workspaceInvitations
+   * Workspace.projects
    */
-  export type Workspace$workspaceInvitationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Workspace$projectsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the WorkspaceInvitation
+     * Select specific fields to fetch from the Project
      */
-    select?: WorkspaceInvitationSelect<ExtArgs> | null
+    select?: ProjectSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the WorkspaceInvitation
+     * Omit specific fields from the Project
      */
-    omit?: WorkspaceInvitationOmit<ExtArgs> | null
+    omit?: ProjectOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: WorkspaceInvitationInclude<ExtArgs> | null
-    where?: WorkspaceInvitationWhereInput
-    orderBy?: WorkspaceInvitationOrderByWithRelationInput | WorkspaceInvitationOrderByWithRelationInput[]
-    cursor?: WorkspaceInvitationWhereUniqueInput
+    include?: ProjectInclude<ExtArgs> | null
+    where?: ProjectWhereInput
+    orderBy?: ProjectOrderByWithRelationInput | ProjectOrderByWithRelationInput[]
+    cursor?: ProjectWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: WorkspaceInvitationScalarFieldEnum | WorkspaceInvitationScalarFieldEnum[]
+    distinct?: ProjectScalarFieldEnum | ProjectScalarFieldEnum[]
   }
 
   /**
@@ -7509,18 +7549,24 @@ export namespace Prisma {
     id: number | null
     workspaceId: number | null
     userId: number | null
+    profileId: number | null
+    inviterId: number | null
   }
 
   export type WorkspaceMemberSumAggregateOutputType = {
     id: number | null
     workspaceId: number | null
     userId: number | null
+    profileId: number | null
+    inviterId: number | null
   }
 
   export type WorkspaceMemberMinAggregateOutputType = {
     id: number | null
     workspaceId: number | null
     userId: number | null
+    profileId: number | null
+    inviterId: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -7529,6 +7575,8 @@ export namespace Prisma {
     id: number | null
     workspaceId: number | null
     userId: number | null
+    profileId: number | null
+    inviterId: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -7537,6 +7585,8 @@ export namespace Prisma {
     id: number
     workspaceId: number
     userId: number
+    profileId: number
+    inviterId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -7547,18 +7597,24 @@ export namespace Prisma {
     id?: true
     workspaceId?: true
     userId?: true
+    profileId?: true
+    inviterId?: true
   }
 
   export type WorkspaceMemberSumAggregateInputType = {
     id?: true
     workspaceId?: true
     userId?: true
+    profileId?: true
+    inviterId?: true
   }
 
   export type WorkspaceMemberMinAggregateInputType = {
     id?: true
     workspaceId?: true
     userId?: true
+    profileId?: true
+    inviterId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -7567,6 +7623,8 @@ export namespace Prisma {
     id?: true
     workspaceId?: true
     userId?: true
+    profileId?: true
+    inviterId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -7575,6 +7633,8 @@ export namespace Prisma {
     id?: true
     workspaceId?: true
     userId?: true
+    profileId?: true
+    inviterId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -7670,6 +7730,8 @@ export namespace Prisma {
     id: number
     workspaceId: number
     userId: number
+    profileId: number
+    inviterId: number | null
     createdAt: Date
     updatedAt: Date
     _count: WorkspaceMemberCountAggregateOutputType | null
@@ -7697,13 +7759,17 @@ export namespace Prisma {
     id?: boolean
     workspaceId?: boolean
     userId?: boolean
+    profileId?: boolean
+    inviterId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    profile?: boolean | ProfileDefaultArgs<ExtArgs>
+    inviter?: boolean | WorkspaceMember$inviterArgs<ExtArgs>
     owners?: boolean | WorkspaceMember$ownersArgs<ExtArgs>
-    workspaceInvitationsCreated?: boolean | WorkspaceMember$workspaceInvitationsCreatedArgs<ExtArgs>
     companiesCreated?: boolean | WorkspaceMember$companiesCreatedArgs<ExtArgs>
+    invitedMembers?: boolean | WorkspaceMember$invitedMembersArgs<ExtArgs>
     _count?: boolean | WorkspaceMemberCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["workspaceMember"]>
 
@@ -7711,46 +7777,62 @@ export namespace Prisma {
     id?: boolean
     workspaceId?: boolean
     userId?: boolean
+    profileId?: boolean
+    inviterId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    profile?: boolean | ProfileDefaultArgs<ExtArgs>
+    inviter?: boolean | WorkspaceMember$inviterArgs<ExtArgs>
   }, ExtArgs["result"]["workspaceMember"]>
 
   export type WorkspaceMemberSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     workspaceId?: boolean
     userId?: boolean
+    profileId?: boolean
+    inviterId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    profile?: boolean | ProfileDefaultArgs<ExtArgs>
+    inviter?: boolean | WorkspaceMember$inviterArgs<ExtArgs>
   }, ExtArgs["result"]["workspaceMember"]>
 
   export type WorkspaceMemberSelectScalar = {
     id?: boolean
     workspaceId?: boolean
     userId?: boolean
+    profileId?: boolean
+    inviterId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type WorkspaceMemberOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "workspaceId" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["workspaceMember"]>
+  export type WorkspaceMemberOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "workspaceId" | "userId" | "profileId" | "inviterId" | "createdAt" | "updatedAt", ExtArgs["result"]["workspaceMember"]>
   export type WorkspaceMemberInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    profile?: boolean | ProfileDefaultArgs<ExtArgs>
+    inviter?: boolean | WorkspaceMember$inviterArgs<ExtArgs>
     owners?: boolean | WorkspaceMember$ownersArgs<ExtArgs>
-    workspaceInvitationsCreated?: boolean | WorkspaceMember$workspaceInvitationsCreatedArgs<ExtArgs>
     companiesCreated?: boolean | WorkspaceMember$companiesCreatedArgs<ExtArgs>
+    invitedMembers?: boolean | WorkspaceMember$invitedMembersArgs<ExtArgs>
     _count?: boolean | WorkspaceMemberCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type WorkspaceMemberIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    profile?: boolean | ProfileDefaultArgs<ExtArgs>
+    inviter?: boolean | WorkspaceMember$inviterArgs<ExtArgs>
   }
   export type WorkspaceMemberIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    profile?: boolean | ProfileDefaultArgs<ExtArgs>
+    inviter?: boolean | WorkspaceMember$inviterArgs<ExtArgs>
   }
 
   export type $WorkspaceMemberPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7758,14 +7840,18 @@ export namespace Prisma {
     objects: {
       workspace: Prisma.$WorkspacePayload<ExtArgs>
       user: Prisma.$UserPayload<ExtArgs>
+      profile: Prisma.$ProfilePayload<ExtArgs>
+      inviter: Prisma.$WorkspaceMemberPayload<ExtArgs> | null
       owners: Prisma.$WorkspaceOwnerPayload<ExtArgs>[]
-      workspaceInvitationsCreated: Prisma.$WorkspaceInvitationPayload<ExtArgs>[]
       companiesCreated: Prisma.$CompanyPayload<ExtArgs>[]
+      invitedMembers: Prisma.$WorkspaceMemberPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       workspaceId: number
       userId: number
+      profileId: number
+      inviterId: number | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["workspaceMember"]>
@@ -8164,9 +8250,11 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     workspace<T extends WorkspaceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WorkspaceDefaultArgs<ExtArgs>>): Prisma__WorkspaceClient<$Result.GetResult<Prisma.$WorkspacePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    profile<T extends ProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProfileDefaultArgs<ExtArgs>>): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    inviter<T extends WorkspaceMember$inviterArgs<ExtArgs> = {}>(args?: Subset<T, WorkspaceMember$inviterArgs<ExtArgs>>): Prisma__WorkspaceMemberClient<$Result.GetResult<Prisma.$WorkspaceMemberPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     owners<T extends WorkspaceMember$ownersArgs<ExtArgs> = {}>(args?: Subset<T, WorkspaceMember$ownersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkspaceOwnerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    workspaceInvitationsCreated<T extends WorkspaceMember$workspaceInvitationsCreatedArgs<ExtArgs> = {}>(args?: Subset<T, WorkspaceMember$workspaceInvitationsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkspaceInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     companiesCreated<T extends WorkspaceMember$companiesCreatedArgs<ExtArgs> = {}>(args?: Subset<T, WorkspaceMember$companiesCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    invitedMembers<T extends WorkspaceMember$invitedMembersArgs<ExtArgs> = {}>(args?: Subset<T, WorkspaceMember$invitedMembersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkspaceMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8199,6 +8287,8 @@ export namespace Prisma {
     readonly id: FieldRef<"WorkspaceMember", 'Int'>
     readonly workspaceId: FieldRef<"WorkspaceMember", 'Int'>
     readonly userId: FieldRef<"WorkspaceMember", 'Int'>
+    readonly profileId: FieldRef<"WorkspaceMember", 'Int'>
+    readonly inviterId: FieldRef<"WorkspaceMember", 'Int'>
     readonly createdAt: FieldRef<"WorkspaceMember", 'DateTime'>
     readonly updatedAt: FieldRef<"WorkspaceMember", 'DateTime'>
   }
@@ -8595,6 +8685,25 @@ export namespace Prisma {
   }
 
   /**
+   * WorkspaceMember.inviter
+   */
+  export type WorkspaceMember$inviterArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorkspaceMember
+     */
+    select?: WorkspaceMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorkspaceMember
+     */
+    omit?: WorkspaceMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WorkspaceMemberInclude<ExtArgs> | null
+    where?: WorkspaceMemberWhereInput
+  }
+
+  /**
    * WorkspaceMember.owners
    */
   export type WorkspaceMember$ownersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8619,30 +8728,6 @@ export namespace Prisma {
   }
 
   /**
-   * WorkspaceMember.workspaceInvitationsCreated
-   */
-  export type WorkspaceMember$workspaceInvitationsCreatedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the WorkspaceInvitation
-     */
-    select?: WorkspaceInvitationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the WorkspaceInvitation
-     */
-    omit?: WorkspaceInvitationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WorkspaceInvitationInclude<ExtArgs> | null
-    where?: WorkspaceInvitationWhereInput
-    orderBy?: WorkspaceInvitationOrderByWithRelationInput | WorkspaceInvitationOrderByWithRelationInput[]
-    cursor?: WorkspaceInvitationWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: WorkspaceInvitationScalarFieldEnum | WorkspaceInvitationScalarFieldEnum[]
-  }
-
-  /**
    * WorkspaceMember.companiesCreated
    */
   export type WorkspaceMember$companiesCreatedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8664,6 +8749,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CompanyScalarFieldEnum | CompanyScalarFieldEnum[]
+  }
+
+  /**
+   * WorkspaceMember.invitedMembers
+   */
+  export type WorkspaceMember$invitedMembersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorkspaceMember
+     */
+    select?: WorkspaceMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorkspaceMember
+     */
+    omit?: WorkspaceMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WorkspaceMemberInclude<ExtArgs> | null
+    where?: WorkspaceMemberWhereInput
+    orderBy?: WorkspaceMemberOrderByWithRelationInput | WorkspaceMemberOrderByWithRelationInput[]
+    cursor?: WorkspaceMemberWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: WorkspaceMemberScalarFieldEnum | WorkspaceMemberScalarFieldEnum[]
   }
 
   /**
@@ -9788,2360 +9897,6 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: WorkspaceOwnerInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model WorkspaceInvitation
-   */
-
-  export type AggregateWorkspaceInvitation = {
-    _count: WorkspaceInvitationCountAggregateOutputType | null
-    _avg: WorkspaceInvitationAvgAggregateOutputType | null
-    _sum: WorkspaceInvitationSumAggregateOutputType | null
-    _min: WorkspaceInvitationMinAggregateOutputType | null
-    _max: WorkspaceInvitationMaxAggregateOutputType | null
-  }
-
-  export type WorkspaceInvitationAvgAggregateOutputType = {
-    id: number | null
-    workspaceId: number | null
-    createdBy: number | null
-    maxUses: number | null
-    currentUses: number | null
-  }
-
-  export type WorkspaceInvitationSumAggregateOutputType = {
-    id: number | null
-    workspaceId: number | null
-    createdBy: number | null
-    maxUses: number | null
-    currentUses: number | null
-  }
-
-  export type WorkspaceInvitationMinAggregateOutputType = {
-    id: number | null
-    workspaceId: number | null
-    createdBy: number | null
-    invitationType: $Enums.InvitationType | null
-    invitationCode: string | null
-    expiresAt: Date | null
-    maxUses: number | null
-    currentUses: number | null
-    isActive: boolean | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type WorkspaceInvitationMaxAggregateOutputType = {
-    id: number | null
-    workspaceId: number | null
-    createdBy: number | null
-    invitationType: $Enums.InvitationType | null
-    invitationCode: string | null
-    expiresAt: Date | null
-    maxUses: number | null
-    currentUses: number | null
-    isActive: boolean | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type WorkspaceInvitationCountAggregateOutputType = {
-    id: number
-    workspaceId: number
-    createdBy: number
-    invitationType: number
-    invitationCode: number
-    expiresAt: number
-    maxUses: number
-    currentUses: number
-    isActive: number
-    createdAt: number
-    updatedAt: number
-    _all: number
-  }
-
-
-  export type WorkspaceInvitationAvgAggregateInputType = {
-    id?: true
-    workspaceId?: true
-    createdBy?: true
-    maxUses?: true
-    currentUses?: true
-  }
-
-  export type WorkspaceInvitationSumAggregateInputType = {
-    id?: true
-    workspaceId?: true
-    createdBy?: true
-    maxUses?: true
-    currentUses?: true
-  }
-
-  export type WorkspaceInvitationMinAggregateInputType = {
-    id?: true
-    workspaceId?: true
-    createdBy?: true
-    invitationType?: true
-    invitationCode?: true
-    expiresAt?: true
-    maxUses?: true
-    currentUses?: true
-    isActive?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type WorkspaceInvitationMaxAggregateInputType = {
-    id?: true
-    workspaceId?: true
-    createdBy?: true
-    invitationType?: true
-    invitationCode?: true
-    expiresAt?: true
-    maxUses?: true
-    currentUses?: true
-    isActive?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type WorkspaceInvitationCountAggregateInputType = {
-    id?: true
-    workspaceId?: true
-    createdBy?: true
-    invitationType?: true
-    invitationCode?: true
-    expiresAt?: true
-    maxUses?: true
-    currentUses?: true
-    isActive?: true
-    createdAt?: true
-    updatedAt?: true
-    _all?: true
-  }
-
-  export type WorkspaceInvitationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which WorkspaceInvitation to aggregate.
-     */
-    where?: WorkspaceInvitationWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of WorkspaceInvitations to fetch.
-     */
-    orderBy?: WorkspaceInvitationOrderByWithRelationInput | WorkspaceInvitationOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: WorkspaceInvitationWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` WorkspaceInvitations from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` WorkspaceInvitations.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned WorkspaceInvitations
-    **/
-    _count?: true | WorkspaceInvitationCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: WorkspaceInvitationAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: WorkspaceInvitationSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: WorkspaceInvitationMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: WorkspaceInvitationMaxAggregateInputType
-  }
-
-  export type GetWorkspaceInvitationAggregateType<T extends WorkspaceInvitationAggregateArgs> = {
-        [P in keyof T & keyof AggregateWorkspaceInvitation]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateWorkspaceInvitation[P]>
-      : GetScalarType<T[P], AggregateWorkspaceInvitation[P]>
-  }
-
-
-
-
-  export type WorkspaceInvitationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: WorkspaceInvitationWhereInput
-    orderBy?: WorkspaceInvitationOrderByWithAggregationInput | WorkspaceInvitationOrderByWithAggregationInput[]
-    by: WorkspaceInvitationScalarFieldEnum[] | WorkspaceInvitationScalarFieldEnum
-    having?: WorkspaceInvitationScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: WorkspaceInvitationCountAggregateInputType | true
-    _avg?: WorkspaceInvitationAvgAggregateInputType
-    _sum?: WorkspaceInvitationSumAggregateInputType
-    _min?: WorkspaceInvitationMinAggregateInputType
-    _max?: WorkspaceInvitationMaxAggregateInputType
-  }
-
-  export type WorkspaceInvitationGroupByOutputType = {
-    id: number
-    workspaceId: number
-    createdBy: number
-    invitationType: $Enums.InvitationType
-    invitationCode: string
-    expiresAt: Date | null
-    maxUses: number | null
-    currentUses: number
-    isActive: boolean
-    createdAt: Date
-    updatedAt: Date
-    _count: WorkspaceInvitationCountAggregateOutputType | null
-    _avg: WorkspaceInvitationAvgAggregateOutputType | null
-    _sum: WorkspaceInvitationSumAggregateOutputType | null
-    _min: WorkspaceInvitationMinAggregateOutputType | null
-    _max: WorkspaceInvitationMaxAggregateOutputType | null
-  }
-
-  type GetWorkspaceInvitationGroupByPayload<T extends WorkspaceInvitationGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<WorkspaceInvitationGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof WorkspaceInvitationGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], WorkspaceInvitationGroupByOutputType[P]>
-            : GetScalarType<T[P], WorkspaceInvitationGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type WorkspaceInvitationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    workspaceId?: boolean
-    createdBy?: boolean
-    invitationType?: boolean
-    invitationCode?: boolean
-    expiresAt?: boolean
-    maxUses?: boolean
-    currentUses?: boolean
-    isActive?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
-    createdByMember?: boolean | WorkspaceMemberDefaultArgs<ExtArgs>
-    invitationUsers?: boolean | WorkspaceInvitation$invitationUsersArgs<ExtArgs>
-    _count?: boolean | WorkspaceInvitationCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["workspaceInvitation"]>
-
-  export type WorkspaceInvitationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    workspaceId?: boolean
-    createdBy?: boolean
-    invitationType?: boolean
-    invitationCode?: boolean
-    expiresAt?: boolean
-    maxUses?: boolean
-    currentUses?: boolean
-    isActive?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
-    createdByMember?: boolean | WorkspaceMemberDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["workspaceInvitation"]>
-
-  export type WorkspaceInvitationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    workspaceId?: boolean
-    createdBy?: boolean
-    invitationType?: boolean
-    invitationCode?: boolean
-    expiresAt?: boolean
-    maxUses?: boolean
-    currentUses?: boolean
-    isActive?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
-    createdByMember?: boolean | WorkspaceMemberDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["workspaceInvitation"]>
-
-  export type WorkspaceInvitationSelectScalar = {
-    id?: boolean
-    workspaceId?: boolean
-    createdBy?: boolean
-    invitationType?: boolean
-    invitationCode?: boolean
-    expiresAt?: boolean
-    maxUses?: boolean
-    currentUses?: boolean
-    isActive?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }
-
-  export type WorkspaceInvitationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "workspaceId" | "createdBy" | "invitationType" | "invitationCode" | "expiresAt" | "maxUses" | "currentUses" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["workspaceInvitation"]>
-  export type WorkspaceInvitationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
-    createdByMember?: boolean | WorkspaceMemberDefaultArgs<ExtArgs>
-    invitationUsers?: boolean | WorkspaceInvitation$invitationUsersArgs<ExtArgs>
-    _count?: boolean | WorkspaceInvitationCountOutputTypeDefaultArgs<ExtArgs>
-  }
-  export type WorkspaceInvitationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
-    createdByMember?: boolean | WorkspaceMemberDefaultArgs<ExtArgs>
-  }
-  export type WorkspaceInvitationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
-    createdByMember?: boolean | WorkspaceMemberDefaultArgs<ExtArgs>
-  }
-
-  export type $WorkspaceInvitationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "WorkspaceInvitation"
-    objects: {
-      workspace: Prisma.$WorkspacePayload<ExtArgs>
-      createdByMember: Prisma.$WorkspaceMemberPayload<ExtArgs>
-      invitationUsers: Prisma.$WorkspaceInvitationUserPayload<ExtArgs>[]
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: number
-      workspaceId: number
-      createdBy: number
-      invitationType: $Enums.InvitationType
-      invitationCode: string
-      expiresAt: Date | null
-      maxUses: number | null
-      currentUses: number
-      isActive: boolean
-      createdAt: Date
-      updatedAt: Date
-    }, ExtArgs["result"]["workspaceInvitation"]>
-    composites: {}
-  }
-
-  type WorkspaceInvitationGetPayload<S extends boolean | null | undefined | WorkspaceInvitationDefaultArgs> = $Result.GetResult<Prisma.$WorkspaceInvitationPayload, S>
-
-  type WorkspaceInvitationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<WorkspaceInvitationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: WorkspaceInvitationCountAggregateInputType | true
-    }
-
-  export interface WorkspaceInvitationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['WorkspaceInvitation'], meta: { name: 'WorkspaceInvitation' } }
-    /**
-     * Find zero or one WorkspaceInvitation that matches the filter.
-     * @param {WorkspaceInvitationFindUniqueArgs} args - Arguments to find a WorkspaceInvitation
-     * @example
-     * // Get one WorkspaceInvitation
-     * const workspaceInvitation = await prisma.workspaceInvitation.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends WorkspaceInvitationFindUniqueArgs>(args: SelectSubset<T, WorkspaceInvitationFindUniqueArgs<ExtArgs>>): Prisma__WorkspaceInvitationClient<$Result.GetResult<Prisma.$WorkspaceInvitationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one WorkspaceInvitation that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {WorkspaceInvitationFindUniqueOrThrowArgs} args - Arguments to find a WorkspaceInvitation
-     * @example
-     * // Get one WorkspaceInvitation
-     * const workspaceInvitation = await prisma.workspaceInvitation.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends WorkspaceInvitationFindUniqueOrThrowArgs>(args: SelectSubset<T, WorkspaceInvitationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__WorkspaceInvitationClient<$Result.GetResult<Prisma.$WorkspaceInvitationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first WorkspaceInvitation that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {WorkspaceInvitationFindFirstArgs} args - Arguments to find a WorkspaceInvitation
-     * @example
-     * // Get one WorkspaceInvitation
-     * const workspaceInvitation = await prisma.workspaceInvitation.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends WorkspaceInvitationFindFirstArgs>(args?: SelectSubset<T, WorkspaceInvitationFindFirstArgs<ExtArgs>>): Prisma__WorkspaceInvitationClient<$Result.GetResult<Prisma.$WorkspaceInvitationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first WorkspaceInvitation that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {WorkspaceInvitationFindFirstOrThrowArgs} args - Arguments to find a WorkspaceInvitation
-     * @example
-     * // Get one WorkspaceInvitation
-     * const workspaceInvitation = await prisma.workspaceInvitation.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends WorkspaceInvitationFindFirstOrThrowArgs>(args?: SelectSubset<T, WorkspaceInvitationFindFirstOrThrowArgs<ExtArgs>>): Prisma__WorkspaceInvitationClient<$Result.GetResult<Prisma.$WorkspaceInvitationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more WorkspaceInvitations that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {WorkspaceInvitationFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all WorkspaceInvitations
-     * const workspaceInvitations = await prisma.workspaceInvitation.findMany()
-     * 
-     * // Get first 10 WorkspaceInvitations
-     * const workspaceInvitations = await prisma.workspaceInvitation.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const workspaceInvitationWithIdOnly = await prisma.workspaceInvitation.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends WorkspaceInvitationFindManyArgs>(args?: SelectSubset<T, WorkspaceInvitationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkspaceInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a WorkspaceInvitation.
-     * @param {WorkspaceInvitationCreateArgs} args - Arguments to create a WorkspaceInvitation.
-     * @example
-     * // Create one WorkspaceInvitation
-     * const WorkspaceInvitation = await prisma.workspaceInvitation.create({
-     *   data: {
-     *     // ... data to create a WorkspaceInvitation
-     *   }
-     * })
-     * 
-     */
-    create<T extends WorkspaceInvitationCreateArgs>(args: SelectSubset<T, WorkspaceInvitationCreateArgs<ExtArgs>>): Prisma__WorkspaceInvitationClient<$Result.GetResult<Prisma.$WorkspaceInvitationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many WorkspaceInvitations.
-     * @param {WorkspaceInvitationCreateManyArgs} args - Arguments to create many WorkspaceInvitations.
-     * @example
-     * // Create many WorkspaceInvitations
-     * const workspaceInvitation = await prisma.workspaceInvitation.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends WorkspaceInvitationCreateManyArgs>(args?: SelectSubset<T, WorkspaceInvitationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many WorkspaceInvitations and returns the data saved in the database.
-     * @param {WorkspaceInvitationCreateManyAndReturnArgs} args - Arguments to create many WorkspaceInvitations.
-     * @example
-     * // Create many WorkspaceInvitations
-     * const workspaceInvitation = await prisma.workspaceInvitation.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many WorkspaceInvitations and only return the `id`
-     * const workspaceInvitationWithIdOnly = await prisma.workspaceInvitation.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends WorkspaceInvitationCreateManyAndReturnArgs>(args?: SelectSubset<T, WorkspaceInvitationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkspaceInvitationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a WorkspaceInvitation.
-     * @param {WorkspaceInvitationDeleteArgs} args - Arguments to delete one WorkspaceInvitation.
-     * @example
-     * // Delete one WorkspaceInvitation
-     * const WorkspaceInvitation = await prisma.workspaceInvitation.delete({
-     *   where: {
-     *     // ... filter to delete one WorkspaceInvitation
-     *   }
-     * })
-     * 
-     */
-    delete<T extends WorkspaceInvitationDeleteArgs>(args: SelectSubset<T, WorkspaceInvitationDeleteArgs<ExtArgs>>): Prisma__WorkspaceInvitationClient<$Result.GetResult<Prisma.$WorkspaceInvitationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one WorkspaceInvitation.
-     * @param {WorkspaceInvitationUpdateArgs} args - Arguments to update one WorkspaceInvitation.
-     * @example
-     * // Update one WorkspaceInvitation
-     * const workspaceInvitation = await prisma.workspaceInvitation.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends WorkspaceInvitationUpdateArgs>(args: SelectSubset<T, WorkspaceInvitationUpdateArgs<ExtArgs>>): Prisma__WorkspaceInvitationClient<$Result.GetResult<Prisma.$WorkspaceInvitationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more WorkspaceInvitations.
-     * @param {WorkspaceInvitationDeleteManyArgs} args - Arguments to filter WorkspaceInvitations to delete.
-     * @example
-     * // Delete a few WorkspaceInvitations
-     * const { count } = await prisma.workspaceInvitation.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends WorkspaceInvitationDeleteManyArgs>(args?: SelectSubset<T, WorkspaceInvitationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more WorkspaceInvitations.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {WorkspaceInvitationUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many WorkspaceInvitations
-     * const workspaceInvitation = await prisma.workspaceInvitation.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends WorkspaceInvitationUpdateManyArgs>(args: SelectSubset<T, WorkspaceInvitationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more WorkspaceInvitations and returns the data updated in the database.
-     * @param {WorkspaceInvitationUpdateManyAndReturnArgs} args - Arguments to update many WorkspaceInvitations.
-     * @example
-     * // Update many WorkspaceInvitations
-     * const workspaceInvitation = await prisma.workspaceInvitation.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more WorkspaceInvitations and only return the `id`
-     * const workspaceInvitationWithIdOnly = await prisma.workspaceInvitation.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends WorkspaceInvitationUpdateManyAndReturnArgs>(args: SelectSubset<T, WorkspaceInvitationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkspaceInvitationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one WorkspaceInvitation.
-     * @param {WorkspaceInvitationUpsertArgs} args - Arguments to update or create a WorkspaceInvitation.
-     * @example
-     * // Update or create a WorkspaceInvitation
-     * const workspaceInvitation = await prisma.workspaceInvitation.upsert({
-     *   create: {
-     *     // ... data to create a WorkspaceInvitation
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the WorkspaceInvitation we want to update
-     *   }
-     * })
-     */
-    upsert<T extends WorkspaceInvitationUpsertArgs>(args: SelectSubset<T, WorkspaceInvitationUpsertArgs<ExtArgs>>): Prisma__WorkspaceInvitationClient<$Result.GetResult<Prisma.$WorkspaceInvitationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of WorkspaceInvitations.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {WorkspaceInvitationCountArgs} args - Arguments to filter WorkspaceInvitations to count.
-     * @example
-     * // Count the number of WorkspaceInvitations
-     * const count = await prisma.workspaceInvitation.count({
-     *   where: {
-     *     // ... the filter for the WorkspaceInvitations we want to count
-     *   }
-     * })
-    **/
-    count<T extends WorkspaceInvitationCountArgs>(
-      args?: Subset<T, WorkspaceInvitationCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], WorkspaceInvitationCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a WorkspaceInvitation.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {WorkspaceInvitationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends WorkspaceInvitationAggregateArgs>(args: Subset<T, WorkspaceInvitationAggregateArgs>): Prisma.PrismaPromise<GetWorkspaceInvitationAggregateType<T>>
-
-    /**
-     * Group by WorkspaceInvitation.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {WorkspaceInvitationGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends WorkspaceInvitationGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: WorkspaceInvitationGroupByArgs['orderBy'] }
-        : { orderBy?: WorkspaceInvitationGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, WorkspaceInvitationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetWorkspaceInvitationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the WorkspaceInvitation model
-   */
-  readonly fields: WorkspaceInvitationFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for WorkspaceInvitation.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__WorkspaceInvitationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    workspace<T extends WorkspaceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WorkspaceDefaultArgs<ExtArgs>>): Prisma__WorkspaceClient<$Result.GetResult<Prisma.$WorkspacePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    createdByMember<T extends WorkspaceMemberDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WorkspaceMemberDefaultArgs<ExtArgs>>): Prisma__WorkspaceMemberClient<$Result.GetResult<Prisma.$WorkspaceMemberPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    invitationUsers<T extends WorkspaceInvitation$invitationUsersArgs<ExtArgs> = {}>(args?: Subset<T, WorkspaceInvitation$invitationUsersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkspaceInvitationUserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the WorkspaceInvitation model
-   */
-  interface WorkspaceInvitationFieldRefs {
-    readonly id: FieldRef<"WorkspaceInvitation", 'Int'>
-    readonly workspaceId: FieldRef<"WorkspaceInvitation", 'Int'>
-    readonly createdBy: FieldRef<"WorkspaceInvitation", 'Int'>
-    readonly invitationType: FieldRef<"WorkspaceInvitation", 'InvitationType'>
-    readonly invitationCode: FieldRef<"WorkspaceInvitation", 'String'>
-    readonly expiresAt: FieldRef<"WorkspaceInvitation", 'DateTime'>
-    readonly maxUses: FieldRef<"WorkspaceInvitation", 'Int'>
-    readonly currentUses: FieldRef<"WorkspaceInvitation", 'Int'>
-    readonly isActive: FieldRef<"WorkspaceInvitation", 'Boolean'>
-    readonly createdAt: FieldRef<"WorkspaceInvitation", 'DateTime'>
-    readonly updatedAt: FieldRef<"WorkspaceInvitation", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * WorkspaceInvitation findUnique
-   */
-  export type WorkspaceInvitationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the WorkspaceInvitation
-     */
-    select?: WorkspaceInvitationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the WorkspaceInvitation
-     */
-    omit?: WorkspaceInvitationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WorkspaceInvitationInclude<ExtArgs> | null
-    /**
-     * Filter, which WorkspaceInvitation to fetch.
-     */
-    where: WorkspaceInvitationWhereUniqueInput
-  }
-
-  /**
-   * WorkspaceInvitation findUniqueOrThrow
-   */
-  export type WorkspaceInvitationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the WorkspaceInvitation
-     */
-    select?: WorkspaceInvitationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the WorkspaceInvitation
-     */
-    omit?: WorkspaceInvitationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WorkspaceInvitationInclude<ExtArgs> | null
-    /**
-     * Filter, which WorkspaceInvitation to fetch.
-     */
-    where: WorkspaceInvitationWhereUniqueInput
-  }
-
-  /**
-   * WorkspaceInvitation findFirst
-   */
-  export type WorkspaceInvitationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the WorkspaceInvitation
-     */
-    select?: WorkspaceInvitationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the WorkspaceInvitation
-     */
-    omit?: WorkspaceInvitationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WorkspaceInvitationInclude<ExtArgs> | null
-    /**
-     * Filter, which WorkspaceInvitation to fetch.
-     */
-    where?: WorkspaceInvitationWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of WorkspaceInvitations to fetch.
-     */
-    orderBy?: WorkspaceInvitationOrderByWithRelationInput | WorkspaceInvitationOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for WorkspaceInvitations.
-     */
-    cursor?: WorkspaceInvitationWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` WorkspaceInvitations from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` WorkspaceInvitations.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of WorkspaceInvitations.
-     */
-    distinct?: WorkspaceInvitationScalarFieldEnum | WorkspaceInvitationScalarFieldEnum[]
-  }
-
-  /**
-   * WorkspaceInvitation findFirstOrThrow
-   */
-  export type WorkspaceInvitationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the WorkspaceInvitation
-     */
-    select?: WorkspaceInvitationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the WorkspaceInvitation
-     */
-    omit?: WorkspaceInvitationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WorkspaceInvitationInclude<ExtArgs> | null
-    /**
-     * Filter, which WorkspaceInvitation to fetch.
-     */
-    where?: WorkspaceInvitationWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of WorkspaceInvitations to fetch.
-     */
-    orderBy?: WorkspaceInvitationOrderByWithRelationInput | WorkspaceInvitationOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for WorkspaceInvitations.
-     */
-    cursor?: WorkspaceInvitationWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` WorkspaceInvitations from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` WorkspaceInvitations.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of WorkspaceInvitations.
-     */
-    distinct?: WorkspaceInvitationScalarFieldEnum | WorkspaceInvitationScalarFieldEnum[]
-  }
-
-  /**
-   * WorkspaceInvitation findMany
-   */
-  export type WorkspaceInvitationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the WorkspaceInvitation
-     */
-    select?: WorkspaceInvitationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the WorkspaceInvitation
-     */
-    omit?: WorkspaceInvitationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WorkspaceInvitationInclude<ExtArgs> | null
-    /**
-     * Filter, which WorkspaceInvitations to fetch.
-     */
-    where?: WorkspaceInvitationWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of WorkspaceInvitations to fetch.
-     */
-    orderBy?: WorkspaceInvitationOrderByWithRelationInput | WorkspaceInvitationOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing WorkspaceInvitations.
-     */
-    cursor?: WorkspaceInvitationWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` WorkspaceInvitations from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` WorkspaceInvitations.
-     */
-    skip?: number
-    distinct?: WorkspaceInvitationScalarFieldEnum | WorkspaceInvitationScalarFieldEnum[]
-  }
-
-  /**
-   * WorkspaceInvitation create
-   */
-  export type WorkspaceInvitationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the WorkspaceInvitation
-     */
-    select?: WorkspaceInvitationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the WorkspaceInvitation
-     */
-    omit?: WorkspaceInvitationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WorkspaceInvitationInclude<ExtArgs> | null
-    /**
-     * The data needed to create a WorkspaceInvitation.
-     */
-    data: XOR<WorkspaceInvitationCreateInput, WorkspaceInvitationUncheckedCreateInput>
-  }
-
-  /**
-   * WorkspaceInvitation createMany
-   */
-  export type WorkspaceInvitationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many WorkspaceInvitations.
-     */
-    data: WorkspaceInvitationCreateManyInput | WorkspaceInvitationCreateManyInput[]
-  }
-
-  /**
-   * WorkspaceInvitation createManyAndReturn
-   */
-  export type WorkspaceInvitationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the WorkspaceInvitation
-     */
-    select?: WorkspaceInvitationSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the WorkspaceInvitation
-     */
-    omit?: WorkspaceInvitationOmit<ExtArgs> | null
-    /**
-     * The data used to create many WorkspaceInvitations.
-     */
-    data: WorkspaceInvitationCreateManyInput | WorkspaceInvitationCreateManyInput[]
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WorkspaceInvitationIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * WorkspaceInvitation update
-   */
-  export type WorkspaceInvitationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the WorkspaceInvitation
-     */
-    select?: WorkspaceInvitationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the WorkspaceInvitation
-     */
-    omit?: WorkspaceInvitationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WorkspaceInvitationInclude<ExtArgs> | null
-    /**
-     * The data needed to update a WorkspaceInvitation.
-     */
-    data: XOR<WorkspaceInvitationUpdateInput, WorkspaceInvitationUncheckedUpdateInput>
-    /**
-     * Choose, which WorkspaceInvitation to update.
-     */
-    where: WorkspaceInvitationWhereUniqueInput
-  }
-
-  /**
-   * WorkspaceInvitation updateMany
-   */
-  export type WorkspaceInvitationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update WorkspaceInvitations.
-     */
-    data: XOR<WorkspaceInvitationUpdateManyMutationInput, WorkspaceInvitationUncheckedUpdateManyInput>
-    /**
-     * Filter which WorkspaceInvitations to update
-     */
-    where?: WorkspaceInvitationWhereInput
-    /**
-     * Limit how many WorkspaceInvitations to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * WorkspaceInvitation updateManyAndReturn
-   */
-  export type WorkspaceInvitationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the WorkspaceInvitation
-     */
-    select?: WorkspaceInvitationSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the WorkspaceInvitation
-     */
-    omit?: WorkspaceInvitationOmit<ExtArgs> | null
-    /**
-     * The data used to update WorkspaceInvitations.
-     */
-    data: XOR<WorkspaceInvitationUpdateManyMutationInput, WorkspaceInvitationUncheckedUpdateManyInput>
-    /**
-     * Filter which WorkspaceInvitations to update
-     */
-    where?: WorkspaceInvitationWhereInput
-    /**
-     * Limit how many WorkspaceInvitations to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WorkspaceInvitationIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * WorkspaceInvitation upsert
-   */
-  export type WorkspaceInvitationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the WorkspaceInvitation
-     */
-    select?: WorkspaceInvitationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the WorkspaceInvitation
-     */
-    omit?: WorkspaceInvitationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WorkspaceInvitationInclude<ExtArgs> | null
-    /**
-     * The filter to search for the WorkspaceInvitation to update in case it exists.
-     */
-    where: WorkspaceInvitationWhereUniqueInput
-    /**
-     * In case the WorkspaceInvitation found by the `where` argument doesn't exist, create a new WorkspaceInvitation with this data.
-     */
-    create: XOR<WorkspaceInvitationCreateInput, WorkspaceInvitationUncheckedCreateInput>
-    /**
-     * In case the WorkspaceInvitation was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<WorkspaceInvitationUpdateInput, WorkspaceInvitationUncheckedUpdateInput>
-  }
-
-  /**
-   * WorkspaceInvitation delete
-   */
-  export type WorkspaceInvitationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the WorkspaceInvitation
-     */
-    select?: WorkspaceInvitationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the WorkspaceInvitation
-     */
-    omit?: WorkspaceInvitationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WorkspaceInvitationInclude<ExtArgs> | null
-    /**
-     * Filter which WorkspaceInvitation to delete.
-     */
-    where: WorkspaceInvitationWhereUniqueInput
-  }
-
-  /**
-   * WorkspaceInvitation deleteMany
-   */
-  export type WorkspaceInvitationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which WorkspaceInvitations to delete
-     */
-    where?: WorkspaceInvitationWhereInput
-    /**
-     * Limit how many WorkspaceInvitations to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * WorkspaceInvitation.invitationUsers
-   */
-  export type WorkspaceInvitation$invitationUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the WorkspaceInvitationUser
-     */
-    select?: WorkspaceInvitationUserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the WorkspaceInvitationUser
-     */
-    omit?: WorkspaceInvitationUserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WorkspaceInvitationUserInclude<ExtArgs> | null
-    where?: WorkspaceInvitationUserWhereInput
-    orderBy?: WorkspaceInvitationUserOrderByWithRelationInput | WorkspaceInvitationUserOrderByWithRelationInput[]
-    cursor?: WorkspaceInvitationUserWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: WorkspaceInvitationUserScalarFieldEnum | WorkspaceInvitationUserScalarFieldEnum[]
-  }
-
-  /**
-   * WorkspaceInvitation without action
-   */
-  export type WorkspaceInvitationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the WorkspaceInvitation
-     */
-    select?: WorkspaceInvitationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the WorkspaceInvitation
-     */
-    omit?: WorkspaceInvitationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WorkspaceInvitationInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model WorkspaceInvitationUser
-   */
-
-  export type AggregateWorkspaceInvitationUser = {
-    _count: WorkspaceInvitationUserCountAggregateOutputType | null
-    _avg: WorkspaceInvitationUserAvgAggregateOutputType | null
-    _sum: WorkspaceInvitationUserSumAggregateOutputType | null
-    _min: WorkspaceInvitationUserMinAggregateOutputType | null
-    _max: WorkspaceInvitationUserMaxAggregateOutputType | null
-  }
-
-  export type WorkspaceInvitationUserAvgAggregateOutputType = {
-    id: number | null
-    invitationId: number | null
-    profileId: number | null
-  }
-
-  export type WorkspaceInvitationUserSumAggregateOutputType = {
-    id: number | null
-    invitationId: number | null
-    profileId: number | null
-  }
-
-  export type WorkspaceInvitationUserMinAggregateOutputType = {
-    id: number | null
-    invitationId: number | null
-    profileId: number | null
-    status: $Enums.InvitationStatus | null
-    acceptedAt: Date | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type WorkspaceInvitationUserMaxAggregateOutputType = {
-    id: number | null
-    invitationId: number | null
-    profileId: number | null
-    status: $Enums.InvitationStatus | null
-    acceptedAt: Date | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type WorkspaceInvitationUserCountAggregateOutputType = {
-    id: number
-    invitationId: number
-    profileId: number
-    status: number
-    acceptedAt: number
-    createdAt: number
-    updatedAt: number
-    _all: number
-  }
-
-
-  export type WorkspaceInvitationUserAvgAggregateInputType = {
-    id?: true
-    invitationId?: true
-    profileId?: true
-  }
-
-  export type WorkspaceInvitationUserSumAggregateInputType = {
-    id?: true
-    invitationId?: true
-    profileId?: true
-  }
-
-  export type WorkspaceInvitationUserMinAggregateInputType = {
-    id?: true
-    invitationId?: true
-    profileId?: true
-    status?: true
-    acceptedAt?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type WorkspaceInvitationUserMaxAggregateInputType = {
-    id?: true
-    invitationId?: true
-    profileId?: true
-    status?: true
-    acceptedAt?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type WorkspaceInvitationUserCountAggregateInputType = {
-    id?: true
-    invitationId?: true
-    profileId?: true
-    status?: true
-    acceptedAt?: true
-    createdAt?: true
-    updatedAt?: true
-    _all?: true
-  }
-
-  export type WorkspaceInvitationUserAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which WorkspaceInvitationUser to aggregate.
-     */
-    where?: WorkspaceInvitationUserWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of WorkspaceInvitationUsers to fetch.
-     */
-    orderBy?: WorkspaceInvitationUserOrderByWithRelationInput | WorkspaceInvitationUserOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: WorkspaceInvitationUserWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` WorkspaceInvitationUsers from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` WorkspaceInvitationUsers.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned WorkspaceInvitationUsers
-    **/
-    _count?: true | WorkspaceInvitationUserCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: WorkspaceInvitationUserAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: WorkspaceInvitationUserSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: WorkspaceInvitationUserMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: WorkspaceInvitationUserMaxAggregateInputType
-  }
-
-  export type GetWorkspaceInvitationUserAggregateType<T extends WorkspaceInvitationUserAggregateArgs> = {
-        [P in keyof T & keyof AggregateWorkspaceInvitationUser]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateWorkspaceInvitationUser[P]>
-      : GetScalarType<T[P], AggregateWorkspaceInvitationUser[P]>
-  }
-
-
-
-
-  export type WorkspaceInvitationUserGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: WorkspaceInvitationUserWhereInput
-    orderBy?: WorkspaceInvitationUserOrderByWithAggregationInput | WorkspaceInvitationUserOrderByWithAggregationInput[]
-    by: WorkspaceInvitationUserScalarFieldEnum[] | WorkspaceInvitationUserScalarFieldEnum
-    having?: WorkspaceInvitationUserScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: WorkspaceInvitationUserCountAggregateInputType | true
-    _avg?: WorkspaceInvitationUserAvgAggregateInputType
-    _sum?: WorkspaceInvitationUserSumAggregateInputType
-    _min?: WorkspaceInvitationUserMinAggregateInputType
-    _max?: WorkspaceInvitationUserMaxAggregateInputType
-  }
-
-  export type WorkspaceInvitationUserGroupByOutputType = {
-    id: number
-    invitationId: number
-    profileId: number
-    status: $Enums.InvitationStatus
-    acceptedAt: Date | null
-    createdAt: Date
-    updatedAt: Date
-    _count: WorkspaceInvitationUserCountAggregateOutputType | null
-    _avg: WorkspaceInvitationUserAvgAggregateOutputType | null
-    _sum: WorkspaceInvitationUserSumAggregateOutputType | null
-    _min: WorkspaceInvitationUserMinAggregateOutputType | null
-    _max: WorkspaceInvitationUserMaxAggregateOutputType | null
-  }
-
-  type GetWorkspaceInvitationUserGroupByPayload<T extends WorkspaceInvitationUserGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<WorkspaceInvitationUserGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof WorkspaceInvitationUserGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], WorkspaceInvitationUserGroupByOutputType[P]>
-            : GetScalarType<T[P], WorkspaceInvitationUserGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type WorkspaceInvitationUserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    invitationId?: boolean
-    profileId?: boolean
-    status?: boolean
-    acceptedAt?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    invitation?: boolean | WorkspaceInvitationDefaultArgs<ExtArgs>
-    profile?: boolean | ProfileDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["workspaceInvitationUser"]>
-
-  export type WorkspaceInvitationUserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    invitationId?: boolean
-    profileId?: boolean
-    status?: boolean
-    acceptedAt?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    invitation?: boolean | WorkspaceInvitationDefaultArgs<ExtArgs>
-    profile?: boolean | ProfileDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["workspaceInvitationUser"]>
-
-  export type WorkspaceInvitationUserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    invitationId?: boolean
-    profileId?: boolean
-    status?: boolean
-    acceptedAt?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    invitation?: boolean | WorkspaceInvitationDefaultArgs<ExtArgs>
-    profile?: boolean | ProfileDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["workspaceInvitationUser"]>
-
-  export type WorkspaceInvitationUserSelectScalar = {
-    id?: boolean
-    invitationId?: boolean
-    profileId?: boolean
-    status?: boolean
-    acceptedAt?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }
-
-  export type WorkspaceInvitationUserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "invitationId" | "profileId" | "status" | "acceptedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["workspaceInvitationUser"]>
-  export type WorkspaceInvitationUserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    invitation?: boolean | WorkspaceInvitationDefaultArgs<ExtArgs>
-    profile?: boolean | ProfileDefaultArgs<ExtArgs>
-  }
-  export type WorkspaceInvitationUserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    invitation?: boolean | WorkspaceInvitationDefaultArgs<ExtArgs>
-    profile?: boolean | ProfileDefaultArgs<ExtArgs>
-  }
-  export type WorkspaceInvitationUserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    invitation?: boolean | WorkspaceInvitationDefaultArgs<ExtArgs>
-    profile?: boolean | ProfileDefaultArgs<ExtArgs>
-  }
-
-  export type $WorkspaceInvitationUserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "WorkspaceInvitationUser"
-    objects: {
-      invitation: Prisma.$WorkspaceInvitationPayload<ExtArgs>
-      profile: Prisma.$ProfilePayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: number
-      invitationId: number
-      profileId: number
-      status: $Enums.InvitationStatus
-      acceptedAt: Date | null
-      createdAt: Date
-      updatedAt: Date
-    }, ExtArgs["result"]["workspaceInvitationUser"]>
-    composites: {}
-  }
-
-  type WorkspaceInvitationUserGetPayload<S extends boolean | null | undefined | WorkspaceInvitationUserDefaultArgs> = $Result.GetResult<Prisma.$WorkspaceInvitationUserPayload, S>
-
-  type WorkspaceInvitationUserCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<WorkspaceInvitationUserFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: WorkspaceInvitationUserCountAggregateInputType | true
-    }
-
-  export interface WorkspaceInvitationUserDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['WorkspaceInvitationUser'], meta: { name: 'WorkspaceInvitationUser' } }
-    /**
-     * Find zero or one WorkspaceInvitationUser that matches the filter.
-     * @param {WorkspaceInvitationUserFindUniqueArgs} args - Arguments to find a WorkspaceInvitationUser
-     * @example
-     * // Get one WorkspaceInvitationUser
-     * const workspaceInvitationUser = await prisma.workspaceInvitationUser.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends WorkspaceInvitationUserFindUniqueArgs>(args: SelectSubset<T, WorkspaceInvitationUserFindUniqueArgs<ExtArgs>>): Prisma__WorkspaceInvitationUserClient<$Result.GetResult<Prisma.$WorkspaceInvitationUserPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one WorkspaceInvitationUser that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {WorkspaceInvitationUserFindUniqueOrThrowArgs} args - Arguments to find a WorkspaceInvitationUser
-     * @example
-     * // Get one WorkspaceInvitationUser
-     * const workspaceInvitationUser = await prisma.workspaceInvitationUser.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends WorkspaceInvitationUserFindUniqueOrThrowArgs>(args: SelectSubset<T, WorkspaceInvitationUserFindUniqueOrThrowArgs<ExtArgs>>): Prisma__WorkspaceInvitationUserClient<$Result.GetResult<Prisma.$WorkspaceInvitationUserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first WorkspaceInvitationUser that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {WorkspaceInvitationUserFindFirstArgs} args - Arguments to find a WorkspaceInvitationUser
-     * @example
-     * // Get one WorkspaceInvitationUser
-     * const workspaceInvitationUser = await prisma.workspaceInvitationUser.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends WorkspaceInvitationUserFindFirstArgs>(args?: SelectSubset<T, WorkspaceInvitationUserFindFirstArgs<ExtArgs>>): Prisma__WorkspaceInvitationUserClient<$Result.GetResult<Prisma.$WorkspaceInvitationUserPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first WorkspaceInvitationUser that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {WorkspaceInvitationUserFindFirstOrThrowArgs} args - Arguments to find a WorkspaceInvitationUser
-     * @example
-     * // Get one WorkspaceInvitationUser
-     * const workspaceInvitationUser = await prisma.workspaceInvitationUser.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends WorkspaceInvitationUserFindFirstOrThrowArgs>(args?: SelectSubset<T, WorkspaceInvitationUserFindFirstOrThrowArgs<ExtArgs>>): Prisma__WorkspaceInvitationUserClient<$Result.GetResult<Prisma.$WorkspaceInvitationUserPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more WorkspaceInvitationUsers that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {WorkspaceInvitationUserFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all WorkspaceInvitationUsers
-     * const workspaceInvitationUsers = await prisma.workspaceInvitationUser.findMany()
-     * 
-     * // Get first 10 WorkspaceInvitationUsers
-     * const workspaceInvitationUsers = await prisma.workspaceInvitationUser.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const workspaceInvitationUserWithIdOnly = await prisma.workspaceInvitationUser.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends WorkspaceInvitationUserFindManyArgs>(args?: SelectSubset<T, WorkspaceInvitationUserFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkspaceInvitationUserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a WorkspaceInvitationUser.
-     * @param {WorkspaceInvitationUserCreateArgs} args - Arguments to create a WorkspaceInvitationUser.
-     * @example
-     * // Create one WorkspaceInvitationUser
-     * const WorkspaceInvitationUser = await prisma.workspaceInvitationUser.create({
-     *   data: {
-     *     // ... data to create a WorkspaceInvitationUser
-     *   }
-     * })
-     * 
-     */
-    create<T extends WorkspaceInvitationUserCreateArgs>(args: SelectSubset<T, WorkspaceInvitationUserCreateArgs<ExtArgs>>): Prisma__WorkspaceInvitationUserClient<$Result.GetResult<Prisma.$WorkspaceInvitationUserPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many WorkspaceInvitationUsers.
-     * @param {WorkspaceInvitationUserCreateManyArgs} args - Arguments to create many WorkspaceInvitationUsers.
-     * @example
-     * // Create many WorkspaceInvitationUsers
-     * const workspaceInvitationUser = await prisma.workspaceInvitationUser.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends WorkspaceInvitationUserCreateManyArgs>(args?: SelectSubset<T, WorkspaceInvitationUserCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many WorkspaceInvitationUsers and returns the data saved in the database.
-     * @param {WorkspaceInvitationUserCreateManyAndReturnArgs} args - Arguments to create many WorkspaceInvitationUsers.
-     * @example
-     * // Create many WorkspaceInvitationUsers
-     * const workspaceInvitationUser = await prisma.workspaceInvitationUser.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many WorkspaceInvitationUsers and only return the `id`
-     * const workspaceInvitationUserWithIdOnly = await prisma.workspaceInvitationUser.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends WorkspaceInvitationUserCreateManyAndReturnArgs>(args?: SelectSubset<T, WorkspaceInvitationUserCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkspaceInvitationUserPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a WorkspaceInvitationUser.
-     * @param {WorkspaceInvitationUserDeleteArgs} args - Arguments to delete one WorkspaceInvitationUser.
-     * @example
-     * // Delete one WorkspaceInvitationUser
-     * const WorkspaceInvitationUser = await prisma.workspaceInvitationUser.delete({
-     *   where: {
-     *     // ... filter to delete one WorkspaceInvitationUser
-     *   }
-     * })
-     * 
-     */
-    delete<T extends WorkspaceInvitationUserDeleteArgs>(args: SelectSubset<T, WorkspaceInvitationUserDeleteArgs<ExtArgs>>): Prisma__WorkspaceInvitationUserClient<$Result.GetResult<Prisma.$WorkspaceInvitationUserPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one WorkspaceInvitationUser.
-     * @param {WorkspaceInvitationUserUpdateArgs} args - Arguments to update one WorkspaceInvitationUser.
-     * @example
-     * // Update one WorkspaceInvitationUser
-     * const workspaceInvitationUser = await prisma.workspaceInvitationUser.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends WorkspaceInvitationUserUpdateArgs>(args: SelectSubset<T, WorkspaceInvitationUserUpdateArgs<ExtArgs>>): Prisma__WorkspaceInvitationUserClient<$Result.GetResult<Prisma.$WorkspaceInvitationUserPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more WorkspaceInvitationUsers.
-     * @param {WorkspaceInvitationUserDeleteManyArgs} args - Arguments to filter WorkspaceInvitationUsers to delete.
-     * @example
-     * // Delete a few WorkspaceInvitationUsers
-     * const { count } = await prisma.workspaceInvitationUser.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends WorkspaceInvitationUserDeleteManyArgs>(args?: SelectSubset<T, WorkspaceInvitationUserDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more WorkspaceInvitationUsers.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {WorkspaceInvitationUserUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many WorkspaceInvitationUsers
-     * const workspaceInvitationUser = await prisma.workspaceInvitationUser.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends WorkspaceInvitationUserUpdateManyArgs>(args: SelectSubset<T, WorkspaceInvitationUserUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more WorkspaceInvitationUsers and returns the data updated in the database.
-     * @param {WorkspaceInvitationUserUpdateManyAndReturnArgs} args - Arguments to update many WorkspaceInvitationUsers.
-     * @example
-     * // Update many WorkspaceInvitationUsers
-     * const workspaceInvitationUser = await prisma.workspaceInvitationUser.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more WorkspaceInvitationUsers and only return the `id`
-     * const workspaceInvitationUserWithIdOnly = await prisma.workspaceInvitationUser.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends WorkspaceInvitationUserUpdateManyAndReturnArgs>(args: SelectSubset<T, WorkspaceInvitationUserUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkspaceInvitationUserPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one WorkspaceInvitationUser.
-     * @param {WorkspaceInvitationUserUpsertArgs} args - Arguments to update or create a WorkspaceInvitationUser.
-     * @example
-     * // Update or create a WorkspaceInvitationUser
-     * const workspaceInvitationUser = await prisma.workspaceInvitationUser.upsert({
-     *   create: {
-     *     // ... data to create a WorkspaceInvitationUser
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the WorkspaceInvitationUser we want to update
-     *   }
-     * })
-     */
-    upsert<T extends WorkspaceInvitationUserUpsertArgs>(args: SelectSubset<T, WorkspaceInvitationUserUpsertArgs<ExtArgs>>): Prisma__WorkspaceInvitationUserClient<$Result.GetResult<Prisma.$WorkspaceInvitationUserPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of WorkspaceInvitationUsers.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {WorkspaceInvitationUserCountArgs} args - Arguments to filter WorkspaceInvitationUsers to count.
-     * @example
-     * // Count the number of WorkspaceInvitationUsers
-     * const count = await prisma.workspaceInvitationUser.count({
-     *   where: {
-     *     // ... the filter for the WorkspaceInvitationUsers we want to count
-     *   }
-     * })
-    **/
-    count<T extends WorkspaceInvitationUserCountArgs>(
-      args?: Subset<T, WorkspaceInvitationUserCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], WorkspaceInvitationUserCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a WorkspaceInvitationUser.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {WorkspaceInvitationUserAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends WorkspaceInvitationUserAggregateArgs>(args: Subset<T, WorkspaceInvitationUserAggregateArgs>): Prisma.PrismaPromise<GetWorkspaceInvitationUserAggregateType<T>>
-
-    /**
-     * Group by WorkspaceInvitationUser.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {WorkspaceInvitationUserGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends WorkspaceInvitationUserGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: WorkspaceInvitationUserGroupByArgs['orderBy'] }
-        : { orderBy?: WorkspaceInvitationUserGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, WorkspaceInvitationUserGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetWorkspaceInvitationUserGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the WorkspaceInvitationUser model
-   */
-  readonly fields: WorkspaceInvitationUserFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for WorkspaceInvitationUser.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__WorkspaceInvitationUserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    invitation<T extends WorkspaceInvitationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WorkspaceInvitationDefaultArgs<ExtArgs>>): Prisma__WorkspaceInvitationClient<$Result.GetResult<Prisma.$WorkspaceInvitationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    profile<T extends ProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProfileDefaultArgs<ExtArgs>>): Prisma__ProfileClient<$Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the WorkspaceInvitationUser model
-   */
-  interface WorkspaceInvitationUserFieldRefs {
-    readonly id: FieldRef<"WorkspaceInvitationUser", 'Int'>
-    readonly invitationId: FieldRef<"WorkspaceInvitationUser", 'Int'>
-    readonly profileId: FieldRef<"WorkspaceInvitationUser", 'Int'>
-    readonly status: FieldRef<"WorkspaceInvitationUser", 'InvitationStatus'>
-    readonly acceptedAt: FieldRef<"WorkspaceInvitationUser", 'DateTime'>
-    readonly createdAt: FieldRef<"WorkspaceInvitationUser", 'DateTime'>
-    readonly updatedAt: FieldRef<"WorkspaceInvitationUser", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * WorkspaceInvitationUser findUnique
-   */
-  export type WorkspaceInvitationUserFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the WorkspaceInvitationUser
-     */
-    select?: WorkspaceInvitationUserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the WorkspaceInvitationUser
-     */
-    omit?: WorkspaceInvitationUserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WorkspaceInvitationUserInclude<ExtArgs> | null
-    /**
-     * Filter, which WorkspaceInvitationUser to fetch.
-     */
-    where: WorkspaceInvitationUserWhereUniqueInput
-  }
-
-  /**
-   * WorkspaceInvitationUser findUniqueOrThrow
-   */
-  export type WorkspaceInvitationUserFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the WorkspaceInvitationUser
-     */
-    select?: WorkspaceInvitationUserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the WorkspaceInvitationUser
-     */
-    omit?: WorkspaceInvitationUserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WorkspaceInvitationUserInclude<ExtArgs> | null
-    /**
-     * Filter, which WorkspaceInvitationUser to fetch.
-     */
-    where: WorkspaceInvitationUserWhereUniqueInput
-  }
-
-  /**
-   * WorkspaceInvitationUser findFirst
-   */
-  export type WorkspaceInvitationUserFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the WorkspaceInvitationUser
-     */
-    select?: WorkspaceInvitationUserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the WorkspaceInvitationUser
-     */
-    omit?: WorkspaceInvitationUserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WorkspaceInvitationUserInclude<ExtArgs> | null
-    /**
-     * Filter, which WorkspaceInvitationUser to fetch.
-     */
-    where?: WorkspaceInvitationUserWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of WorkspaceInvitationUsers to fetch.
-     */
-    orderBy?: WorkspaceInvitationUserOrderByWithRelationInput | WorkspaceInvitationUserOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for WorkspaceInvitationUsers.
-     */
-    cursor?: WorkspaceInvitationUserWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` WorkspaceInvitationUsers from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` WorkspaceInvitationUsers.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of WorkspaceInvitationUsers.
-     */
-    distinct?: WorkspaceInvitationUserScalarFieldEnum | WorkspaceInvitationUserScalarFieldEnum[]
-  }
-
-  /**
-   * WorkspaceInvitationUser findFirstOrThrow
-   */
-  export type WorkspaceInvitationUserFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the WorkspaceInvitationUser
-     */
-    select?: WorkspaceInvitationUserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the WorkspaceInvitationUser
-     */
-    omit?: WorkspaceInvitationUserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WorkspaceInvitationUserInclude<ExtArgs> | null
-    /**
-     * Filter, which WorkspaceInvitationUser to fetch.
-     */
-    where?: WorkspaceInvitationUserWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of WorkspaceInvitationUsers to fetch.
-     */
-    orderBy?: WorkspaceInvitationUserOrderByWithRelationInput | WorkspaceInvitationUserOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for WorkspaceInvitationUsers.
-     */
-    cursor?: WorkspaceInvitationUserWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` WorkspaceInvitationUsers from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` WorkspaceInvitationUsers.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of WorkspaceInvitationUsers.
-     */
-    distinct?: WorkspaceInvitationUserScalarFieldEnum | WorkspaceInvitationUserScalarFieldEnum[]
-  }
-
-  /**
-   * WorkspaceInvitationUser findMany
-   */
-  export type WorkspaceInvitationUserFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the WorkspaceInvitationUser
-     */
-    select?: WorkspaceInvitationUserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the WorkspaceInvitationUser
-     */
-    omit?: WorkspaceInvitationUserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WorkspaceInvitationUserInclude<ExtArgs> | null
-    /**
-     * Filter, which WorkspaceInvitationUsers to fetch.
-     */
-    where?: WorkspaceInvitationUserWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of WorkspaceInvitationUsers to fetch.
-     */
-    orderBy?: WorkspaceInvitationUserOrderByWithRelationInput | WorkspaceInvitationUserOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing WorkspaceInvitationUsers.
-     */
-    cursor?: WorkspaceInvitationUserWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` WorkspaceInvitationUsers from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` WorkspaceInvitationUsers.
-     */
-    skip?: number
-    distinct?: WorkspaceInvitationUserScalarFieldEnum | WorkspaceInvitationUserScalarFieldEnum[]
-  }
-
-  /**
-   * WorkspaceInvitationUser create
-   */
-  export type WorkspaceInvitationUserCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the WorkspaceInvitationUser
-     */
-    select?: WorkspaceInvitationUserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the WorkspaceInvitationUser
-     */
-    omit?: WorkspaceInvitationUserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WorkspaceInvitationUserInclude<ExtArgs> | null
-    /**
-     * The data needed to create a WorkspaceInvitationUser.
-     */
-    data: XOR<WorkspaceInvitationUserCreateInput, WorkspaceInvitationUserUncheckedCreateInput>
-  }
-
-  /**
-   * WorkspaceInvitationUser createMany
-   */
-  export type WorkspaceInvitationUserCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many WorkspaceInvitationUsers.
-     */
-    data: WorkspaceInvitationUserCreateManyInput | WorkspaceInvitationUserCreateManyInput[]
-  }
-
-  /**
-   * WorkspaceInvitationUser createManyAndReturn
-   */
-  export type WorkspaceInvitationUserCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the WorkspaceInvitationUser
-     */
-    select?: WorkspaceInvitationUserSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the WorkspaceInvitationUser
-     */
-    omit?: WorkspaceInvitationUserOmit<ExtArgs> | null
-    /**
-     * The data used to create many WorkspaceInvitationUsers.
-     */
-    data: WorkspaceInvitationUserCreateManyInput | WorkspaceInvitationUserCreateManyInput[]
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WorkspaceInvitationUserIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * WorkspaceInvitationUser update
-   */
-  export type WorkspaceInvitationUserUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the WorkspaceInvitationUser
-     */
-    select?: WorkspaceInvitationUserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the WorkspaceInvitationUser
-     */
-    omit?: WorkspaceInvitationUserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WorkspaceInvitationUserInclude<ExtArgs> | null
-    /**
-     * The data needed to update a WorkspaceInvitationUser.
-     */
-    data: XOR<WorkspaceInvitationUserUpdateInput, WorkspaceInvitationUserUncheckedUpdateInput>
-    /**
-     * Choose, which WorkspaceInvitationUser to update.
-     */
-    where: WorkspaceInvitationUserWhereUniqueInput
-  }
-
-  /**
-   * WorkspaceInvitationUser updateMany
-   */
-  export type WorkspaceInvitationUserUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update WorkspaceInvitationUsers.
-     */
-    data: XOR<WorkspaceInvitationUserUpdateManyMutationInput, WorkspaceInvitationUserUncheckedUpdateManyInput>
-    /**
-     * Filter which WorkspaceInvitationUsers to update
-     */
-    where?: WorkspaceInvitationUserWhereInput
-    /**
-     * Limit how many WorkspaceInvitationUsers to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * WorkspaceInvitationUser updateManyAndReturn
-   */
-  export type WorkspaceInvitationUserUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the WorkspaceInvitationUser
-     */
-    select?: WorkspaceInvitationUserSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the WorkspaceInvitationUser
-     */
-    omit?: WorkspaceInvitationUserOmit<ExtArgs> | null
-    /**
-     * The data used to update WorkspaceInvitationUsers.
-     */
-    data: XOR<WorkspaceInvitationUserUpdateManyMutationInput, WorkspaceInvitationUserUncheckedUpdateManyInput>
-    /**
-     * Filter which WorkspaceInvitationUsers to update
-     */
-    where?: WorkspaceInvitationUserWhereInput
-    /**
-     * Limit how many WorkspaceInvitationUsers to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WorkspaceInvitationUserIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * WorkspaceInvitationUser upsert
-   */
-  export type WorkspaceInvitationUserUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the WorkspaceInvitationUser
-     */
-    select?: WorkspaceInvitationUserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the WorkspaceInvitationUser
-     */
-    omit?: WorkspaceInvitationUserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WorkspaceInvitationUserInclude<ExtArgs> | null
-    /**
-     * The filter to search for the WorkspaceInvitationUser to update in case it exists.
-     */
-    where: WorkspaceInvitationUserWhereUniqueInput
-    /**
-     * In case the WorkspaceInvitationUser found by the `where` argument doesn't exist, create a new WorkspaceInvitationUser with this data.
-     */
-    create: XOR<WorkspaceInvitationUserCreateInput, WorkspaceInvitationUserUncheckedCreateInput>
-    /**
-     * In case the WorkspaceInvitationUser was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<WorkspaceInvitationUserUpdateInput, WorkspaceInvitationUserUncheckedUpdateInput>
-  }
-
-  /**
-   * WorkspaceInvitationUser delete
-   */
-  export type WorkspaceInvitationUserDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the WorkspaceInvitationUser
-     */
-    select?: WorkspaceInvitationUserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the WorkspaceInvitationUser
-     */
-    omit?: WorkspaceInvitationUserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WorkspaceInvitationUserInclude<ExtArgs> | null
-    /**
-     * Filter which WorkspaceInvitationUser to delete.
-     */
-    where: WorkspaceInvitationUserWhereUniqueInput
-  }
-
-  /**
-   * WorkspaceInvitationUser deleteMany
-   */
-  export type WorkspaceInvitationUserDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which WorkspaceInvitationUsers to delete
-     */
-    where?: WorkspaceInvitationUserWhereInput
-    /**
-     * Limit how many WorkspaceInvitationUsers to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * WorkspaceInvitationUser without action
-   */
-  export type WorkspaceInvitationUserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the WorkspaceInvitationUser
-     */
-    select?: WorkspaceInvitationUserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the WorkspaceInvitationUser
-     */
-    omit?: WorkspaceInvitationUserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WorkspaceInvitationUserInclude<ExtArgs> | null
   }
 
 
@@ -16811,6 +14566,2278 @@ export namespace Prisma {
 
 
   /**
+   * Model ProjectOwner
+   */
+
+  export type AggregateProjectOwner = {
+    _count: ProjectOwnerCountAggregateOutputType | null
+    _avg: ProjectOwnerAvgAggregateOutputType | null
+    _sum: ProjectOwnerSumAggregateOutputType | null
+    _min: ProjectOwnerMinAggregateOutputType | null
+    _max: ProjectOwnerMaxAggregateOutputType | null
+  }
+
+  export type ProjectOwnerAvgAggregateOutputType = {
+    id: number | null
+    projectId: number | null
+  }
+
+  export type ProjectOwnerSumAggregateOutputType = {
+    id: number | null
+    projectId: number | null
+  }
+
+  export type ProjectOwnerMinAggregateOutputType = {
+    id: number | null
+    projectId: number | null
+    name: string | null
+    address: string | null
+    phone: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ProjectOwnerMaxAggregateOutputType = {
+    id: number | null
+    projectId: number | null
+    name: string | null
+    address: string | null
+    phone: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ProjectOwnerCountAggregateOutputType = {
+    id: number
+    projectId: number
+    name: number
+    address: number
+    phone: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ProjectOwnerAvgAggregateInputType = {
+    id?: true
+    projectId?: true
+  }
+
+  export type ProjectOwnerSumAggregateInputType = {
+    id?: true
+    projectId?: true
+  }
+
+  export type ProjectOwnerMinAggregateInputType = {
+    id?: true
+    projectId?: true
+    name?: true
+    address?: true
+    phone?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ProjectOwnerMaxAggregateInputType = {
+    id?: true
+    projectId?: true
+    name?: true
+    address?: true
+    phone?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ProjectOwnerCountAggregateInputType = {
+    id?: true
+    projectId?: true
+    name?: true
+    address?: true
+    phone?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ProjectOwnerAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ProjectOwner to aggregate.
+     */
+    where?: ProjectOwnerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProjectOwners to fetch.
+     */
+    orderBy?: ProjectOwnerOrderByWithRelationInput | ProjectOwnerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ProjectOwnerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProjectOwners from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProjectOwners.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ProjectOwners
+    **/
+    _count?: true | ProjectOwnerCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ProjectOwnerAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ProjectOwnerSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ProjectOwnerMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ProjectOwnerMaxAggregateInputType
+  }
+
+  export type GetProjectOwnerAggregateType<T extends ProjectOwnerAggregateArgs> = {
+        [P in keyof T & keyof AggregateProjectOwner]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateProjectOwner[P]>
+      : GetScalarType<T[P], AggregateProjectOwner[P]>
+  }
+
+
+
+
+  export type ProjectOwnerGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProjectOwnerWhereInput
+    orderBy?: ProjectOwnerOrderByWithAggregationInput | ProjectOwnerOrderByWithAggregationInput[]
+    by: ProjectOwnerScalarFieldEnum[] | ProjectOwnerScalarFieldEnum
+    having?: ProjectOwnerScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ProjectOwnerCountAggregateInputType | true
+    _avg?: ProjectOwnerAvgAggregateInputType
+    _sum?: ProjectOwnerSumAggregateInputType
+    _min?: ProjectOwnerMinAggregateInputType
+    _max?: ProjectOwnerMaxAggregateInputType
+  }
+
+  export type ProjectOwnerGroupByOutputType = {
+    id: number
+    projectId: number
+    name: string
+    address: string
+    phone: string
+    createdAt: Date
+    updatedAt: Date
+    _count: ProjectOwnerCountAggregateOutputType | null
+    _avg: ProjectOwnerAvgAggregateOutputType | null
+    _sum: ProjectOwnerSumAggregateOutputType | null
+    _min: ProjectOwnerMinAggregateOutputType | null
+    _max: ProjectOwnerMaxAggregateOutputType | null
+  }
+
+  type GetProjectOwnerGroupByPayload<T extends ProjectOwnerGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ProjectOwnerGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ProjectOwnerGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ProjectOwnerGroupByOutputType[P]>
+            : GetScalarType<T[P], ProjectOwnerGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ProjectOwnerSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    projectId?: boolean
+    name?: boolean
+    address?: boolean
+    phone?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["projectOwner"]>
+
+  export type ProjectOwnerSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    projectId?: boolean
+    name?: boolean
+    address?: boolean
+    phone?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["projectOwner"]>
+
+  export type ProjectOwnerSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    projectId?: boolean
+    name?: boolean
+    address?: boolean
+    phone?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["projectOwner"]>
+
+  export type ProjectOwnerSelectScalar = {
+    id?: boolean
+    projectId?: boolean
+    name?: boolean
+    address?: boolean
+    phone?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ProjectOwnerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "projectId" | "name" | "address" | "phone" | "createdAt" | "updatedAt", ExtArgs["result"]["projectOwner"]>
+  export type ProjectOwnerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+  }
+  export type ProjectOwnerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+  }
+  export type ProjectOwnerIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+  }
+
+  export type $ProjectOwnerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ProjectOwner"
+    objects: {
+      project: Prisma.$ProjectPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      projectId: number
+      name: string
+      address: string
+      phone: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["projectOwner"]>
+    composites: {}
+  }
+
+  type ProjectOwnerGetPayload<S extends boolean | null | undefined | ProjectOwnerDefaultArgs> = $Result.GetResult<Prisma.$ProjectOwnerPayload, S>
+
+  type ProjectOwnerCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ProjectOwnerFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ProjectOwnerCountAggregateInputType | true
+    }
+
+  export interface ProjectOwnerDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ProjectOwner'], meta: { name: 'ProjectOwner' } }
+    /**
+     * Find zero or one ProjectOwner that matches the filter.
+     * @param {ProjectOwnerFindUniqueArgs} args - Arguments to find a ProjectOwner
+     * @example
+     * // Get one ProjectOwner
+     * const projectOwner = await prisma.projectOwner.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ProjectOwnerFindUniqueArgs>(args: SelectSubset<T, ProjectOwnerFindUniqueArgs<ExtArgs>>): Prisma__ProjectOwnerClient<$Result.GetResult<Prisma.$ProjectOwnerPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ProjectOwner that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ProjectOwnerFindUniqueOrThrowArgs} args - Arguments to find a ProjectOwner
+     * @example
+     * // Get one ProjectOwner
+     * const projectOwner = await prisma.projectOwner.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ProjectOwnerFindUniqueOrThrowArgs>(args: SelectSubset<T, ProjectOwnerFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ProjectOwnerClient<$Result.GetResult<Prisma.$ProjectOwnerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ProjectOwner that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectOwnerFindFirstArgs} args - Arguments to find a ProjectOwner
+     * @example
+     * // Get one ProjectOwner
+     * const projectOwner = await prisma.projectOwner.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ProjectOwnerFindFirstArgs>(args?: SelectSubset<T, ProjectOwnerFindFirstArgs<ExtArgs>>): Prisma__ProjectOwnerClient<$Result.GetResult<Prisma.$ProjectOwnerPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ProjectOwner that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectOwnerFindFirstOrThrowArgs} args - Arguments to find a ProjectOwner
+     * @example
+     * // Get one ProjectOwner
+     * const projectOwner = await prisma.projectOwner.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ProjectOwnerFindFirstOrThrowArgs>(args?: SelectSubset<T, ProjectOwnerFindFirstOrThrowArgs<ExtArgs>>): Prisma__ProjectOwnerClient<$Result.GetResult<Prisma.$ProjectOwnerPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ProjectOwners that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectOwnerFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ProjectOwners
+     * const projectOwners = await prisma.projectOwner.findMany()
+     * 
+     * // Get first 10 ProjectOwners
+     * const projectOwners = await prisma.projectOwner.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const projectOwnerWithIdOnly = await prisma.projectOwner.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ProjectOwnerFindManyArgs>(args?: SelectSubset<T, ProjectOwnerFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectOwnerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ProjectOwner.
+     * @param {ProjectOwnerCreateArgs} args - Arguments to create a ProjectOwner.
+     * @example
+     * // Create one ProjectOwner
+     * const ProjectOwner = await prisma.projectOwner.create({
+     *   data: {
+     *     // ... data to create a ProjectOwner
+     *   }
+     * })
+     * 
+     */
+    create<T extends ProjectOwnerCreateArgs>(args: SelectSubset<T, ProjectOwnerCreateArgs<ExtArgs>>): Prisma__ProjectOwnerClient<$Result.GetResult<Prisma.$ProjectOwnerPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ProjectOwners.
+     * @param {ProjectOwnerCreateManyArgs} args - Arguments to create many ProjectOwners.
+     * @example
+     * // Create many ProjectOwners
+     * const projectOwner = await prisma.projectOwner.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ProjectOwnerCreateManyArgs>(args?: SelectSubset<T, ProjectOwnerCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ProjectOwners and returns the data saved in the database.
+     * @param {ProjectOwnerCreateManyAndReturnArgs} args - Arguments to create many ProjectOwners.
+     * @example
+     * // Create many ProjectOwners
+     * const projectOwner = await prisma.projectOwner.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ProjectOwners and only return the `id`
+     * const projectOwnerWithIdOnly = await prisma.projectOwner.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ProjectOwnerCreateManyAndReturnArgs>(args?: SelectSubset<T, ProjectOwnerCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectOwnerPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ProjectOwner.
+     * @param {ProjectOwnerDeleteArgs} args - Arguments to delete one ProjectOwner.
+     * @example
+     * // Delete one ProjectOwner
+     * const ProjectOwner = await prisma.projectOwner.delete({
+     *   where: {
+     *     // ... filter to delete one ProjectOwner
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ProjectOwnerDeleteArgs>(args: SelectSubset<T, ProjectOwnerDeleteArgs<ExtArgs>>): Prisma__ProjectOwnerClient<$Result.GetResult<Prisma.$ProjectOwnerPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ProjectOwner.
+     * @param {ProjectOwnerUpdateArgs} args - Arguments to update one ProjectOwner.
+     * @example
+     * // Update one ProjectOwner
+     * const projectOwner = await prisma.projectOwner.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ProjectOwnerUpdateArgs>(args: SelectSubset<T, ProjectOwnerUpdateArgs<ExtArgs>>): Prisma__ProjectOwnerClient<$Result.GetResult<Prisma.$ProjectOwnerPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ProjectOwners.
+     * @param {ProjectOwnerDeleteManyArgs} args - Arguments to filter ProjectOwners to delete.
+     * @example
+     * // Delete a few ProjectOwners
+     * const { count } = await prisma.projectOwner.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ProjectOwnerDeleteManyArgs>(args?: SelectSubset<T, ProjectOwnerDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ProjectOwners.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectOwnerUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ProjectOwners
+     * const projectOwner = await prisma.projectOwner.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ProjectOwnerUpdateManyArgs>(args: SelectSubset<T, ProjectOwnerUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ProjectOwners and returns the data updated in the database.
+     * @param {ProjectOwnerUpdateManyAndReturnArgs} args - Arguments to update many ProjectOwners.
+     * @example
+     * // Update many ProjectOwners
+     * const projectOwner = await prisma.projectOwner.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ProjectOwners and only return the `id`
+     * const projectOwnerWithIdOnly = await prisma.projectOwner.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ProjectOwnerUpdateManyAndReturnArgs>(args: SelectSubset<T, ProjectOwnerUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectOwnerPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ProjectOwner.
+     * @param {ProjectOwnerUpsertArgs} args - Arguments to update or create a ProjectOwner.
+     * @example
+     * // Update or create a ProjectOwner
+     * const projectOwner = await prisma.projectOwner.upsert({
+     *   create: {
+     *     // ... data to create a ProjectOwner
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ProjectOwner we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ProjectOwnerUpsertArgs>(args: SelectSubset<T, ProjectOwnerUpsertArgs<ExtArgs>>): Prisma__ProjectOwnerClient<$Result.GetResult<Prisma.$ProjectOwnerPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ProjectOwners.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectOwnerCountArgs} args - Arguments to filter ProjectOwners to count.
+     * @example
+     * // Count the number of ProjectOwners
+     * const count = await prisma.projectOwner.count({
+     *   where: {
+     *     // ... the filter for the ProjectOwners we want to count
+     *   }
+     * })
+    **/
+    count<T extends ProjectOwnerCountArgs>(
+      args?: Subset<T, ProjectOwnerCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ProjectOwnerCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ProjectOwner.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectOwnerAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ProjectOwnerAggregateArgs>(args: Subset<T, ProjectOwnerAggregateArgs>): Prisma.PrismaPromise<GetProjectOwnerAggregateType<T>>
+
+    /**
+     * Group by ProjectOwner.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectOwnerGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ProjectOwnerGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ProjectOwnerGroupByArgs['orderBy'] }
+        : { orderBy?: ProjectOwnerGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ProjectOwnerGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetProjectOwnerGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ProjectOwner model
+   */
+  readonly fields: ProjectOwnerFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ProjectOwner.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ProjectOwnerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    project<T extends ProjectDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProjectDefaultArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ProjectOwner model
+   */
+  interface ProjectOwnerFieldRefs {
+    readonly id: FieldRef<"ProjectOwner", 'Int'>
+    readonly projectId: FieldRef<"ProjectOwner", 'Int'>
+    readonly name: FieldRef<"ProjectOwner", 'String'>
+    readonly address: FieldRef<"ProjectOwner", 'String'>
+    readonly phone: FieldRef<"ProjectOwner", 'String'>
+    readonly createdAt: FieldRef<"ProjectOwner", 'DateTime'>
+    readonly updatedAt: FieldRef<"ProjectOwner", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ProjectOwner findUnique
+   */
+  export type ProjectOwnerFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectOwner
+     */
+    select?: ProjectOwnerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectOwner
+     */
+    omit?: ProjectOwnerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectOwnerInclude<ExtArgs> | null
+    /**
+     * Filter, which ProjectOwner to fetch.
+     */
+    where: ProjectOwnerWhereUniqueInput
+  }
+
+  /**
+   * ProjectOwner findUniqueOrThrow
+   */
+  export type ProjectOwnerFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectOwner
+     */
+    select?: ProjectOwnerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectOwner
+     */
+    omit?: ProjectOwnerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectOwnerInclude<ExtArgs> | null
+    /**
+     * Filter, which ProjectOwner to fetch.
+     */
+    where: ProjectOwnerWhereUniqueInput
+  }
+
+  /**
+   * ProjectOwner findFirst
+   */
+  export type ProjectOwnerFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectOwner
+     */
+    select?: ProjectOwnerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectOwner
+     */
+    omit?: ProjectOwnerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectOwnerInclude<ExtArgs> | null
+    /**
+     * Filter, which ProjectOwner to fetch.
+     */
+    where?: ProjectOwnerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProjectOwners to fetch.
+     */
+    orderBy?: ProjectOwnerOrderByWithRelationInput | ProjectOwnerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ProjectOwners.
+     */
+    cursor?: ProjectOwnerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProjectOwners from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProjectOwners.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ProjectOwners.
+     */
+    distinct?: ProjectOwnerScalarFieldEnum | ProjectOwnerScalarFieldEnum[]
+  }
+
+  /**
+   * ProjectOwner findFirstOrThrow
+   */
+  export type ProjectOwnerFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectOwner
+     */
+    select?: ProjectOwnerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectOwner
+     */
+    omit?: ProjectOwnerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectOwnerInclude<ExtArgs> | null
+    /**
+     * Filter, which ProjectOwner to fetch.
+     */
+    where?: ProjectOwnerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProjectOwners to fetch.
+     */
+    orderBy?: ProjectOwnerOrderByWithRelationInput | ProjectOwnerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ProjectOwners.
+     */
+    cursor?: ProjectOwnerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProjectOwners from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProjectOwners.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ProjectOwners.
+     */
+    distinct?: ProjectOwnerScalarFieldEnum | ProjectOwnerScalarFieldEnum[]
+  }
+
+  /**
+   * ProjectOwner findMany
+   */
+  export type ProjectOwnerFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectOwner
+     */
+    select?: ProjectOwnerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectOwner
+     */
+    omit?: ProjectOwnerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectOwnerInclude<ExtArgs> | null
+    /**
+     * Filter, which ProjectOwners to fetch.
+     */
+    where?: ProjectOwnerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProjectOwners to fetch.
+     */
+    orderBy?: ProjectOwnerOrderByWithRelationInput | ProjectOwnerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ProjectOwners.
+     */
+    cursor?: ProjectOwnerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProjectOwners from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProjectOwners.
+     */
+    skip?: number
+    distinct?: ProjectOwnerScalarFieldEnum | ProjectOwnerScalarFieldEnum[]
+  }
+
+  /**
+   * ProjectOwner create
+   */
+  export type ProjectOwnerCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectOwner
+     */
+    select?: ProjectOwnerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectOwner
+     */
+    omit?: ProjectOwnerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectOwnerInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ProjectOwner.
+     */
+    data: XOR<ProjectOwnerCreateInput, ProjectOwnerUncheckedCreateInput>
+  }
+
+  /**
+   * ProjectOwner createMany
+   */
+  export type ProjectOwnerCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ProjectOwners.
+     */
+    data: ProjectOwnerCreateManyInput | ProjectOwnerCreateManyInput[]
+  }
+
+  /**
+   * ProjectOwner createManyAndReturn
+   */
+  export type ProjectOwnerCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectOwner
+     */
+    select?: ProjectOwnerSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectOwner
+     */
+    omit?: ProjectOwnerOmit<ExtArgs> | null
+    /**
+     * The data used to create many ProjectOwners.
+     */
+    data: ProjectOwnerCreateManyInput | ProjectOwnerCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectOwnerIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ProjectOwner update
+   */
+  export type ProjectOwnerUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectOwner
+     */
+    select?: ProjectOwnerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectOwner
+     */
+    omit?: ProjectOwnerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectOwnerInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ProjectOwner.
+     */
+    data: XOR<ProjectOwnerUpdateInput, ProjectOwnerUncheckedUpdateInput>
+    /**
+     * Choose, which ProjectOwner to update.
+     */
+    where: ProjectOwnerWhereUniqueInput
+  }
+
+  /**
+   * ProjectOwner updateMany
+   */
+  export type ProjectOwnerUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ProjectOwners.
+     */
+    data: XOR<ProjectOwnerUpdateManyMutationInput, ProjectOwnerUncheckedUpdateManyInput>
+    /**
+     * Filter which ProjectOwners to update
+     */
+    where?: ProjectOwnerWhereInput
+    /**
+     * Limit how many ProjectOwners to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ProjectOwner updateManyAndReturn
+   */
+  export type ProjectOwnerUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectOwner
+     */
+    select?: ProjectOwnerSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectOwner
+     */
+    omit?: ProjectOwnerOmit<ExtArgs> | null
+    /**
+     * The data used to update ProjectOwners.
+     */
+    data: XOR<ProjectOwnerUpdateManyMutationInput, ProjectOwnerUncheckedUpdateManyInput>
+    /**
+     * Filter which ProjectOwners to update
+     */
+    where?: ProjectOwnerWhereInput
+    /**
+     * Limit how many ProjectOwners to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectOwnerIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ProjectOwner upsert
+   */
+  export type ProjectOwnerUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectOwner
+     */
+    select?: ProjectOwnerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectOwner
+     */
+    omit?: ProjectOwnerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectOwnerInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ProjectOwner to update in case it exists.
+     */
+    where: ProjectOwnerWhereUniqueInput
+    /**
+     * In case the ProjectOwner found by the `where` argument doesn't exist, create a new ProjectOwner with this data.
+     */
+    create: XOR<ProjectOwnerCreateInput, ProjectOwnerUncheckedCreateInput>
+    /**
+     * In case the ProjectOwner was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ProjectOwnerUpdateInput, ProjectOwnerUncheckedUpdateInput>
+  }
+
+  /**
+   * ProjectOwner delete
+   */
+  export type ProjectOwnerDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectOwner
+     */
+    select?: ProjectOwnerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectOwner
+     */
+    omit?: ProjectOwnerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectOwnerInclude<ExtArgs> | null
+    /**
+     * Filter which ProjectOwner to delete.
+     */
+    where: ProjectOwnerWhereUniqueInput
+  }
+
+  /**
+   * ProjectOwner deleteMany
+   */
+  export type ProjectOwnerDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ProjectOwners to delete
+     */
+    where?: ProjectOwnerWhereInput
+    /**
+     * Limit how many ProjectOwners to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ProjectOwner without action
+   */
+  export type ProjectOwnerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectOwner
+     */
+    select?: ProjectOwnerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectOwner
+     */
+    omit?: ProjectOwnerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectOwnerInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Project
+   */
+
+  export type AggregateProject = {
+    _count: ProjectCountAggregateOutputType | null
+    _avg: ProjectAvgAggregateOutputType | null
+    _sum: ProjectSumAggregateOutputType | null
+    _min: ProjectMinAggregateOutputType | null
+    _max: ProjectMaxAggregateOutputType | null
+  }
+
+  export type ProjectAvgAggregateOutputType = {
+    id: number | null
+    workspaceId: number | null
+  }
+
+  export type ProjectSumAggregateOutputType = {
+    id: number | null
+    workspaceId: number | null
+  }
+
+  export type ProjectMinAggregateOutputType = {
+    id: number | null
+    workspaceId: number | null
+    name: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ProjectMaxAggregateOutputType = {
+    id: number | null
+    workspaceId: number | null
+    name: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ProjectCountAggregateOutputType = {
+    id: number
+    workspaceId: number
+    name: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ProjectAvgAggregateInputType = {
+    id?: true
+    workspaceId?: true
+  }
+
+  export type ProjectSumAggregateInputType = {
+    id?: true
+    workspaceId?: true
+  }
+
+  export type ProjectMinAggregateInputType = {
+    id?: true
+    workspaceId?: true
+    name?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ProjectMaxAggregateInputType = {
+    id?: true
+    workspaceId?: true
+    name?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ProjectCountAggregateInputType = {
+    id?: true
+    workspaceId?: true
+    name?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ProjectAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Project to aggregate.
+     */
+    where?: ProjectWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Projects to fetch.
+     */
+    orderBy?: ProjectOrderByWithRelationInput | ProjectOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ProjectWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Projects from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Projects.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Projects
+    **/
+    _count?: true | ProjectCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ProjectAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ProjectSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ProjectMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ProjectMaxAggregateInputType
+  }
+
+  export type GetProjectAggregateType<T extends ProjectAggregateArgs> = {
+        [P in keyof T & keyof AggregateProject]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateProject[P]>
+      : GetScalarType<T[P], AggregateProject[P]>
+  }
+
+
+
+
+  export type ProjectGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProjectWhereInput
+    orderBy?: ProjectOrderByWithAggregationInput | ProjectOrderByWithAggregationInput[]
+    by: ProjectScalarFieldEnum[] | ProjectScalarFieldEnum
+    having?: ProjectScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ProjectCountAggregateInputType | true
+    _avg?: ProjectAvgAggregateInputType
+    _sum?: ProjectSumAggregateInputType
+    _min?: ProjectMinAggregateInputType
+    _max?: ProjectMaxAggregateInputType
+  }
+
+  export type ProjectGroupByOutputType = {
+    id: number
+    workspaceId: number
+    name: string
+    createdAt: Date
+    updatedAt: Date
+    _count: ProjectCountAggregateOutputType | null
+    _avg: ProjectAvgAggregateOutputType | null
+    _sum: ProjectSumAggregateOutputType | null
+    _min: ProjectMinAggregateOutputType | null
+    _max: ProjectMaxAggregateOutputType | null
+  }
+
+  type GetProjectGroupByPayload<T extends ProjectGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ProjectGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ProjectGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ProjectGroupByOutputType[P]>
+            : GetScalarType<T[P], ProjectGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ProjectSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    workspaceId?: boolean
+    name?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
+    projectOwners?: boolean | Project$projectOwnersArgs<ExtArgs>
+    sites?: boolean | Project$sitesArgs<ExtArgs>
+    _count?: boolean | ProjectCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["project"]>
+
+  export type ProjectSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    workspaceId?: boolean
+    name?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["project"]>
+
+  export type ProjectSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    workspaceId?: boolean
+    name?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["project"]>
+
+  export type ProjectSelectScalar = {
+    id?: boolean
+    workspaceId?: boolean
+    name?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ProjectOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "workspaceId" | "name" | "createdAt" | "updatedAt", ExtArgs["result"]["project"]>
+  export type ProjectInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
+    projectOwners?: boolean | Project$projectOwnersArgs<ExtArgs>
+    sites?: boolean | Project$sitesArgs<ExtArgs>
+    _count?: boolean | ProjectCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ProjectIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
+  }
+  export type ProjectIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
+  }
+
+  export type $ProjectPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Project"
+    objects: {
+      workspace: Prisma.$WorkspacePayload<ExtArgs>
+      projectOwners: Prisma.$ProjectOwnerPayload<ExtArgs>[]
+      sites: Prisma.$SitePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      workspaceId: number
+      name: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["project"]>
+    composites: {}
+  }
+
+  type ProjectGetPayload<S extends boolean | null | undefined | ProjectDefaultArgs> = $Result.GetResult<Prisma.$ProjectPayload, S>
+
+  type ProjectCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ProjectFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ProjectCountAggregateInputType | true
+    }
+
+  export interface ProjectDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Project'], meta: { name: 'Project' } }
+    /**
+     * Find zero or one Project that matches the filter.
+     * @param {ProjectFindUniqueArgs} args - Arguments to find a Project
+     * @example
+     * // Get one Project
+     * const project = await prisma.project.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ProjectFindUniqueArgs>(args: SelectSubset<T, ProjectFindUniqueArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Project that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ProjectFindUniqueOrThrowArgs} args - Arguments to find a Project
+     * @example
+     * // Get one Project
+     * const project = await prisma.project.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ProjectFindUniqueOrThrowArgs>(args: SelectSubset<T, ProjectFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Project that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectFindFirstArgs} args - Arguments to find a Project
+     * @example
+     * // Get one Project
+     * const project = await prisma.project.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ProjectFindFirstArgs>(args?: SelectSubset<T, ProjectFindFirstArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Project that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectFindFirstOrThrowArgs} args - Arguments to find a Project
+     * @example
+     * // Get one Project
+     * const project = await prisma.project.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ProjectFindFirstOrThrowArgs>(args?: SelectSubset<T, ProjectFindFirstOrThrowArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Projects that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Projects
+     * const projects = await prisma.project.findMany()
+     * 
+     * // Get first 10 Projects
+     * const projects = await prisma.project.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const projectWithIdOnly = await prisma.project.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ProjectFindManyArgs>(args?: SelectSubset<T, ProjectFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Project.
+     * @param {ProjectCreateArgs} args - Arguments to create a Project.
+     * @example
+     * // Create one Project
+     * const Project = await prisma.project.create({
+     *   data: {
+     *     // ... data to create a Project
+     *   }
+     * })
+     * 
+     */
+    create<T extends ProjectCreateArgs>(args: SelectSubset<T, ProjectCreateArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Projects.
+     * @param {ProjectCreateManyArgs} args - Arguments to create many Projects.
+     * @example
+     * // Create many Projects
+     * const project = await prisma.project.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ProjectCreateManyArgs>(args?: SelectSubset<T, ProjectCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Projects and returns the data saved in the database.
+     * @param {ProjectCreateManyAndReturnArgs} args - Arguments to create many Projects.
+     * @example
+     * // Create many Projects
+     * const project = await prisma.project.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Projects and only return the `id`
+     * const projectWithIdOnly = await prisma.project.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ProjectCreateManyAndReturnArgs>(args?: SelectSubset<T, ProjectCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Project.
+     * @param {ProjectDeleteArgs} args - Arguments to delete one Project.
+     * @example
+     * // Delete one Project
+     * const Project = await prisma.project.delete({
+     *   where: {
+     *     // ... filter to delete one Project
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ProjectDeleteArgs>(args: SelectSubset<T, ProjectDeleteArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Project.
+     * @param {ProjectUpdateArgs} args - Arguments to update one Project.
+     * @example
+     * // Update one Project
+     * const project = await prisma.project.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ProjectUpdateArgs>(args: SelectSubset<T, ProjectUpdateArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Projects.
+     * @param {ProjectDeleteManyArgs} args - Arguments to filter Projects to delete.
+     * @example
+     * // Delete a few Projects
+     * const { count } = await prisma.project.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ProjectDeleteManyArgs>(args?: SelectSubset<T, ProjectDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Projects.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Projects
+     * const project = await prisma.project.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ProjectUpdateManyArgs>(args: SelectSubset<T, ProjectUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Projects and returns the data updated in the database.
+     * @param {ProjectUpdateManyAndReturnArgs} args - Arguments to update many Projects.
+     * @example
+     * // Update many Projects
+     * const project = await prisma.project.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Projects and only return the `id`
+     * const projectWithIdOnly = await prisma.project.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ProjectUpdateManyAndReturnArgs>(args: SelectSubset<T, ProjectUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Project.
+     * @param {ProjectUpsertArgs} args - Arguments to update or create a Project.
+     * @example
+     * // Update or create a Project
+     * const project = await prisma.project.upsert({
+     *   create: {
+     *     // ... data to create a Project
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Project we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ProjectUpsertArgs>(args: SelectSubset<T, ProjectUpsertArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Projects.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectCountArgs} args - Arguments to filter Projects to count.
+     * @example
+     * // Count the number of Projects
+     * const count = await prisma.project.count({
+     *   where: {
+     *     // ... the filter for the Projects we want to count
+     *   }
+     * })
+    **/
+    count<T extends ProjectCountArgs>(
+      args?: Subset<T, ProjectCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ProjectCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Project.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ProjectAggregateArgs>(args: Subset<T, ProjectAggregateArgs>): Prisma.PrismaPromise<GetProjectAggregateType<T>>
+
+    /**
+     * Group by Project.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ProjectGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ProjectGroupByArgs['orderBy'] }
+        : { orderBy?: ProjectGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ProjectGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetProjectGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Project model
+   */
+  readonly fields: ProjectFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Project.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ProjectClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    workspace<T extends WorkspaceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WorkspaceDefaultArgs<ExtArgs>>): Prisma__WorkspaceClient<$Result.GetResult<Prisma.$WorkspacePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    projectOwners<T extends Project$projectOwnersArgs<ExtArgs> = {}>(args?: Subset<T, Project$projectOwnersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectOwnerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    sites<T extends Project$sitesArgs<ExtArgs> = {}>(args?: Subset<T, Project$sitesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Project model
+   */
+  interface ProjectFieldRefs {
+    readonly id: FieldRef<"Project", 'Int'>
+    readonly workspaceId: FieldRef<"Project", 'Int'>
+    readonly name: FieldRef<"Project", 'String'>
+    readonly createdAt: FieldRef<"Project", 'DateTime'>
+    readonly updatedAt: FieldRef<"Project", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Project findUnique
+   */
+  export type ProjectFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Project
+     */
+    select?: ProjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Project
+     */
+    omit?: ProjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectInclude<ExtArgs> | null
+    /**
+     * Filter, which Project to fetch.
+     */
+    where: ProjectWhereUniqueInput
+  }
+
+  /**
+   * Project findUniqueOrThrow
+   */
+  export type ProjectFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Project
+     */
+    select?: ProjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Project
+     */
+    omit?: ProjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectInclude<ExtArgs> | null
+    /**
+     * Filter, which Project to fetch.
+     */
+    where: ProjectWhereUniqueInput
+  }
+
+  /**
+   * Project findFirst
+   */
+  export type ProjectFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Project
+     */
+    select?: ProjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Project
+     */
+    omit?: ProjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectInclude<ExtArgs> | null
+    /**
+     * Filter, which Project to fetch.
+     */
+    where?: ProjectWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Projects to fetch.
+     */
+    orderBy?: ProjectOrderByWithRelationInput | ProjectOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Projects.
+     */
+    cursor?: ProjectWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Projects from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Projects.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Projects.
+     */
+    distinct?: ProjectScalarFieldEnum | ProjectScalarFieldEnum[]
+  }
+
+  /**
+   * Project findFirstOrThrow
+   */
+  export type ProjectFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Project
+     */
+    select?: ProjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Project
+     */
+    omit?: ProjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectInclude<ExtArgs> | null
+    /**
+     * Filter, which Project to fetch.
+     */
+    where?: ProjectWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Projects to fetch.
+     */
+    orderBy?: ProjectOrderByWithRelationInput | ProjectOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Projects.
+     */
+    cursor?: ProjectWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Projects from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Projects.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Projects.
+     */
+    distinct?: ProjectScalarFieldEnum | ProjectScalarFieldEnum[]
+  }
+
+  /**
+   * Project findMany
+   */
+  export type ProjectFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Project
+     */
+    select?: ProjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Project
+     */
+    omit?: ProjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectInclude<ExtArgs> | null
+    /**
+     * Filter, which Projects to fetch.
+     */
+    where?: ProjectWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Projects to fetch.
+     */
+    orderBy?: ProjectOrderByWithRelationInput | ProjectOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Projects.
+     */
+    cursor?: ProjectWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Projects from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Projects.
+     */
+    skip?: number
+    distinct?: ProjectScalarFieldEnum | ProjectScalarFieldEnum[]
+  }
+
+  /**
+   * Project create
+   */
+  export type ProjectCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Project
+     */
+    select?: ProjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Project
+     */
+    omit?: ProjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Project.
+     */
+    data: XOR<ProjectCreateInput, ProjectUncheckedCreateInput>
+  }
+
+  /**
+   * Project createMany
+   */
+  export type ProjectCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Projects.
+     */
+    data: ProjectCreateManyInput | ProjectCreateManyInput[]
+  }
+
+  /**
+   * Project createManyAndReturn
+   */
+  export type ProjectCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Project
+     */
+    select?: ProjectSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Project
+     */
+    omit?: ProjectOmit<ExtArgs> | null
+    /**
+     * The data used to create many Projects.
+     */
+    data: ProjectCreateManyInput | ProjectCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Project update
+   */
+  export type ProjectUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Project
+     */
+    select?: ProjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Project
+     */
+    omit?: ProjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Project.
+     */
+    data: XOR<ProjectUpdateInput, ProjectUncheckedUpdateInput>
+    /**
+     * Choose, which Project to update.
+     */
+    where: ProjectWhereUniqueInput
+  }
+
+  /**
+   * Project updateMany
+   */
+  export type ProjectUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Projects.
+     */
+    data: XOR<ProjectUpdateManyMutationInput, ProjectUncheckedUpdateManyInput>
+    /**
+     * Filter which Projects to update
+     */
+    where?: ProjectWhereInput
+    /**
+     * Limit how many Projects to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Project updateManyAndReturn
+   */
+  export type ProjectUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Project
+     */
+    select?: ProjectSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Project
+     */
+    omit?: ProjectOmit<ExtArgs> | null
+    /**
+     * The data used to update Projects.
+     */
+    data: XOR<ProjectUpdateManyMutationInput, ProjectUncheckedUpdateManyInput>
+    /**
+     * Filter which Projects to update
+     */
+    where?: ProjectWhereInput
+    /**
+     * Limit how many Projects to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Project upsert
+   */
+  export type ProjectUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Project
+     */
+    select?: ProjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Project
+     */
+    omit?: ProjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Project to update in case it exists.
+     */
+    where: ProjectWhereUniqueInput
+    /**
+     * In case the Project found by the `where` argument doesn't exist, create a new Project with this data.
+     */
+    create: XOR<ProjectCreateInput, ProjectUncheckedCreateInput>
+    /**
+     * In case the Project was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ProjectUpdateInput, ProjectUncheckedUpdateInput>
+  }
+
+  /**
+   * Project delete
+   */
+  export type ProjectDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Project
+     */
+    select?: ProjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Project
+     */
+    omit?: ProjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectInclude<ExtArgs> | null
+    /**
+     * Filter which Project to delete.
+     */
+    where: ProjectWhereUniqueInput
+  }
+
+  /**
+   * Project deleteMany
+   */
+  export type ProjectDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Projects to delete
+     */
+    where?: ProjectWhereInput
+    /**
+     * Limit how many Projects to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Project.projectOwners
+   */
+  export type Project$projectOwnersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectOwner
+     */
+    select?: ProjectOwnerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectOwner
+     */
+    omit?: ProjectOwnerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectOwnerInclude<ExtArgs> | null
+    where?: ProjectOwnerWhereInput
+    orderBy?: ProjectOwnerOrderByWithRelationInput | ProjectOwnerOrderByWithRelationInput[]
+    cursor?: ProjectOwnerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ProjectOwnerScalarFieldEnum | ProjectOwnerScalarFieldEnum[]
+  }
+
+  /**
+   * Project.sites
+   */
+  export type Project$sitesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Site
+     */
+    select?: SiteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Site
+     */
+    omit?: SiteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SiteInclude<ExtArgs> | null
+    where?: SiteWhereInput
+    orderBy?: SiteOrderByWithRelationInput | SiteOrderByWithRelationInput[]
+    cursor?: SiteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SiteScalarFieldEnum | SiteScalarFieldEnum[]
+  }
+
+  /**
+   * Project without action
+   */
+  export type ProjectDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Project
+     */
+    select?: ProjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Project
+     */
+    omit?: ProjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Site
    */
 
@@ -16825,18 +16852,21 @@ export namespace Prisma {
   export type SiteAvgAggregateOutputType = {
     id: number | null
     workspaceId: number | null
+    projectId: number | null
     companyId: number | null
   }
 
   export type SiteSumAggregateOutputType = {
     id: number | null
     workspaceId: number | null
+    projectId: number | null
     companyId: number | null
   }
 
   export type SiteMinAggregateOutputType = {
     id: number | null
     workspaceId: number | null
+    projectId: number | null
     companyId: number | null
     name: string | null
     location: string | null
@@ -16851,6 +16881,7 @@ export namespace Prisma {
   export type SiteMaxAggregateOutputType = {
     id: number | null
     workspaceId: number | null
+    projectId: number | null
     companyId: number | null
     name: string | null
     location: string | null
@@ -16865,6 +16896,7 @@ export namespace Prisma {
   export type SiteCountAggregateOutputType = {
     id: number
     workspaceId: number
+    projectId: number
     companyId: number
     name: number
     location: number
@@ -16881,18 +16913,21 @@ export namespace Prisma {
   export type SiteAvgAggregateInputType = {
     id?: true
     workspaceId?: true
+    projectId?: true
     companyId?: true
   }
 
   export type SiteSumAggregateInputType = {
     id?: true
     workspaceId?: true
+    projectId?: true
     companyId?: true
   }
 
   export type SiteMinAggregateInputType = {
     id?: true
     workspaceId?: true
+    projectId?: true
     companyId?: true
     name?: true
     location?: true
@@ -16907,6 +16942,7 @@ export namespace Prisma {
   export type SiteMaxAggregateInputType = {
     id?: true
     workspaceId?: true
+    projectId?: true
     companyId?: true
     name?: true
     location?: true
@@ -16921,6 +16957,7 @@ export namespace Prisma {
   export type SiteCountAggregateInputType = {
     id?: true
     workspaceId?: true
+    projectId?: true
     companyId?: true
     name?: true
     location?: true
@@ -17022,6 +17059,7 @@ export namespace Prisma {
   export type SiteGroupByOutputType = {
     id: number
     workspaceId: number
+    projectId: number | null
     companyId: number
     name: string
     location: string
@@ -17055,6 +17093,7 @@ export namespace Prisma {
   export type SiteSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     workspaceId?: boolean
+    projectId?: boolean
     companyId?: boolean
     name?: boolean
     location?: boolean
@@ -17066,6 +17105,7 @@ export namespace Prisma {
     updatedAt?: boolean
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
     company?: boolean | CompanyDefaultArgs<ExtArgs>
+    project?: boolean | Site$projectArgs<ExtArgs>
     siteAttendances?: boolean | Site$siteAttendancesArgs<ExtArgs>
     _count?: boolean | SiteCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["site"]>
@@ -17073,6 +17113,7 @@ export namespace Prisma {
   export type SiteSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     workspaceId?: boolean
+    projectId?: boolean
     companyId?: boolean
     name?: boolean
     location?: boolean
@@ -17084,11 +17125,13 @@ export namespace Prisma {
     updatedAt?: boolean
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
     company?: boolean | CompanyDefaultArgs<ExtArgs>
+    project?: boolean | Site$projectArgs<ExtArgs>
   }, ExtArgs["result"]["site"]>
 
   export type SiteSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     workspaceId?: boolean
+    projectId?: boolean
     companyId?: boolean
     name?: boolean
     location?: boolean
@@ -17100,11 +17143,13 @@ export namespace Prisma {
     updatedAt?: boolean
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
     company?: boolean | CompanyDefaultArgs<ExtArgs>
+    project?: boolean | Site$projectArgs<ExtArgs>
   }, ExtArgs["result"]["site"]>
 
   export type SiteSelectScalar = {
     id?: boolean
     workspaceId?: boolean
+    projectId?: boolean
     companyId?: boolean
     name?: boolean
     location?: boolean
@@ -17116,20 +17161,23 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type SiteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "workspaceId" | "companyId" | "name" | "location" | "startDate" | "endDate" | "managementNumber" | "memo" | "createdAt" | "updatedAt", ExtArgs["result"]["site"]>
+  export type SiteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "workspaceId" | "projectId" | "companyId" | "name" | "location" | "startDate" | "endDate" | "managementNumber" | "memo" | "createdAt" | "updatedAt", ExtArgs["result"]["site"]>
   export type SiteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
     company?: boolean | CompanyDefaultArgs<ExtArgs>
+    project?: boolean | Site$projectArgs<ExtArgs>
     siteAttendances?: boolean | Site$siteAttendancesArgs<ExtArgs>
     _count?: boolean | SiteCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SiteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
     company?: boolean | CompanyDefaultArgs<ExtArgs>
+    project?: boolean | Site$projectArgs<ExtArgs>
   }
   export type SiteIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
     company?: boolean | CompanyDefaultArgs<ExtArgs>
+    project?: boolean | Site$projectArgs<ExtArgs>
   }
 
   export type $SitePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -17137,11 +17185,13 @@ export namespace Prisma {
     objects: {
       workspace: Prisma.$WorkspacePayload<ExtArgs>
       company: Prisma.$CompanyPayload<ExtArgs>
+      project: Prisma.$ProjectPayload<ExtArgs> | null
       siteAttendances: Prisma.$SiteAttendancePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       workspaceId: number
+      projectId: number | null
       companyId: number
       name: string
       location: string
@@ -17547,6 +17597,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     workspace<T extends WorkspaceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WorkspaceDefaultArgs<ExtArgs>>): Prisma__WorkspaceClient<$Result.GetResult<Prisma.$WorkspacePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     company<T extends CompanyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CompanyDefaultArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    project<T extends Site$projectArgs<ExtArgs> = {}>(args?: Subset<T, Site$projectArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     siteAttendances<T extends Site$siteAttendancesArgs<ExtArgs> = {}>(args?: Subset<T, Site$siteAttendancesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SiteAttendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -17579,6 +17630,7 @@ export namespace Prisma {
   interface SiteFieldRefs {
     readonly id: FieldRef<"Site", 'Int'>
     readonly workspaceId: FieldRef<"Site", 'Int'>
+    readonly projectId: FieldRef<"Site", 'Int'>
     readonly companyId: FieldRef<"Site", 'Int'>
     readonly name: FieldRef<"Site", 'String'>
     readonly location: FieldRef<"Site", 'String'>
@@ -17979,6 +18031,25 @@ export namespace Prisma {
      * Limit how many Sites to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Site.project
+   */
+  export type Site$projectArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Project
+     */
+    select?: ProjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Project
+     */
+    omit?: ProjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectInclude<ExtArgs> | null
+    where?: ProjectWhereInput
   }
 
   /**
@@ -20478,7 +20549,7 @@ export namespace Prisma {
     id: number | null
     firstLevelCode: number | null
     secondLevelCode: number | null
-    thirdLevelCode: number | null
+    industryCode: number | null
     rate: number | null
   }
 
@@ -20486,7 +20557,7 @@ export namespace Prisma {
     id: number | null
     firstLevelCode: number | null
     secondLevelCode: number | null
-    thirdLevelCode: number | null
+    industryCode: number | null
     rate: number | null
   }
 
@@ -20496,8 +20567,8 @@ export namespace Prisma {
     firstLevelCode: number | null
     secondLevel: string | null
     secondLevelCode: number | null
-    thirdLevel: string | null
-    thirdLevelCode: number | null
+    industryName: string | null
+    industryCode: number | null
     date: string | null
     rate: number | null
     createdAt: Date | null
@@ -20510,8 +20581,8 @@ export namespace Prisma {
     firstLevelCode: number | null
     secondLevel: string | null
     secondLevelCode: number | null
-    thirdLevel: string | null
-    thirdLevelCode: number | null
+    industryName: string | null
+    industryCode: number | null
     date: string | null
     rate: number | null
     createdAt: Date | null
@@ -20524,8 +20595,8 @@ export namespace Prisma {
     firstLevelCode: number
     secondLevel: number
     secondLevelCode: number
-    thirdLevel: number
-    thirdLevelCode: number
+    industryName: number
+    industryCode: number
     date: number
     rate: number
     createdAt: number
@@ -20538,7 +20609,7 @@ export namespace Prisma {
     id?: true
     firstLevelCode?: true
     secondLevelCode?: true
-    thirdLevelCode?: true
+    industryCode?: true
     rate?: true
   }
 
@@ -20546,7 +20617,7 @@ export namespace Prisma {
     id?: true
     firstLevelCode?: true
     secondLevelCode?: true
-    thirdLevelCode?: true
+    industryCode?: true
     rate?: true
   }
 
@@ -20556,8 +20627,8 @@ export namespace Prisma {
     firstLevelCode?: true
     secondLevel?: true
     secondLevelCode?: true
-    thirdLevel?: true
-    thirdLevelCode?: true
+    industryName?: true
+    industryCode?: true
     date?: true
     rate?: true
     createdAt?: true
@@ -20570,8 +20641,8 @@ export namespace Prisma {
     firstLevelCode?: true
     secondLevel?: true
     secondLevelCode?: true
-    thirdLevel?: true
-    thirdLevelCode?: true
+    industryName?: true
+    industryCode?: true
     date?: true
     rate?: true
     createdAt?: true
@@ -20584,8 +20655,8 @@ export namespace Prisma {
     firstLevelCode?: true
     secondLevel?: true
     secondLevelCode?: true
-    thirdLevel?: true
-    thirdLevelCode?: true
+    industryName?: true
+    industryCode?: true
     date?: true
     rate?: true
     createdAt?: true
@@ -20685,8 +20756,8 @@ export namespace Prisma {
     firstLevelCode: number | null
     secondLevel: string | null
     secondLevelCode: number | null
-    thirdLevel: string | null
-    thirdLevelCode: number | null
+    industryName: string | null
+    industryCode: number | null
     date: string | null
     rate: number | null
     createdAt: Date
@@ -20718,12 +20789,14 @@ export namespace Prisma {
     firstLevelCode?: boolean
     secondLevel?: boolean
     secondLevelCode?: boolean
-    thirdLevel?: boolean
-    thirdLevelCode?: boolean
+    industryName?: boolean
+    industryCode?: boolean
     date?: boolean
     rate?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    companyIndustryCodes?: boolean | IndustrialAccidentInsurancePremiumRate$companyIndustryCodesArgs<ExtArgs>
+    _count?: boolean | IndustrialAccidentInsurancePremiumRateCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["industrialAccidentInsurancePremiumRate"]>
 
   export type IndustrialAccidentInsurancePremiumRateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -20732,8 +20805,8 @@ export namespace Prisma {
     firstLevelCode?: boolean
     secondLevel?: boolean
     secondLevelCode?: boolean
-    thirdLevel?: boolean
-    thirdLevelCode?: boolean
+    industryName?: boolean
+    industryCode?: boolean
     date?: boolean
     rate?: boolean
     createdAt?: boolean
@@ -20746,8 +20819,8 @@ export namespace Prisma {
     firstLevelCode?: boolean
     secondLevel?: boolean
     secondLevelCode?: boolean
-    thirdLevel?: boolean
-    thirdLevelCode?: boolean
+    industryName?: boolean
+    industryCode?: boolean
     date?: boolean
     rate?: boolean
     createdAt?: boolean
@@ -20760,27 +20833,35 @@ export namespace Prisma {
     firstLevelCode?: boolean
     secondLevel?: boolean
     secondLevelCode?: boolean
-    thirdLevel?: boolean
-    thirdLevelCode?: boolean
+    industryName?: boolean
+    industryCode?: boolean
     date?: boolean
     rate?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type IndustrialAccidentInsurancePremiumRateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firstLevel" | "firstLevelCode" | "secondLevel" | "secondLevelCode" | "thirdLevel" | "thirdLevelCode" | "date" | "rate" | "createdAt" | "updatedAt", ExtArgs["result"]["industrialAccidentInsurancePremiumRate"]>
+  export type IndustrialAccidentInsurancePremiumRateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firstLevel" | "firstLevelCode" | "secondLevel" | "secondLevelCode" | "industryName" | "industryCode" | "date" | "rate" | "createdAt" | "updatedAt", ExtArgs["result"]["industrialAccidentInsurancePremiumRate"]>
+  export type IndustrialAccidentInsurancePremiumRateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    companyIndustryCodes?: boolean | IndustrialAccidentInsurancePremiumRate$companyIndustryCodesArgs<ExtArgs>
+    _count?: boolean | IndustrialAccidentInsurancePremiumRateCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type IndustrialAccidentInsurancePremiumRateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type IndustrialAccidentInsurancePremiumRateIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $IndustrialAccidentInsurancePremiumRatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "IndustrialAccidentInsurancePremiumRate"
-    objects: {}
+    objects: {
+      companyIndustryCodes: Prisma.$CompanyIndustryCodePayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       firstLevel: string | null
       firstLevelCode: number | null
       secondLevel: string | null
       secondLevelCode: number | null
-      thirdLevel: string | null
-      thirdLevelCode: number | null
+      industryName: string | null
+      industryCode: number | null
       date: string | null
       rate: number | null
       createdAt: Date
@@ -21179,6 +21260,7 @@ export namespace Prisma {
    */
   export interface Prisma__IndustrialAccidentInsurancePremiumRateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    companyIndustryCodes<T extends IndustrialAccidentInsurancePremiumRate$companyIndustryCodesArgs<ExtArgs> = {}>(args?: Subset<T, IndustrialAccidentInsurancePremiumRate$companyIndustryCodesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CompanyIndustryCodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -21213,8 +21295,8 @@ export namespace Prisma {
     readonly firstLevelCode: FieldRef<"IndustrialAccidentInsurancePremiumRate", 'Int'>
     readonly secondLevel: FieldRef<"IndustrialAccidentInsurancePremiumRate", 'String'>
     readonly secondLevelCode: FieldRef<"IndustrialAccidentInsurancePremiumRate", 'Int'>
-    readonly thirdLevel: FieldRef<"IndustrialAccidentInsurancePremiumRate", 'String'>
-    readonly thirdLevelCode: FieldRef<"IndustrialAccidentInsurancePremiumRate", 'Int'>
+    readonly industryName: FieldRef<"IndustrialAccidentInsurancePremiumRate", 'String'>
+    readonly industryCode: FieldRef<"IndustrialAccidentInsurancePremiumRate", 'Int'>
     readonly date: FieldRef<"IndustrialAccidentInsurancePremiumRate", 'String'>
     readonly rate: FieldRef<"IndustrialAccidentInsurancePremiumRate", 'Int'>
     readonly createdAt: FieldRef<"IndustrialAccidentInsurancePremiumRate", 'DateTime'>
@@ -21236,6 +21318,10 @@ export namespace Prisma {
      */
     omit?: IndustrialAccidentInsurancePremiumRateOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndustrialAccidentInsurancePremiumRateInclude<ExtArgs> | null
+    /**
      * Filter, which IndustrialAccidentInsurancePremiumRate to fetch.
      */
     where: IndustrialAccidentInsurancePremiumRateWhereUniqueInput
@@ -21254,6 +21340,10 @@ export namespace Prisma {
      */
     omit?: IndustrialAccidentInsurancePremiumRateOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndustrialAccidentInsurancePremiumRateInclude<ExtArgs> | null
+    /**
      * Filter, which IndustrialAccidentInsurancePremiumRate to fetch.
      */
     where: IndustrialAccidentInsurancePremiumRateWhereUniqueInput
@@ -21271,6 +21361,10 @@ export namespace Prisma {
      * Omit specific fields from the IndustrialAccidentInsurancePremiumRate
      */
     omit?: IndustrialAccidentInsurancePremiumRateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndustrialAccidentInsurancePremiumRateInclude<ExtArgs> | null
     /**
      * Filter, which IndustrialAccidentInsurancePremiumRate to fetch.
      */
@@ -21320,6 +21414,10 @@ export namespace Prisma {
      */
     omit?: IndustrialAccidentInsurancePremiumRateOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndustrialAccidentInsurancePremiumRateInclude<ExtArgs> | null
+    /**
      * Filter, which IndustrialAccidentInsurancePremiumRate to fetch.
      */
     where?: IndustrialAccidentInsurancePremiumRateWhereInput
@@ -21368,6 +21466,10 @@ export namespace Prisma {
      */
     omit?: IndustrialAccidentInsurancePremiumRateOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndustrialAccidentInsurancePremiumRateInclude<ExtArgs> | null
+    /**
      * Filter, which IndustrialAccidentInsurancePremiumRates to fetch.
      */
     where?: IndustrialAccidentInsurancePremiumRateWhereInput
@@ -21410,6 +21512,10 @@ export namespace Prisma {
      * Omit specific fields from the IndustrialAccidentInsurancePremiumRate
      */
     omit?: IndustrialAccidentInsurancePremiumRateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndustrialAccidentInsurancePremiumRateInclude<ExtArgs> | null
     /**
      * The data needed to create a IndustrialAccidentInsurancePremiumRate.
      */
@@ -21456,6 +21562,10 @@ export namespace Prisma {
      * Omit specific fields from the IndustrialAccidentInsurancePremiumRate
      */
     omit?: IndustrialAccidentInsurancePremiumRateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndustrialAccidentInsurancePremiumRateInclude<ExtArgs> | null
     /**
      * The data needed to update a IndustrialAccidentInsurancePremiumRate.
      */
@@ -21523,6 +21633,10 @@ export namespace Prisma {
      */
     omit?: IndustrialAccidentInsurancePremiumRateOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndustrialAccidentInsurancePremiumRateInclude<ExtArgs> | null
+    /**
      * The filter to search for the IndustrialAccidentInsurancePremiumRate to update in case it exists.
      */
     where: IndustrialAccidentInsurancePremiumRateWhereUniqueInput
@@ -21549,6 +21663,10 @@ export namespace Prisma {
      */
     omit?: IndustrialAccidentInsurancePremiumRateOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndustrialAccidentInsurancePremiumRateInclude<ExtArgs> | null
+    /**
      * Filter which IndustrialAccidentInsurancePremiumRate to delete.
      */
     where: IndustrialAccidentInsurancePremiumRateWhereUniqueInput
@@ -21569,6 +21687,30 @@ export namespace Prisma {
   }
 
   /**
+   * IndustrialAccidentInsurancePremiumRate.companyIndustryCodes
+   */
+  export type IndustrialAccidentInsurancePremiumRate$companyIndustryCodesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CompanyIndustryCode
+     */
+    select?: CompanyIndustryCodeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CompanyIndustryCode
+     */
+    omit?: CompanyIndustryCodeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CompanyIndustryCodeInclude<ExtArgs> | null
+    where?: CompanyIndustryCodeWhereInput
+    orderBy?: CompanyIndustryCodeOrderByWithRelationInput | CompanyIndustryCodeOrderByWithRelationInput[]
+    cursor?: CompanyIndustryCodeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CompanyIndustryCodeScalarFieldEnum | CompanyIndustryCodeScalarFieldEnum[]
+  }
+
+  /**
    * IndustrialAccidentInsurancePremiumRate without action
    */
   export type IndustrialAccidentInsurancePremiumRateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -21580,6 +21722,10 @@ export namespace Prisma {
      * Omit specific fields from the IndustrialAccidentInsurancePremiumRate
      */
     omit?: IndustrialAccidentInsurancePremiumRateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IndustrialAccidentInsurancePremiumRateInclude<ExtArgs> | null
   }
 
 
@@ -21790,6 +21936,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     company?: boolean | CompanyDefaultArgs<ExtArgs>
+    industrialAccidentInsurancePremiumRate?: boolean | IndustrialAccidentInsurancePremiumRateDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["companyIndustryCode"]>
 
   export type CompanyIndustryCodeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -21799,6 +21946,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     company?: boolean | CompanyDefaultArgs<ExtArgs>
+    industrialAccidentInsurancePremiumRate?: boolean | IndustrialAccidentInsurancePremiumRateDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["companyIndustryCode"]>
 
   export type CompanyIndustryCodeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -21808,6 +21956,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     company?: boolean | CompanyDefaultArgs<ExtArgs>
+    industrialAccidentInsurancePremiumRate?: boolean | IndustrialAccidentInsurancePremiumRateDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["companyIndustryCode"]>
 
   export type CompanyIndustryCodeSelectScalar = {
@@ -21821,18 +21970,22 @@ export namespace Prisma {
   export type CompanyIndustryCodeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "companyId" | "industryCode" | "createdAt" | "updatedAt", ExtArgs["result"]["companyIndustryCode"]>
   export type CompanyIndustryCodeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     company?: boolean | CompanyDefaultArgs<ExtArgs>
+    industrialAccidentInsurancePremiumRate?: boolean | IndustrialAccidentInsurancePremiumRateDefaultArgs<ExtArgs>
   }
   export type CompanyIndustryCodeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     company?: boolean | CompanyDefaultArgs<ExtArgs>
+    industrialAccidentInsurancePremiumRate?: boolean | IndustrialAccidentInsurancePremiumRateDefaultArgs<ExtArgs>
   }
   export type CompanyIndustryCodeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     company?: boolean | CompanyDefaultArgs<ExtArgs>
+    industrialAccidentInsurancePremiumRate?: boolean | IndustrialAccidentInsurancePremiumRateDefaultArgs<ExtArgs>
   }
 
   export type $CompanyIndustryCodePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "CompanyIndustryCode"
     objects: {
       company: Prisma.$CompanyPayload<ExtArgs>
+      industrialAccidentInsurancePremiumRate: Prisma.$IndustrialAccidentInsurancePremiumRatePayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -22235,6 +22388,7 @@ export namespace Prisma {
   export interface Prisma__CompanyIndustryCodeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     company<T extends CompanyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CompanyDefaultArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    industrialAccidentInsurancePremiumRate<T extends IndustrialAccidentInsurancePremiumRateDefaultArgs<ExtArgs> = {}>(args?: Subset<T, IndustrialAccidentInsurancePremiumRateDefaultArgs<ExtArgs>>): Prisma__IndustrialAccidentInsurancePremiumRateClient<$Result.GetResult<Prisma.$IndustrialAccidentInsurancePremiumRatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -22741,6 +22895,8 @@ export namespace Prisma {
     id: 'id',
     workspaceId: 'workspaceId',
     userId: 'userId',
+    profileId: 'profileId',
+    inviterId: 'inviterId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -22757,36 +22913,6 @@ export namespace Prisma {
   };
 
   export type WorkspaceOwnerScalarFieldEnum = (typeof WorkspaceOwnerScalarFieldEnum)[keyof typeof WorkspaceOwnerScalarFieldEnum]
-
-
-  export const WorkspaceInvitationScalarFieldEnum: {
-    id: 'id',
-    workspaceId: 'workspaceId',
-    createdBy: 'createdBy',
-    invitationType: 'invitationType',
-    invitationCode: 'invitationCode',
-    expiresAt: 'expiresAt',
-    maxUses: 'maxUses',
-    currentUses: 'currentUses',
-    isActive: 'isActive',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
-  };
-
-  export type WorkspaceInvitationScalarFieldEnum = (typeof WorkspaceInvitationScalarFieldEnum)[keyof typeof WorkspaceInvitationScalarFieldEnum]
-
-
-  export const WorkspaceInvitationUserScalarFieldEnum: {
-    id: 'id',
-    invitationId: 'invitationId',
-    profileId: 'profileId',
-    status: 'status',
-    acceptedAt: 'acceptedAt',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
-  };
-
-  export type WorkspaceInvitationUserScalarFieldEnum = (typeof WorkspaceInvitationUserScalarFieldEnum)[keyof typeof WorkspaceInvitationUserScalarFieldEnum]
 
 
   export const CompanyScalarFieldEnum: {
@@ -22838,9 +22964,34 @@ export namespace Prisma {
   export type OwnerScalarFieldEnum = (typeof OwnerScalarFieldEnum)[keyof typeof OwnerScalarFieldEnum]
 
 
+  export const ProjectOwnerScalarFieldEnum: {
+    id: 'id',
+    projectId: 'projectId',
+    name: 'name',
+    address: 'address',
+    phone: 'phone',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ProjectOwnerScalarFieldEnum = (typeof ProjectOwnerScalarFieldEnum)[keyof typeof ProjectOwnerScalarFieldEnum]
+
+
+  export const ProjectScalarFieldEnum: {
+    id: 'id',
+    workspaceId: 'workspaceId',
+    name: 'name',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ProjectScalarFieldEnum = (typeof ProjectScalarFieldEnum)[keyof typeof ProjectScalarFieldEnum]
+
+
   export const SiteScalarFieldEnum: {
     id: 'id',
     workspaceId: 'workspaceId',
+    projectId: 'projectId',
     companyId: 'companyId',
     name: 'name',
     location: 'location',
@@ -22892,8 +23043,8 @@ export namespace Prisma {
     firstLevelCode: 'firstLevelCode',
     secondLevel: 'secondLevel',
     secondLevelCode: 'secondLevelCode',
-    thirdLevel: 'thirdLevel',
-    thirdLevelCode: 'thirdLevelCode',
+    industryName: 'industryName',
+    industryCode: 'industryCode',
     date: 'date',
     rate: 'rate',
     createdAt: 'createdAt',
@@ -22953,27 +23104,6 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
-    
-
-
-  /**
-   * Reference to a field of type 'InvitationType'
-   */
-  export type EnumInvitationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InvitationType'>
-    
-
-
-  /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-  /**
-   * Reference to a field of type 'InvitationStatus'
-   */
-  export type EnumInvitationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InvitationStatus'>
     
 
 
@@ -23059,8 +23189,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Profile"> | Date | string
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     talentPools?: TalentPoolListRelationFilter
-    workspaceInvitationUsers?: WorkspaceInvitationUserListRelationFilter
     primaryProfile?: XOR<PrimaryProfileNullableScalarRelationFilter, PrimaryProfileWhereInput> | null
+    workspaceMembers?: WorkspaceMemberListRelationFilter
   }
 
   export type ProfileOrderByWithRelationInput = {
@@ -23074,8 +23204,8 @@ export namespace Prisma {
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
     talentPools?: TalentPoolOrderByRelationAggregateInput
-    workspaceInvitationUsers?: WorkspaceInvitationUserOrderByRelationAggregateInput
     primaryProfile?: PrimaryProfileOrderByWithRelationInput
+    workspaceMembers?: WorkspaceMemberOrderByRelationAggregateInput
   }
 
   export type ProfileWhereUniqueInput = Prisma.AtLeast<{
@@ -23092,8 +23222,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Profile"> | Date | string
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     talentPools?: TalentPoolListRelationFilter
-    workspaceInvitationUsers?: WorkspaceInvitationUserListRelationFilter
     primaryProfile?: XOR<PrimaryProfileNullableScalarRelationFilter, PrimaryProfileWhereInput> | null
+    workspaceMembers?: WorkspaceMemberListRelationFilter
   }, "id">
 
   export type ProfileOrderByWithAggregationInput = {
@@ -23199,7 +23329,7 @@ export namespace Prisma {
     talentPools?: TalentPoolListRelationFilter
     workspaceMembers?: WorkspaceMemberListRelationFilter
     workspaceOwners?: WorkspaceOwnerListRelationFilter
-    workspaceInvitations?: WorkspaceInvitationListRelationFilter
+    projects?: ProjectListRelationFilter
   }
 
   export type WorkspaceOrderByWithRelationInput = {
@@ -23212,7 +23342,7 @@ export namespace Prisma {
     talentPools?: TalentPoolOrderByRelationAggregateInput
     workspaceMembers?: WorkspaceMemberOrderByRelationAggregateInput
     workspaceOwners?: WorkspaceOwnerOrderByRelationAggregateInput
-    workspaceInvitations?: WorkspaceInvitationOrderByRelationAggregateInput
+    projects?: ProjectOrderByRelationAggregateInput
   }
 
   export type WorkspaceWhereUniqueInput = Prisma.AtLeast<{
@@ -23228,7 +23358,7 @@ export namespace Prisma {
     talentPools?: TalentPoolListRelationFilter
     workspaceMembers?: WorkspaceMemberListRelationFilter
     workspaceOwners?: WorkspaceOwnerListRelationFilter
-    workspaceInvitations?: WorkspaceInvitationListRelationFilter
+    projects?: ProjectListRelationFilter
   }, "id">
 
   export type WorkspaceOrderByWithAggregationInput = {
@@ -23260,26 +23390,34 @@ export namespace Prisma {
     id?: IntFilter<"WorkspaceMember"> | number
     workspaceId?: IntFilter<"WorkspaceMember"> | number
     userId?: IntFilter<"WorkspaceMember"> | number
+    profileId?: IntFilter<"WorkspaceMember"> | number
+    inviterId?: IntNullableFilter<"WorkspaceMember"> | number | null
     createdAt?: DateTimeFilter<"WorkspaceMember"> | Date | string
     updatedAt?: DateTimeFilter<"WorkspaceMember"> | Date | string
     workspace?: XOR<WorkspaceScalarRelationFilter, WorkspaceWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    profile?: XOR<ProfileScalarRelationFilter, ProfileWhereInput>
+    inviter?: XOR<WorkspaceMemberNullableScalarRelationFilter, WorkspaceMemberWhereInput> | null
     owners?: WorkspaceOwnerListRelationFilter
-    workspaceInvitationsCreated?: WorkspaceInvitationListRelationFilter
     companiesCreated?: CompanyListRelationFilter
+    invitedMembers?: WorkspaceMemberListRelationFilter
   }
 
   export type WorkspaceMemberOrderByWithRelationInput = {
     id?: SortOrder
     workspaceId?: SortOrder
     userId?: SortOrder
+    profileId?: SortOrder
+    inviterId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     workspace?: WorkspaceOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
+    profile?: ProfileOrderByWithRelationInput
+    inviter?: WorkspaceMemberOrderByWithRelationInput
     owners?: WorkspaceOwnerOrderByRelationAggregateInput
-    workspaceInvitationsCreated?: WorkspaceInvitationOrderByRelationAggregateInput
     companiesCreated?: CompanyOrderByRelationAggregateInput
+    invitedMembers?: WorkspaceMemberOrderByRelationAggregateInput
   }
 
   export type WorkspaceMemberWhereUniqueInput = Prisma.AtLeast<{
@@ -23290,19 +23428,25 @@ export namespace Prisma {
     NOT?: WorkspaceMemberWhereInput | WorkspaceMemberWhereInput[]
     workspaceId?: IntFilter<"WorkspaceMember"> | number
     userId?: IntFilter<"WorkspaceMember"> | number
+    profileId?: IntFilter<"WorkspaceMember"> | number
+    inviterId?: IntNullableFilter<"WorkspaceMember"> | number | null
     createdAt?: DateTimeFilter<"WorkspaceMember"> | Date | string
     updatedAt?: DateTimeFilter<"WorkspaceMember"> | Date | string
     workspace?: XOR<WorkspaceScalarRelationFilter, WorkspaceWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    profile?: XOR<ProfileScalarRelationFilter, ProfileWhereInput>
+    inviter?: XOR<WorkspaceMemberNullableScalarRelationFilter, WorkspaceMemberWhereInput> | null
     owners?: WorkspaceOwnerListRelationFilter
-    workspaceInvitationsCreated?: WorkspaceInvitationListRelationFilter
     companiesCreated?: CompanyListRelationFilter
+    invitedMembers?: WorkspaceMemberListRelationFilter
   }, "id" | "workspaceId_userId">
 
   export type WorkspaceMemberOrderByWithAggregationInput = {
     id?: SortOrder
     workspaceId?: SortOrder
     userId?: SortOrder
+    profileId?: SortOrder
+    inviterId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: WorkspaceMemberCountOrderByAggregateInput
@@ -23319,6 +23463,8 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"WorkspaceMember"> | number
     workspaceId?: IntWithAggregatesFilter<"WorkspaceMember"> | number
     userId?: IntWithAggregatesFilter<"WorkspaceMember"> | number
+    profileId?: IntWithAggregatesFilter<"WorkspaceMember"> | number
+    inviterId?: IntNullableWithAggregatesFilter<"WorkspaceMember"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"WorkspaceMember"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"WorkspaceMember"> | Date | string
   }
@@ -23381,170 +23527,6 @@ export namespace Prisma {
     workspaceMemberId?: IntWithAggregatesFilter<"WorkspaceOwner"> | number
     createdAt?: DateTimeWithAggregatesFilter<"WorkspaceOwner"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"WorkspaceOwner"> | Date | string
-  }
-
-  export type WorkspaceInvitationWhereInput = {
-    AND?: WorkspaceInvitationWhereInput | WorkspaceInvitationWhereInput[]
-    OR?: WorkspaceInvitationWhereInput[]
-    NOT?: WorkspaceInvitationWhereInput | WorkspaceInvitationWhereInput[]
-    id?: IntFilter<"WorkspaceInvitation"> | number
-    workspaceId?: IntFilter<"WorkspaceInvitation"> | number
-    createdBy?: IntFilter<"WorkspaceInvitation"> | number
-    invitationType?: EnumInvitationTypeFilter<"WorkspaceInvitation"> | $Enums.InvitationType
-    invitationCode?: StringFilter<"WorkspaceInvitation"> | string
-    expiresAt?: DateTimeNullableFilter<"WorkspaceInvitation"> | Date | string | null
-    maxUses?: IntNullableFilter<"WorkspaceInvitation"> | number | null
-    currentUses?: IntFilter<"WorkspaceInvitation"> | number
-    isActive?: BoolFilter<"WorkspaceInvitation"> | boolean
-    createdAt?: DateTimeFilter<"WorkspaceInvitation"> | Date | string
-    updatedAt?: DateTimeFilter<"WorkspaceInvitation"> | Date | string
-    workspace?: XOR<WorkspaceScalarRelationFilter, WorkspaceWhereInput>
-    createdByMember?: XOR<WorkspaceMemberScalarRelationFilter, WorkspaceMemberWhereInput>
-    invitationUsers?: WorkspaceInvitationUserListRelationFilter
-  }
-
-  export type WorkspaceInvitationOrderByWithRelationInput = {
-    id?: SortOrder
-    workspaceId?: SortOrder
-    createdBy?: SortOrder
-    invitationType?: SortOrder
-    invitationCode?: SortOrder
-    expiresAt?: SortOrderInput | SortOrder
-    maxUses?: SortOrderInput | SortOrder
-    currentUses?: SortOrder
-    isActive?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    workspace?: WorkspaceOrderByWithRelationInput
-    createdByMember?: WorkspaceMemberOrderByWithRelationInput
-    invitationUsers?: WorkspaceInvitationUserOrderByRelationAggregateInput
-  }
-
-  export type WorkspaceInvitationWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
-    invitationCode?: string
-    AND?: WorkspaceInvitationWhereInput | WorkspaceInvitationWhereInput[]
-    OR?: WorkspaceInvitationWhereInput[]
-    NOT?: WorkspaceInvitationWhereInput | WorkspaceInvitationWhereInput[]
-    workspaceId?: IntFilter<"WorkspaceInvitation"> | number
-    createdBy?: IntFilter<"WorkspaceInvitation"> | number
-    invitationType?: EnumInvitationTypeFilter<"WorkspaceInvitation"> | $Enums.InvitationType
-    expiresAt?: DateTimeNullableFilter<"WorkspaceInvitation"> | Date | string | null
-    maxUses?: IntNullableFilter<"WorkspaceInvitation"> | number | null
-    currentUses?: IntFilter<"WorkspaceInvitation"> | number
-    isActive?: BoolFilter<"WorkspaceInvitation"> | boolean
-    createdAt?: DateTimeFilter<"WorkspaceInvitation"> | Date | string
-    updatedAt?: DateTimeFilter<"WorkspaceInvitation"> | Date | string
-    workspace?: XOR<WorkspaceScalarRelationFilter, WorkspaceWhereInput>
-    createdByMember?: XOR<WorkspaceMemberScalarRelationFilter, WorkspaceMemberWhereInput>
-    invitationUsers?: WorkspaceInvitationUserListRelationFilter
-  }, "id" | "invitationCode">
-
-  export type WorkspaceInvitationOrderByWithAggregationInput = {
-    id?: SortOrder
-    workspaceId?: SortOrder
-    createdBy?: SortOrder
-    invitationType?: SortOrder
-    invitationCode?: SortOrder
-    expiresAt?: SortOrderInput | SortOrder
-    maxUses?: SortOrderInput | SortOrder
-    currentUses?: SortOrder
-    isActive?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    _count?: WorkspaceInvitationCountOrderByAggregateInput
-    _avg?: WorkspaceInvitationAvgOrderByAggregateInput
-    _max?: WorkspaceInvitationMaxOrderByAggregateInput
-    _min?: WorkspaceInvitationMinOrderByAggregateInput
-    _sum?: WorkspaceInvitationSumOrderByAggregateInput
-  }
-
-  export type WorkspaceInvitationScalarWhereWithAggregatesInput = {
-    AND?: WorkspaceInvitationScalarWhereWithAggregatesInput | WorkspaceInvitationScalarWhereWithAggregatesInput[]
-    OR?: WorkspaceInvitationScalarWhereWithAggregatesInput[]
-    NOT?: WorkspaceInvitationScalarWhereWithAggregatesInput | WorkspaceInvitationScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"WorkspaceInvitation"> | number
-    workspaceId?: IntWithAggregatesFilter<"WorkspaceInvitation"> | number
-    createdBy?: IntWithAggregatesFilter<"WorkspaceInvitation"> | number
-    invitationType?: EnumInvitationTypeWithAggregatesFilter<"WorkspaceInvitation"> | $Enums.InvitationType
-    invitationCode?: StringWithAggregatesFilter<"WorkspaceInvitation"> | string
-    expiresAt?: DateTimeNullableWithAggregatesFilter<"WorkspaceInvitation"> | Date | string | null
-    maxUses?: IntNullableWithAggregatesFilter<"WorkspaceInvitation"> | number | null
-    currentUses?: IntWithAggregatesFilter<"WorkspaceInvitation"> | number
-    isActive?: BoolWithAggregatesFilter<"WorkspaceInvitation"> | boolean
-    createdAt?: DateTimeWithAggregatesFilter<"WorkspaceInvitation"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"WorkspaceInvitation"> | Date | string
-  }
-
-  export type WorkspaceInvitationUserWhereInput = {
-    AND?: WorkspaceInvitationUserWhereInput | WorkspaceInvitationUserWhereInput[]
-    OR?: WorkspaceInvitationUserWhereInput[]
-    NOT?: WorkspaceInvitationUserWhereInput | WorkspaceInvitationUserWhereInput[]
-    id?: IntFilter<"WorkspaceInvitationUser"> | number
-    invitationId?: IntFilter<"WorkspaceInvitationUser"> | number
-    profileId?: IntFilter<"WorkspaceInvitationUser"> | number
-    status?: EnumInvitationStatusFilter<"WorkspaceInvitationUser"> | $Enums.InvitationStatus
-    acceptedAt?: DateTimeNullableFilter<"WorkspaceInvitationUser"> | Date | string | null
-    createdAt?: DateTimeFilter<"WorkspaceInvitationUser"> | Date | string
-    updatedAt?: DateTimeFilter<"WorkspaceInvitationUser"> | Date | string
-    invitation?: XOR<WorkspaceInvitationScalarRelationFilter, WorkspaceInvitationWhereInput>
-    profile?: XOR<ProfileScalarRelationFilter, ProfileWhereInput>
-  }
-
-  export type WorkspaceInvitationUserOrderByWithRelationInput = {
-    id?: SortOrder
-    invitationId?: SortOrder
-    profileId?: SortOrder
-    status?: SortOrder
-    acceptedAt?: SortOrderInput | SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    invitation?: WorkspaceInvitationOrderByWithRelationInput
-    profile?: ProfileOrderByWithRelationInput
-  }
-
-  export type WorkspaceInvitationUserWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
-    invitationId_profileId?: WorkspaceInvitationUserInvitationIdProfileIdCompoundUniqueInput
-    AND?: WorkspaceInvitationUserWhereInput | WorkspaceInvitationUserWhereInput[]
-    OR?: WorkspaceInvitationUserWhereInput[]
-    NOT?: WorkspaceInvitationUserWhereInput | WorkspaceInvitationUserWhereInput[]
-    invitationId?: IntFilter<"WorkspaceInvitationUser"> | number
-    profileId?: IntFilter<"WorkspaceInvitationUser"> | number
-    status?: EnumInvitationStatusFilter<"WorkspaceInvitationUser"> | $Enums.InvitationStatus
-    acceptedAt?: DateTimeNullableFilter<"WorkspaceInvitationUser"> | Date | string | null
-    createdAt?: DateTimeFilter<"WorkspaceInvitationUser"> | Date | string
-    updatedAt?: DateTimeFilter<"WorkspaceInvitationUser"> | Date | string
-    invitation?: XOR<WorkspaceInvitationScalarRelationFilter, WorkspaceInvitationWhereInput>
-    profile?: XOR<ProfileScalarRelationFilter, ProfileWhereInput>
-  }, "id" | "invitationId_profileId">
-
-  export type WorkspaceInvitationUserOrderByWithAggregationInput = {
-    id?: SortOrder
-    invitationId?: SortOrder
-    profileId?: SortOrder
-    status?: SortOrder
-    acceptedAt?: SortOrderInput | SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    _count?: WorkspaceInvitationUserCountOrderByAggregateInput
-    _avg?: WorkspaceInvitationUserAvgOrderByAggregateInput
-    _max?: WorkspaceInvitationUserMaxOrderByAggregateInput
-    _min?: WorkspaceInvitationUserMinOrderByAggregateInput
-    _sum?: WorkspaceInvitationUserSumOrderByAggregateInput
-  }
-
-  export type WorkspaceInvitationUserScalarWhereWithAggregatesInput = {
-    AND?: WorkspaceInvitationUserScalarWhereWithAggregatesInput | WorkspaceInvitationUserScalarWhereWithAggregatesInput[]
-    OR?: WorkspaceInvitationUserScalarWhereWithAggregatesInput[]
-    NOT?: WorkspaceInvitationUserScalarWhereWithAggregatesInput | WorkspaceInvitationUserScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"WorkspaceInvitationUser"> | number
-    invitationId?: IntWithAggregatesFilter<"WorkspaceInvitationUser"> | number
-    profileId?: IntWithAggregatesFilter<"WorkspaceInvitationUser"> | number
-    status?: EnumInvitationStatusWithAggregatesFilter<"WorkspaceInvitationUser"> | $Enums.InvitationStatus
-    acceptedAt?: DateTimeNullableWithAggregatesFilter<"WorkspaceInvitationUser"> | Date | string | null
-    createdAt?: DateTimeWithAggregatesFilter<"WorkspaceInvitationUser"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"WorkspaceInvitationUser"> | Date | string
   }
 
   export type CompanyWhereInput = {
@@ -23830,12 +23812,143 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Owner"> | Date | string
   }
 
+  export type ProjectOwnerWhereInput = {
+    AND?: ProjectOwnerWhereInput | ProjectOwnerWhereInput[]
+    OR?: ProjectOwnerWhereInput[]
+    NOT?: ProjectOwnerWhereInput | ProjectOwnerWhereInput[]
+    id?: IntFilter<"ProjectOwner"> | number
+    projectId?: IntFilter<"ProjectOwner"> | number
+    name?: StringFilter<"ProjectOwner"> | string
+    address?: StringFilter<"ProjectOwner"> | string
+    phone?: StringFilter<"ProjectOwner"> | string
+    createdAt?: DateTimeFilter<"ProjectOwner"> | Date | string
+    updatedAt?: DateTimeFilter<"ProjectOwner"> | Date | string
+    project?: XOR<ProjectScalarRelationFilter, ProjectWhereInput>
+  }
+
+  export type ProjectOwnerOrderByWithRelationInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+    name?: SortOrder
+    address?: SortOrder
+    phone?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    project?: ProjectOrderByWithRelationInput
+  }
+
+  export type ProjectOwnerWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: ProjectOwnerWhereInput | ProjectOwnerWhereInput[]
+    OR?: ProjectOwnerWhereInput[]
+    NOT?: ProjectOwnerWhereInput | ProjectOwnerWhereInput[]
+    projectId?: IntFilter<"ProjectOwner"> | number
+    name?: StringFilter<"ProjectOwner"> | string
+    address?: StringFilter<"ProjectOwner"> | string
+    phone?: StringFilter<"ProjectOwner"> | string
+    createdAt?: DateTimeFilter<"ProjectOwner"> | Date | string
+    updatedAt?: DateTimeFilter<"ProjectOwner"> | Date | string
+    project?: XOR<ProjectScalarRelationFilter, ProjectWhereInput>
+  }, "id">
+
+  export type ProjectOwnerOrderByWithAggregationInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+    name?: SortOrder
+    address?: SortOrder
+    phone?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ProjectOwnerCountOrderByAggregateInput
+    _avg?: ProjectOwnerAvgOrderByAggregateInput
+    _max?: ProjectOwnerMaxOrderByAggregateInput
+    _min?: ProjectOwnerMinOrderByAggregateInput
+    _sum?: ProjectOwnerSumOrderByAggregateInput
+  }
+
+  export type ProjectOwnerScalarWhereWithAggregatesInput = {
+    AND?: ProjectOwnerScalarWhereWithAggregatesInput | ProjectOwnerScalarWhereWithAggregatesInput[]
+    OR?: ProjectOwnerScalarWhereWithAggregatesInput[]
+    NOT?: ProjectOwnerScalarWhereWithAggregatesInput | ProjectOwnerScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"ProjectOwner"> | number
+    projectId?: IntWithAggregatesFilter<"ProjectOwner"> | number
+    name?: StringWithAggregatesFilter<"ProjectOwner"> | string
+    address?: StringWithAggregatesFilter<"ProjectOwner"> | string
+    phone?: StringWithAggregatesFilter<"ProjectOwner"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"ProjectOwner"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ProjectOwner"> | Date | string
+  }
+
+  export type ProjectWhereInput = {
+    AND?: ProjectWhereInput | ProjectWhereInput[]
+    OR?: ProjectWhereInput[]
+    NOT?: ProjectWhereInput | ProjectWhereInput[]
+    id?: IntFilter<"Project"> | number
+    workspaceId?: IntFilter<"Project"> | number
+    name?: StringFilter<"Project"> | string
+    createdAt?: DateTimeFilter<"Project"> | Date | string
+    updatedAt?: DateTimeFilter<"Project"> | Date | string
+    workspace?: XOR<WorkspaceScalarRelationFilter, WorkspaceWhereInput>
+    projectOwners?: ProjectOwnerListRelationFilter
+    sites?: SiteListRelationFilter
+  }
+
+  export type ProjectOrderByWithRelationInput = {
+    id?: SortOrder
+    workspaceId?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    workspace?: WorkspaceOrderByWithRelationInput
+    projectOwners?: ProjectOwnerOrderByRelationAggregateInput
+    sites?: SiteOrderByRelationAggregateInput
+  }
+
+  export type ProjectWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: ProjectWhereInput | ProjectWhereInput[]
+    OR?: ProjectWhereInput[]
+    NOT?: ProjectWhereInput | ProjectWhereInput[]
+    workspaceId?: IntFilter<"Project"> | number
+    name?: StringFilter<"Project"> | string
+    createdAt?: DateTimeFilter<"Project"> | Date | string
+    updatedAt?: DateTimeFilter<"Project"> | Date | string
+    workspace?: XOR<WorkspaceScalarRelationFilter, WorkspaceWhereInput>
+    projectOwners?: ProjectOwnerListRelationFilter
+    sites?: SiteListRelationFilter
+  }, "id">
+
+  export type ProjectOrderByWithAggregationInput = {
+    id?: SortOrder
+    workspaceId?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ProjectCountOrderByAggregateInput
+    _avg?: ProjectAvgOrderByAggregateInput
+    _max?: ProjectMaxOrderByAggregateInput
+    _min?: ProjectMinOrderByAggregateInput
+    _sum?: ProjectSumOrderByAggregateInput
+  }
+
+  export type ProjectScalarWhereWithAggregatesInput = {
+    AND?: ProjectScalarWhereWithAggregatesInput | ProjectScalarWhereWithAggregatesInput[]
+    OR?: ProjectScalarWhereWithAggregatesInput[]
+    NOT?: ProjectScalarWhereWithAggregatesInput | ProjectScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Project"> | number
+    workspaceId?: IntWithAggregatesFilter<"Project"> | number
+    name?: StringWithAggregatesFilter<"Project"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Project"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Project"> | Date | string
+  }
+
   export type SiteWhereInput = {
     AND?: SiteWhereInput | SiteWhereInput[]
     OR?: SiteWhereInput[]
     NOT?: SiteWhereInput | SiteWhereInput[]
     id?: IntFilter<"Site"> | number
     workspaceId?: IntFilter<"Site"> | number
+    projectId?: IntNullableFilter<"Site"> | number | null
     companyId?: IntFilter<"Site"> | number
     name?: StringFilter<"Site"> | string
     location?: StringFilter<"Site"> | string
@@ -23847,12 +23960,14 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Site"> | Date | string
     workspace?: XOR<WorkspaceScalarRelationFilter, WorkspaceWhereInput>
     company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
+    project?: XOR<ProjectNullableScalarRelationFilter, ProjectWhereInput> | null
     siteAttendances?: SiteAttendanceListRelationFilter
   }
 
   export type SiteOrderByWithRelationInput = {
     id?: SortOrder
     workspaceId?: SortOrder
+    projectId?: SortOrderInput | SortOrder
     companyId?: SortOrder
     name?: SortOrder
     location?: SortOrder
@@ -23864,6 +23979,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     workspace?: WorkspaceOrderByWithRelationInput
     company?: CompanyOrderByWithRelationInput
+    project?: ProjectOrderByWithRelationInput
     siteAttendances?: SiteAttendanceOrderByRelationAggregateInput
   }
 
@@ -23873,6 +23989,7 @@ export namespace Prisma {
     OR?: SiteWhereInput[]
     NOT?: SiteWhereInput | SiteWhereInput[]
     workspaceId?: IntFilter<"Site"> | number
+    projectId?: IntNullableFilter<"Site"> | number | null
     companyId?: IntFilter<"Site"> | number
     name?: StringFilter<"Site"> | string
     location?: StringFilter<"Site"> | string
@@ -23884,12 +24001,14 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Site"> | Date | string
     workspace?: XOR<WorkspaceScalarRelationFilter, WorkspaceWhereInput>
     company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
+    project?: XOR<ProjectNullableScalarRelationFilter, ProjectWhereInput> | null
     siteAttendances?: SiteAttendanceListRelationFilter
   }, "id">
 
   export type SiteOrderByWithAggregationInput = {
     id?: SortOrder
     workspaceId?: SortOrder
+    projectId?: SortOrderInput | SortOrder
     companyId?: SortOrder
     name?: SortOrder
     location?: SortOrder
@@ -23912,6 +24031,7 @@ export namespace Prisma {
     NOT?: SiteScalarWhereWithAggregatesInput | SiteScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Site"> | number
     workspaceId?: IntWithAggregatesFilter<"Site"> | number
+    projectId?: IntNullableWithAggregatesFilter<"Site"> | number | null
     companyId?: IntWithAggregatesFilter<"Site"> | number
     name?: StringWithAggregatesFilter<"Site"> | string
     location?: StringWithAggregatesFilter<"Site"> | string
@@ -24106,12 +24226,13 @@ export namespace Prisma {
     firstLevelCode?: IntNullableFilter<"IndustrialAccidentInsurancePremiumRate"> | number | null
     secondLevel?: StringNullableFilter<"IndustrialAccidentInsurancePremiumRate"> | string | null
     secondLevelCode?: IntNullableFilter<"IndustrialAccidentInsurancePremiumRate"> | number | null
-    thirdLevel?: StringNullableFilter<"IndustrialAccidentInsurancePremiumRate"> | string | null
-    thirdLevelCode?: IntNullableFilter<"IndustrialAccidentInsurancePremiumRate"> | number | null
+    industryName?: StringNullableFilter<"IndustrialAccidentInsurancePremiumRate"> | string | null
+    industryCode?: IntNullableFilter<"IndustrialAccidentInsurancePremiumRate"> | number | null
     date?: StringNullableFilter<"IndustrialAccidentInsurancePremiumRate"> | string | null
     rate?: IntNullableFilter<"IndustrialAccidentInsurancePremiumRate"> | number | null
     createdAt?: DateTimeFilter<"IndustrialAccidentInsurancePremiumRate"> | Date | string
     updatedAt?: DateTimeFilter<"IndustrialAccidentInsurancePremiumRate"> | Date | string
+    companyIndustryCodes?: CompanyIndustryCodeListRelationFilter
   }
 
   export type IndustrialAccidentInsurancePremiumRateOrderByWithRelationInput = {
@@ -24120,12 +24241,13 @@ export namespace Prisma {
     firstLevelCode?: SortOrderInput | SortOrder
     secondLevel?: SortOrderInput | SortOrder
     secondLevelCode?: SortOrderInput | SortOrder
-    thirdLevel?: SortOrderInput | SortOrder
-    thirdLevelCode?: SortOrderInput | SortOrder
+    industryName?: SortOrderInput | SortOrder
+    industryCode?: SortOrderInput | SortOrder
     date?: SortOrderInput | SortOrder
     rate?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    companyIndustryCodes?: CompanyIndustryCodeOrderByRelationAggregateInput
   }
 
   export type IndustrialAccidentInsurancePremiumRateWhereUniqueInput = Prisma.AtLeast<{
@@ -24137,12 +24259,13 @@ export namespace Prisma {
     firstLevelCode?: IntNullableFilter<"IndustrialAccidentInsurancePremiumRate"> | number | null
     secondLevel?: StringNullableFilter<"IndustrialAccidentInsurancePremiumRate"> | string | null
     secondLevelCode?: IntNullableFilter<"IndustrialAccidentInsurancePremiumRate"> | number | null
-    thirdLevel?: StringNullableFilter<"IndustrialAccidentInsurancePremiumRate"> | string | null
-    thirdLevelCode?: IntNullableFilter<"IndustrialAccidentInsurancePremiumRate"> | number | null
+    industryName?: StringNullableFilter<"IndustrialAccidentInsurancePremiumRate"> | string | null
+    industryCode?: IntNullableFilter<"IndustrialAccidentInsurancePremiumRate"> | number | null
     date?: StringNullableFilter<"IndustrialAccidentInsurancePremiumRate"> | string | null
     rate?: IntNullableFilter<"IndustrialAccidentInsurancePremiumRate"> | number | null
     createdAt?: DateTimeFilter<"IndustrialAccidentInsurancePremiumRate"> | Date | string
     updatedAt?: DateTimeFilter<"IndustrialAccidentInsurancePremiumRate"> | Date | string
+    companyIndustryCodes?: CompanyIndustryCodeListRelationFilter
   }, "id">
 
   export type IndustrialAccidentInsurancePremiumRateOrderByWithAggregationInput = {
@@ -24151,8 +24274,8 @@ export namespace Prisma {
     firstLevelCode?: SortOrderInput | SortOrder
     secondLevel?: SortOrderInput | SortOrder
     secondLevelCode?: SortOrderInput | SortOrder
-    thirdLevel?: SortOrderInput | SortOrder
-    thirdLevelCode?: SortOrderInput | SortOrder
+    industryName?: SortOrderInput | SortOrder
+    industryCode?: SortOrderInput | SortOrder
     date?: SortOrderInput | SortOrder
     rate?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -24173,8 +24296,8 @@ export namespace Prisma {
     firstLevelCode?: IntNullableWithAggregatesFilter<"IndustrialAccidentInsurancePremiumRate"> | number | null
     secondLevel?: StringNullableWithAggregatesFilter<"IndustrialAccidentInsurancePremiumRate"> | string | null
     secondLevelCode?: IntNullableWithAggregatesFilter<"IndustrialAccidentInsurancePremiumRate"> | number | null
-    thirdLevel?: StringNullableWithAggregatesFilter<"IndustrialAccidentInsurancePremiumRate"> | string | null
-    thirdLevelCode?: IntNullableWithAggregatesFilter<"IndustrialAccidentInsurancePremiumRate"> | number | null
+    industryName?: StringNullableWithAggregatesFilter<"IndustrialAccidentInsurancePremiumRate"> | string | null
+    industryCode?: IntNullableWithAggregatesFilter<"IndustrialAccidentInsurancePremiumRate"> | number | null
     date?: StringNullableWithAggregatesFilter<"IndustrialAccidentInsurancePremiumRate"> | string | null
     rate?: IntNullableWithAggregatesFilter<"IndustrialAccidentInsurancePremiumRate"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"IndustrialAccidentInsurancePremiumRate"> | Date | string
@@ -24191,6 +24314,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"CompanyIndustryCode"> | Date | string
     updatedAt?: DateTimeFilter<"CompanyIndustryCode"> | Date | string
     company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
+    industrialAccidentInsurancePremiumRate?: XOR<IndustrialAccidentInsurancePremiumRateScalarRelationFilter, IndustrialAccidentInsurancePremiumRateWhereInput>
   }
 
   export type CompanyIndustryCodeOrderByWithRelationInput = {
@@ -24200,6 +24324,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     company?: CompanyOrderByWithRelationInput
+    industrialAccidentInsurancePremiumRate?: IndustrialAccidentInsurancePremiumRateOrderByWithRelationInput
   }
 
   export type CompanyIndustryCodeWhereUniqueInput = Prisma.AtLeast<{
@@ -24212,6 +24337,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"CompanyIndustryCode"> | Date | string
     updatedAt?: DateTimeFilter<"CompanyIndustryCode"> | Date | string
     company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
+    industrialAccidentInsurancePremiumRate?: XOR<IndustrialAccidentInsurancePremiumRateScalarRelationFilter, IndustrialAccidentInsurancePremiumRateWhereInput>
   }, "id">
 
   export type CompanyIndustryCodeOrderByWithAggregationInput = {
@@ -24305,8 +24431,8 @@ export namespace Prisma {
     updatedAt?: Date | string
     user?: UserCreateNestedOneWithoutProfilesInput
     talentPools?: TalentPoolCreateNestedManyWithoutProfileInput
-    workspaceInvitationUsers?: WorkspaceInvitationUserCreateNestedManyWithoutProfileInput
     primaryProfile?: PrimaryProfileCreateNestedOneWithoutProfileInput
+    workspaceMembers?: WorkspaceMemberCreateNestedManyWithoutProfileInput
   }
 
   export type ProfileUncheckedCreateInput = {
@@ -24319,8 +24445,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     talentPools?: TalentPoolUncheckedCreateNestedManyWithoutProfileInput
-    workspaceInvitationUsers?: WorkspaceInvitationUserUncheckedCreateNestedManyWithoutProfileInput
     primaryProfile?: PrimaryProfileUncheckedCreateNestedOneWithoutProfileInput
+    workspaceMembers?: WorkspaceMemberUncheckedCreateNestedManyWithoutProfileInput
   }
 
   export type ProfileUpdateInput = {
@@ -24332,8 +24458,8 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneWithoutProfilesNestedInput
     talentPools?: TalentPoolUpdateManyWithoutProfileNestedInput
-    workspaceInvitationUsers?: WorkspaceInvitationUserUpdateManyWithoutProfileNestedInput
     primaryProfile?: PrimaryProfileUpdateOneWithoutProfileNestedInput
+    workspaceMembers?: WorkspaceMemberUpdateManyWithoutProfileNestedInput
   }
 
   export type ProfileUncheckedUpdateInput = {
@@ -24346,8 +24472,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     talentPools?: TalentPoolUncheckedUpdateManyWithoutProfileNestedInput
-    workspaceInvitationUsers?: WorkspaceInvitationUserUncheckedUpdateManyWithoutProfileNestedInput
     primaryProfile?: PrimaryProfileUncheckedUpdateOneWithoutProfileNestedInput
+    workspaceMembers?: WorkspaceMemberUncheckedUpdateManyWithoutProfileNestedInput
   }
 
   export type ProfileCreateManyInput = {
@@ -24441,7 +24567,7 @@ export namespace Prisma {
     talentPools?: TalentPoolCreateNestedManyWithoutWorkspaceInput
     workspaceMembers?: WorkspaceMemberCreateNestedManyWithoutWorkspaceInput
     workspaceOwners?: WorkspaceOwnerCreateNestedManyWithoutWorkspaceInput
-    workspaceInvitations?: WorkspaceInvitationCreateNestedManyWithoutWorkspaceInput
+    projects?: ProjectCreateNestedManyWithoutWorkspaceInput
   }
 
   export type WorkspaceUncheckedCreateInput = {
@@ -24454,7 +24580,7 @@ export namespace Prisma {
     talentPools?: TalentPoolUncheckedCreateNestedManyWithoutWorkspaceInput
     workspaceMembers?: WorkspaceMemberUncheckedCreateNestedManyWithoutWorkspaceInput
     workspaceOwners?: WorkspaceOwnerUncheckedCreateNestedManyWithoutWorkspaceInput
-    workspaceInvitations?: WorkspaceInvitationUncheckedCreateNestedManyWithoutWorkspaceInput
+    projects?: ProjectUncheckedCreateNestedManyWithoutWorkspaceInput
   }
 
   export type WorkspaceUpdateInput = {
@@ -24466,7 +24592,7 @@ export namespace Prisma {
     talentPools?: TalentPoolUpdateManyWithoutWorkspaceNestedInput
     workspaceMembers?: WorkspaceMemberUpdateManyWithoutWorkspaceNestedInput
     workspaceOwners?: WorkspaceOwnerUpdateManyWithoutWorkspaceNestedInput
-    workspaceInvitations?: WorkspaceInvitationUpdateManyWithoutWorkspaceNestedInput
+    projects?: ProjectUpdateManyWithoutWorkspaceNestedInput
   }
 
   export type WorkspaceUncheckedUpdateInput = {
@@ -24479,7 +24605,7 @@ export namespace Prisma {
     talentPools?: TalentPoolUncheckedUpdateManyWithoutWorkspaceNestedInput
     workspaceMembers?: WorkspaceMemberUncheckedUpdateManyWithoutWorkspaceNestedInput
     workspaceOwners?: WorkspaceOwnerUncheckedUpdateManyWithoutWorkspaceNestedInput
-    workspaceInvitations?: WorkspaceInvitationUncheckedUpdateManyWithoutWorkspaceNestedInput
+    projects?: ProjectUncheckedUpdateManyWithoutWorkspaceNestedInput
   }
 
   export type WorkspaceCreateManyInput = {
@@ -24507,20 +24633,24 @@ export namespace Prisma {
     updatedAt?: Date | string
     workspace: WorkspaceCreateNestedOneWithoutWorkspaceMembersInput
     user: UserCreateNestedOneWithoutWorkspaceMembersInput
+    profile: ProfileCreateNestedOneWithoutWorkspaceMembersInput
+    inviter?: WorkspaceMemberCreateNestedOneWithoutInvitedMembersInput
     owners?: WorkspaceOwnerCreateNestedManyWithoutWorkspaceMemberInput
-    workspaceInvitationsCreated?: WorkspaceInvitationCreateNestedManyWithoutCreatedByMemberInput
     companiesCreated?: CompanyCreateNestedManyWithoutCreatedByMemberInput
+    invitedMembers?: WorkspaceMemberCreateNestedManyWithoutInviterInput
   }
 
   export type WorkspaceMemberUncheckedCreateInput = {
     id?: number
     workspaceId: number
     userId: number
+    profileId: number
+    inviterId?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     owners?: WorkspaceOwnerUncheckedCreateNestedManyWithoutWorkspaceMemberInput
-    workspaceInvitationsCreated?: WorkspaceInvitationUncheckedCreateNestedManyWithoutCreatedByMemberInput
     companiesCreated?: CompanyUncheckedCreateNestedManyWithoutCreatedByMemberInput
+    invitedMembers?: WorkspaceMemberUncheckedCreateNestedManyWithoutInviterInput
   }
 
   export type WorkspaceMemberUpdateInput = {
@@ -24528,26 +24658,32 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspace?: WorkspaceUpdateOneRequiredWithoutWorkspaceMembersNestedInput
     user?: UserUpdateOneRequiredWithoutWorkspaceMembersNestedInput
+    profile?: ProfileUpdateOneRequiredWithoutWorkspaceMembersNestedInput
+    inviter?: WorkspaceMemberUpdateOneWithoutInvitedMembersNestedInput
     owners?: WorkspaceOwnerUpdateManyWithoutWorkspaceMemberNestedInput
-    workspaceInvitationsCreated?: WorkspaceInvitationUpdateManyWithoutCreatedByMemberNestedInput
     companiesCreated?: CompanyUpdateManyWithoutCreatedByMemberNestedInput
+    invitedMembers?: WorkspaceMemberUpdateManyWithoutInviterNestedInput
   }
 
   export type WorkspaceMemberUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     workspaceId?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
+    profileId?: IntFieldUpdateOperationsInput | number
+    inviterId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owners?: WorkspaceOwnerUncheckedUpdateManyWithoutWorkspaceMemberNestedInput
-    workspaceInvitationsCreated?: WorkspaceInvitationUncheckedUpdateManyWithoutCreatedByMemberNestedInput
     companiesCreated?: CompanyUncheckedUpdateManyWithoutCreatedByMemberNestedInput
+    invitedMembers?: WorkspaceMemberUncheckedUpdateManyWithoutInviterNestedInput
   }
 
   export type WorkspaceMemberCreateManyInput = {
     id?: number
     workspaceId: number
     userId: number
+    profileId: number
+    inviterId?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -24561,6 +24697,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     workspaceId?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
+    profileId?: IntFieldUpdateOperationsInput | number
+    inviterId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -24612,168 +24750,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     workspaceId?: IntFieldUpdateOperationsInput | number
     workspaceMemberId?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type WorkspaceInvitationCreateInput = {
-    invitationType: $Enums.InvitationType
-    invitationCode: string
-    expiresAt?: Date | string | null
-    maxUses?: number | null
-    currentUses?: number
-    isActive?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    workspace: WorkspaceCreateNestedOneWithoutWorkspaceInvitationsInput
-    createdByMember: WorkspaceMemberCreateNestedOneWithoutWorkspaceInvitationsCreatedInput
-    invitationUsers?: WorkspaceInvitationUserCreateNestedManyWithoutInvitationInput
-  }
-
-  export type WorkspaceInvitationUncheckedCreateInput = {
-    id?: number
-    workspaceId: number
-    createdBy: number
-    invitationType: $Enums.InvitationType
-    invitationCode: string
-    expiresAt?: Date | string | null
-    maxUses?: number | null
-    currentUses?: number
-    isActive?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    invitationUsers?: WorkspaceInvitationUserUncheckedCreateNestedManyWithoutInvitationInput
-  }
-
-  export type WorkspaceInvitationUpdateInput = {
-    invitationType?: EnumInvitationTypeFieldUpdateOperationsInput | $Enums.InvitationType
-    invitationCode?: StringFieldUpdateOperationsInput | string
-    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    maxUses?: NullableIntFieldUpdateOperationsInput | number | null
-    currentUses?: IntFieldUpdateOperationsInput | number
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    workspace?: WorkspaceUpdateOneRequiredWithoutWorkspaceInvitationsNestedInput
-    createdByMember?: WorkspaceMemberUpdateOneRequiredWithoutWorkspaceInvitationsCreatedNestedInput
-    invitationUsers?: WorkspaceInvitationUserUpdateManyWithoutInvitationNestedInput
-  }
-
-  export type WorkspaceInvitationUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    workspaceId?: IntFieldUpdateOperationsInput | number
-    createdBy?: IntFieldUpdateOperationsInput | number
-    invitationType?: EnumInvitationTypeFieldUpdateOperationsInput | $Enums.InvitationType
-    invitationCode?: StringFieldUpdateOperationsInput | string
-    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    maxUses?: NullableIntFieldUpdateOperationsInput | number | null
-    currentUses?: IntFieldUpdateOperationsInput | number
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    invitationUsers?: WorkspaceInvitationUserUncheckedUpdateManyWithoutInvitationNestedInput
-  }
-
-  export type WorkspaceInvitationCreateManyInput = {
-    id?: number
-    workspaceId: number
-    createdBy: number
-    invitationType: $Enums.InvitationType
-    invitationCode: string
-    expiresAt?: Date | string | null
-    maxUses?: number | null
-    currentUses?: number
-    isActive?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type WorkspaceInvitationUpdateManyMutationInput = {
-    invitationType?: EnumInvitationTypeFieldUpdateOperationsInput | $Enums.InvitationType
-    invitationCode?: StringFieldUpdateOperationsInput | string
-    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    maxUses?: NullableIntFieldUpdateOperationsInput | number | null
-    currentUses?: IntFieldUpdateOperationsInput | number
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type WorkspaceInvitationUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    workspaceId?: IntFieldUpdateOperationsInput | number
-    createdBy?: IntFieldUpdateOperationsInput | number
-    invitationType?: EnumInvitationTypeFieldUpdateOperationsInput | $Enums.InvitationType
-    invitationCode?: StringFieldUpdateOperationsInput | string
-    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    maxUses?: NullableIntFieldUpdateOperationsInput | number | null
-    currentUses?: IntFieldUpdateOperationsInput | number
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type WorkspaceInvitationUserCreateInput = {
-    status?: $Enums.InvitationStatus
-    acceptedAt?: Date | string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    invitation: WorkspaceInvitationCreateNestedOneWithoutInvitationUsersInput
-    profile: ProfileCreateNestedOneWithoutWorkspaceInvitationUsersInput
-  }
-
-  export type WorkspaceInvitationUserUncheckedCreateInput = {
-    id?: number
-    invitationId: number
-    profileId: number
-    status?: $Enums.InvitationStatus
-    acceptedAt?: Date | string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type WorkspaceInvitationUserUpdateInput = {
-    status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
-    acceptedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    invitation?: WorkspaceInvitationUpdateOneRequiredWithoutInvitationUsersNestedInput
-    profile?: ProfileUpdateOneRequiredWithoutWorkspaceInvitationUsersNestedInput
-  }
-
-  export type WorkspaceInvitationUserUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    invitationId?: IntFieldUpdateOperationsInput | number
-    profileId?: IntFieldUpdateOperationsInput | number
-    status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
-    acceptedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type WorkspaceInvitationUserCreateManyInput = {
-    id?: number
-    invitationId: number
-    profileId: number
-    status?: $Enums.InvitationStatus
-    acceptedAt?: Date | string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type WorkspaceInvitationUserUpdateManyMutationInput = {
-    status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
-    acceptedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type WorkspaceInvitationUserUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    invitationId?: IntFieldUpdateOperationsInput | number
-    profileId?: IntFieldUpdateOperationsInput | number
-    status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
-    acceptedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -25041,6 +25017,132 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ProjectOwnerCreateInput = {
+    name: string
+    address: string
+    phone: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    project: ProjectCreateNestedOneWithoutProjectOwnersInput
+  }
+
+  export type ProjectOwnerUncheckedCreateInput = {
+    id?: number
+    projectId: number
+    name: string
+    address: string
+    phone: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ProjectOwnerUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    project?: ProjectUpdateOneRequiredWithoutProjectOwnersNestedInput
+  }
+
+  export type ProjectOwnerUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    projectId?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProjectOwnerCreateManyInput = {
+    id?: number
+    projectId: number
+    name: string
+    address: string
+    phone: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ProjectOwnerUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProjectOwnerUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    projectId?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProjectCreateInput = {
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    workspace: WorkspaceCreateNestedOneWithoutProjectsInput
+    projectOwners?: ProjectOwnerCreateNestedManyWithoutProjectInput
+    sites?: SiteCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectUncheckedCreateInput = {
+    id?: number
+    workspaceId: number
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    projectOwners?: ProjectOwnerUncheckedCreateNestedManyWithoutProjectInput
+    sites?: SiteUncheckedCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workspace?: WorkspaceUpdateOneRequiredWithoutProjectsNestedInput
+    projectOwners?: ProjectOwnerUpdateManyWithoutProjectNestedInput
+    sites?: SiteUpdateManyWithoutProjectNestedInput
+  }
+
+  export type ProjectUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    workspaceId?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    projectOwners?: ProjectOwnerUncheckedUpdateManyWithoutProjectNestedInput
+    sites?: SiteUncheckedUpdateManyWithoutProjectNestedInput
+  }
+
+  export type ProjectCreateManyInput = {
+    id?: number
+    workspaceId: number
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ProjectUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProjectUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    workspaceId?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type SiteCreateInput = {
     name: string
     location: string
@@ -25052,12 +25154,14 @@ export namespace Prisma {
     updatedAt?: Date | string
     workspace: WorkspaceCreateNestedOneWithoutSitesInput
     company: CompanyCreateNestedOneWithoutSitesInput
+    project?: ProjectCreateNestedOneWithoutSitesInput
     siteAttendances?: SiteAttendanceCreateNestedManyWithoutSiteInput
   }
 
   export type SiteUncheckedCreateInput = {
     id?: number
     workspaceId: number
+    projectId?: number | null
     companyId: number
     name: string
     location: string
@@ -25081,12 +25185,14 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspace?: WorkspaceUpdateOneRequiredWithoutSitesNestedInput
     company?: CompanyUpdateOneRequiredWithoutSitesNestedInput
+    project?: ProjectUpdateOneWithoutSitesNestedInput
     siteAttendances?: SiteAttendanceUpdateManyWithoutSiteNestedInput
   }
 
   export type SiteUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     workspaceId?: IntFieldUpdateOperationsInput | number
+    projectId?: NullableIntFieldUpdateOperationsInput | number | null
     companyId?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
@@ -25102,6 +25208,7 @@ export namespace Prisma {
   export type SiteCreateManyInput = {
     id?: number
     workspaceId: number
+    projectId?: number | null
     companyId: number
     name: string
     location: string
@@ -25127,6 +25234,7 @@ export namespace Prisma {
   export type SiteUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     workspaceId?: IntFieldUpdateOperationsInput | number
+    projectId?: NullableIntFieldUpdateOperationsInput | number | null
     companyId?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
@@ -25320,12 +25428,13 @@ export namespace Prisma {
     firstLevelCode?: number | null
     secondLevel?: string | null
     secondLevelCode?: number | null
-    thirdLevel?: string | null
-    thirdLevelCode?: number | null
+    industryName?: string | null
+    industryCode?: number | null
     date?: string | null
     rate?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    companyIndustryCodes?: CompanyIndustryCodeCreateNestedManyWithoutIndustrialAccidentInsurancePremiumRateInput
   }
 
   export type IndustrialAccidentInsurancePremiumRateUncheckedCreateInput = {
@@ -25334,12 +25443,13 @@ export namespace Prisma {
     firstLevelCode?: number | null
     secondLevel?: string | null
     secondLevelCode?: number | null
-    thirdLevel?: string | null
-    thirdLevelCode?: number | null
+    industryName?: string | null
+    industryCode?: number | null
     date?: string | null
     rate?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    companyIndustryCodes?: CompanyIndustryCodeUncheckedCreateNestedManyWithoutIndustrialAccidentInsurancePremiumRateInput
   }
 
   export type IndustrialAccidentInsurancePremiumRateUpdateInput = {
@@ -25347,12 +25457,13 @@ export namespace Prisma {
     firstLevelCode?: NullableIntFieldUpdateOperationsInput | number | null
     secondLevel?: NullableStringFieldUpdateOperationsInput | string | null
     secondLevelCode?: NullableIntFieldUpdateOperationsInput | number | null
-    thirdLevel?: NullableStringFieldUpdateOperationsInput | string | null
-    thirdLevelCode?: NullableIntFieldUpdateOperationsInput | number | null
+    industryName?: NullableStringFieldUpdateOperationsInput | string | null
+    industryCode?: NullableIntFieldUpdateOperationsInput | number | null
     date?: NullableStringFieldUpdateOperationsInput | string | null
     rate?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    companyIndustryCodes?: CompanyIndustryCodeUpdateManyWithoutIndustrialAccidentInsurancePremiumRateNestedInput
   }
 
   export type IndustrialAccidentInsurancePremiumRateUncheckedUpdateInput = {
@@ -25361,12 +25472,13 @@ export namespace Prisma {
     firstLevelCode?: NullableIntFieldUpdateOperationsInput | number | null
     secondLevel?: NullableStringFieldUpdateOperationsInput | string | null
     secondLevelCode?: NullableIntFieldUpdateOperationsInput | number | null
-    thirdLevel?: NullableStringFieldUpdateOperationsInput | string | null
-    thirdLevelCode?: NullableIntFieldUpdateOperationsInput | number | null
+    industryName?: NullableStringFieldUpdateOperationsInput | string | null
+    industryCode?: NullableIntFieldUpdateOperationsInput | number | null
     date?: NullableStringFieldUpdateOperationsInput | string | null
     rate?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    companyIndustryCodes?: CompanyIndustryCodeUncheckedUpdateManyWithoutIndustrialAccidentInsurancePremiumRateNestedInput
   }
 
   export type IndustrialAccidentInsurancePremiumRateCreateManyInput = {
@@ -25375,8 +25487,8 @@ export namespace Prisma {
     firstLevelCode?: number | null
     secondLevel?: string | null
     secondLevelCode?: number | null
-    thirdLevel?: string | null
-    thirdLevelCode?: number | null
+    industryName?: string | null
+    industryCode?: number | null
     date?: string | null
     rate?: number | null
     createdAt?: Date | string
@@ -25388,8 +25500,8 @@ export namespace Prisma {
     firstLevelCode?: NullableIntFieldUpdateOperationsInput | number | null
     secondLevel?: NullableStringFieldUpdateOperationsInput | string | null
     secondLevelCode?: NullableIntFieldUpdateOperationsInput | number | null
-    thirdLevel?: NullableStringFieldUpdateOperationsInput | string | null
-    thirdLevelCode?: NullableIntFieldUpdateOperationsInput | number | null
+    industryName?: NullableStringFieldUpdateOperationsInput | string | null
+    industryCode?: NullableIntFieldUpdateOperationsInput | number | null
     date?: NullableStringFieldUpdateOperationsInput | string | null
     rate?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25402,8 +25514,8 @@ export namespace Prisma {
     firstLevelCode?: NullableIntFieldUpdateOperationsInput | number | null
     secondLevel?: NullableStringFieldUpdateOperationsInput | string | null
     secondLevelCode?: NullableIntFieldUpdateOperationsInput | number | null
-    thirdLevel?: NullableStringFieldUpdateOperationsInput | string | null
-    thirdLevelCode?: NullableIntFieldUpdateOperationsInput | number | null
+    industryName?: NullableStringFieldUpdateOperationsInput | string | null
+    industryCode?: NullableIntFieldUpdateOperationsInput | number | null
     date?: NullableStringFieldUpdateOperationsInput | string | null
     rate?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25411,10 +25523,10 @@ export namespace Prisma {
   }
 
   export type CompanyIndustryCodeCreateInput = {
-    industryCode: number
     createdAt?: Date | string
     updatedAt?: Date | string
     company: CompanyCreateNestedOneWithoutCompanyIndustryCodesInput
+    industrialAccidentInsurancePremiumRate: IndustrialAccidentInsurancePremiumRateCreateNestedOneWithoutCompanyIndustryCodesInput
   }
 
   export type CompanyIndustryCodeUncheckedCreateInput = {
@@ -25426,10 +25538,10 @@ export namespace Prisma {
   }
 
   export type CompanyIndustryCodeUpdateInput = {
-    industryCode?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     company?: CompanyUpdateOneRequiredWithoutCompanyIndustryCodesNestedInput
+    industrialAccidentInsurancePremiumRate?: IndustrialAccidentInsurancePremiumRateUpdateOneRequiredWithoutCompanyIndustryCodesNestedInput
   }
 
   export type CompanyIndustryCodeUncheckedUpdateInput = {
@@ -25449,7 +25561,6 @@ export namespace Prisma {
   }
 
   export type CompanyIndustryCodeUpdateManyMutationInput = {
-    industryCode?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -25646,22 +25757,12 @@ export namespace Prisma {
     none?: TalentPoolWhereInput
   }
 
-  export type WorkspaceInvitationUserListRelationFilter = {
-    every?: WorkspaceInvitationUserWhereInput
-    some?: WorkspaceInvitationUserWhereInput
-    none?: WorkspaceInvitationUserWhereInput
-  }
-
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
   }
 
   export type TalentPoolOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type WorkspaceInvitationUserOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -25819,10 +25920,10 @@ export namespace Prisma {
     none?: WorkspaceOwnerWhereInput
   }
 
-  export type WorkspaceInvitationListRelationFilter = {
-    every?: WorkspaceInvitationWhereInput
-    some?: WorkspaceInvitationWhereInput
-    none?: WorkspaceInvitationWhereInput
+  export type ProjectListRelationFilter = {
+    every?: ProjectWhereInput
+    some?: ProjectWhereInput
+    none?: ProjectWhereInput
   }
 
   export type CompanyOrderByRelationAggregateInput = {
@@ -25837,7 +25938,7 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type WorkspaceInvitationOrderByRelationAggregateInput = {
+  export type ProjectOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -25875,6 +25976,11 @@ export namespace Prisma {
     isNot?: WorkspaceWhereInput
   }
 
+  export type WorkspaceMemberNullableScalarRelationFilter = {
+    is?: WorkspaceMemberWhereInput | null
+    isNot?: WorkspaceMemberWhereInput | null
+  }
+
   export type WorkspaceMemberWorkspaceIdUserIdCompoundUniqueInput = {
     workspaceId: number
     userId: number
@@ -25884,6 +25990,8 @@ export namespace Prisma {
     id?: SortOrder
     workspaceId?: SortOrder
     userId?: SortOrder
+    profileId?: SortOrder
+    inviterId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -25892,12 +26000,16 @@ export namespace Prisma {
     id?: SortOrder
     workspaceId?: SortOrder
     userId?: SortOrder
+    profileId?: SortOrder
+    inviterId?: SortOrder
   }
 
   export type WorkspaceMemberMaxOrderByAggregateInput = {
     id?: SortOrder
     workspaceId?: SortOrder
     userId?: SortOrder
+    profileId?: SortOrder
+    inviterId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -25906,6 +26018,8 @@ export namespace Prisma {
     id?: SortOrder
     workspaceId?: SortOrder
     userId?: SortOrder
+    profileId?: SortOrder
+    inviterId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -25914,6 +26028,8 @@ export namespace Prisma {
     id?: SortOrder
     workspaceId?: SortOrder
     userId?: SortOrder
+    profileId?: SortOrder
+    inviterId?: SortOrder
   }
 
   export type WorkspaceMemberScalarRelationFilter = {
@@ -25955,163 +26071,6 @@ export namespace Prisma {
     id?: SortOrder
     workspaceId?: SortOrder
     workspaceMemberId?: SortOrder
-  }
-
-  export type EnumInvitationTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.InvitationType | EnumInvitationTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.InvitationType[]
-    notIn?: $Enums.InvitationType[]
-    not?: NestedEnumInvitationTypeFilter<$PrismaModel> | $Enums.InvitationType
-  }
-
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type WorkspaceInvitationCountOrderByAggregateInput = {
-    id?: SortOrder
-    workspaceId?: SortOrder
-    createdBy?: SortOrder
-    invitationType?: SortOrder
-    invitationCode?: SortOrder
-    expiresAt?: SortOrder
-    maxUses?: SortOrder
-    currentUses?: SortOrder
-    isActive?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type WorkspaceInvitationAvgOrderByAggregateInput = {
-    id?: SortOrder
-    workspaceId?: SortOrder
-    createdBy?: SortOrder
-    maxUses?: SortOrder
-    currentUses?: SortOrder
-  }
-
-  export type WorkspaceInvitationMaxOrderByAggregateInput = {
-    id?: SortOrder
-    workspaceId?: SortOrder
-    createdBy?: SortOrder
-    invitationType?: SortOrder
-    invitationCode?: SortOrder
-    expiresAt?: SortOrder
-    maxUses?: SortOrder
-    currentUses?: SortOrder
-    isActive?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type WorkspaceInvitationMinOrderByAggregateInput = {
-    id?: SortOrder
-    workspaceId?: SortOrder
-    createdBy?: SortOrder
-    invitationType?: SortOrder
-    invitationCode?: SortOrder
-    expiresAt?: SortOrder
-    maxUses?: SortOrder
-    currentUses?: SortOrder
-    isActive?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type WorkspaceInvitationSumOrderByAggregateInput = {
-    id?: SortOrder
-    workspaceId?: SortOrder
-    createdBy?: SortOrder
-    maxUses?: SortOrder
-    currentUses?: SortOrder
-  }
-
-  export type EnumInvitationTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.InvitationType | EnumInvitationTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.InvitationType[]
-    notIn?: $Enums.InvitationType[]
-    not?: NestedEnumInvitationTypeWithAggregatesFilter<$PrismaModel> | $Enums.InvitationType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumInvitationTypeFilter<$PrismaModel>
-    _max?: NestedEnumInvitationTypeFilter<$PrismaModel>
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
-  export type EnumInvitationStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.InvitationStatus | EnumInvitationStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.InvitationStatus[]
-    notIn?: $Enums.InvitationStatus[]
-    not?: NestedEnumInvitationStatusFilter<$PrismaModel> | $Enums.InvitationStatus
-  }
-
-  export type WorkspaceInvitationScalarRelationFilter = {
-    is?: WorkspaceInvitationWhereInput
-    isNot?: WorkspaceInvitationWhereInput
-  }
-
-  export type WorkspaceInvitationUserInvitationIdProfileIdCompoundUniqueInput = {
-    invitationId: number
-    profileId: number
-  }
-
-  export type WorkspaceInvitationUserCountOrderByAggregateInput = {
-    id?: SortOrder
-    invitationId?: SortOrder
-    profileId?: SortOrder
-    status?: SortOrder
-    acceptedAt?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type WorkspaceInvitationUserAvgOrderByAggregateInput = {
-    id?: SortOrder
-    invitationId?: SortOrder
-    profileId?: SortOrder
-  }
-
-  export type WorkspaceInvitationUserMaxOrderByAggregateInput = {
-    id?: SortOrder
-    invitationId?: SortOrder
-    profileId?: SortOrder
-    status?: SortOrder
-    acceptedAt?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type WorkspaceInvitationUserMinOrderByAggregateInput = {
-    id?: SortOrder
-    invitationId?: SortOrder
-    profileId?: SortOrder
-    status?: SortOrder
-    acceptedAt?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type WorkspaceInvitationUserSumOrderByAggregateInput = {
-    id?: SortOrder
-    invitationId?: SortOrder
-    profileId?: SortOrder
-  }
-
-  export type EnumInvitationStatusWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.InvitationStatus | EnumInvitationStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.InvitationStatus[]
-    notIn?: $Enums.InvitationStatus[]
-    not?: NestedEnumInvitationStatusWithAggregatesFilter<$PrismaModel> | $Enums.InvitationStatus
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumInvitationStatusFilter<$PrismaModel>
-    _max?: NestedEnumInvitationStatusFilter<$PrismaModel>
   }
 
   export type CompanyIndustryCodeListRelationFilter = {
@@ -26330,6 +26289,100 @@ export namespace Prisma {
     companyId?: SortOrder
   }
 
+  export type ProjectScalarRelationFilter = {
+    is?: ProjectWhereInput
+    isNot?: ProjectWhereInput
+  }
+
+  export type ProjectOwnerCountOrderByAggregateInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+    name?: SortOrder
+    address?: SortOrder
+    phone?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ProjectOwnerAvgOrderByAggregateInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+  }
+
+  export type ProjectOwnerMaxOrderByAggregateInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+    name?: SortOrder
+    address?: SortOrder
+    phone?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ProjectOwnerMinOrderByAggregateInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+    name?: SortOrder
+    address?: SortOrder
+    phone?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ProjectOwnerSumOrderByAggregateInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+  }
+
+  export type ProjectOwnerListRelationFilter = {
+    every?: ProjectOwnerWhereInput
+    some?: ProjectOwnerWhereInput
+    none?: ProjectOwnerWhereInput
+  }
+
+  export type ProjectOwnerOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ProjectCountOrderByAggregateInput = {
+    id?: SortOrder
+    workspaceId?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ProjectAvgOrderByAggregateInput = {
+    id?: SortOrder
+    workspaceId?: SortOrder
+  }
+
+  export type ProjectMaxOrderByAggregateInput = {
+    id?: SortOrder
+    workspaceId?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ProjectMinOrderByAggregateInput = {
+    id?: SortOrder
+    workspaceId?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ProjectSumOrderByAggregateInput = {
+    id?: SortOrder
+    workspaceId?: SortOrder
+  }
+
+  export type ProjectNullableScalarRelationFilter = {
+    is?: ProjectWhereInput | null
+    isNot?: ProjectWhereInput | null
+  }
+
   export type SiteAttendanceListRelationFilter = {
     every?: SiteAttendanceWhereInput
     some?: SiteAttendanceWhereInput
@@ -26343,6 +26396,7 @@ export namespace Prisma {
   export type SiteCountOrderByAggregateInput = {
     id?: SortOrder
     workspaceId?: SortOrder
+    projectId?: SortOrder
     companyId?: SortOrder
     name?: SortOrder
     location?: SortOrder
@@ -26357,12 +26411,14 @@ export namespace Prisma {
   export type SiteAvgOrderByAggregateInput = {
     id?: SortOrder
     workspaceId?: SortOrder
+    projectId?: SortOrder
     companyId?: SortOrder
   }
 
   export type SiteMaxOrderByAggregateInput = {
     id?: SortOrder
     workspaceId?: SortOrder
+    projectId?: SortOrder
     companyId?: SortOrder
     name?: SortOrder
     location?: SortOrder
@@ -26377,6 +26433,7 @@ export namespace Prisma {
   export type SiteMinOrderByAggregateInput = {
     id?: SortOrder
     workspaceId?: SortOrder
+    projectId?: SortOrder
     companyId?: SortOrder
     name?: SortOrder
     location?: SortOrder
@@ -26391,6 +26448,7 @@ export namespace Prisma {
   export type SiteSumOrderByAggregateInput = {
     id?: SortOrder
     workspaceId?: SortOrder
+    projectId?: SortOrder
     companyId?: SortOrder
   }
 
@@ -26511,8 +26569,8 @@ export namespace Prisma {
     firstLevelCode?: SortOrder
     secondLevel?: SortOrder
     secondLevelCode?: SortOrder
-    thirdLevel?: SortOrder
-    thirdLevelCode?: SortOrder
+    industryName?: SortOrder
+    industryCode?: SortOrder
     date?: SortOrder
     rate?: SortOrder
     createdAt?: SortOrder
@@ -26523,7 +26581,7 @@ export namespace Prisma {
     id?: SortOrder
     firstLevelCode?: SortOrder
     secondLevelCode?: SortOrder
-    thirdLevelCode?: SortOrder
+    industryCode?: SortOrder
     rate?: SortOrder
   }
 
@@ -26533,8 +26591,8 @@ export namespace Prisma {
     firstLevelCode?: SortOrder
     secondLevel?: SortOrder
     secondLevelCode?: SortOrder
-    thirdLevel?: SortOrder
-    thirdLevelCode?: SortOrder
+    industryName?: SortOrder
+    industryCode?: SortOrder
     date?: SortOrder
     rate?: SortOrder
     createdAt?: SortOrder
@@ -26547,8 +26605,8 @@ export namespace Prisma {
     firstLevelCode?: SortOrder
     secondLevel?: SortOrder
     secondLevelCode?: SortOrder
-    thirdLevel?: SortOrder
-    thirdLevelCode?: SortOrder
+    industryName?: SortOrder
+    industryCode?: SortOrder
     date?: SortOrder
     rate?: SortOrder
     createdAt?: SortOrder
@@ -26559,8 +26617,13 @@ export namespace Prisma {
     id?: SortOrder
     firstLevelCode?: SortOrder
     secondLevelCode?: SortOrder
-    thirdLevelCode?: SortOrder
+    industryCode?: SortOrder
     rate?: SortOrder
+  }
+
+  export type IndustrialAccidentInsurancePremiumRateScalarRelationFilter = {
+    is?: IndustrialAccidentInsurancePremiumRateWhereInput
+    isNot?: IndustrialAccidentInsurancePremiumRateWhereInput
   }
 
   export type CompanyIndustryCodeCountOrderByAggregateInput = {
@@ -26744,17 +26807,17 @@ export namespace Prisma {
     connect?: TalentPoolWhereUniqueInput | TalentPoolWhereUniqueInput[]
   }
 
-  export type WorkspaceInvitationUserCreateNestedManyWithoutProfileInput = {
-    create?: XOR<WorkspaceInvitationUserCreateWithoutProfileInput, WorkspaceInvitationUserUncheckedCreateWithoutProfileInput> | WorkspaceInvitationUserCreateWithoutProfileInput[] | WorkspaceInvitationUserUncheckedCreateWithoutProfileInput[]
-    connectOrCreate?: WorkspaceInvitationUserCreateOrConnectWithoutProfileInput | WorkspaceInvitationUserCreateOrConnectWithoutProfileInput[]
-    createMany?: WorkspaceInvitationUserCreateManyProfileInputEnvelope
-    connect?: WorkspaceInvitationUserWhereUniqueInput | WorkspaceInvitationUserWhereUniqueInput[]
-  }
-
   export type PrimaryProfileCreateNestedOneWithoutProfileInput = {
     create?: XOR<PrimaryProfileCreateWithoutProfileInput, PrimaryProfileUncheckedCreateWithoutProfileInput>
     connectOrCreate?: PrimaryProfileCreateOrConnectWithoutProfileInput
     connect?: PrimaryProfileWhereUniqueInput
+  }
+
+  export type WorkspaceMemberCreateNestedManyWithoutProfileInput = {
+    create?: XOR<WorkspaceMemberCreateWithoutProfileInput, WorkspaceMemberUncheckedCreateWithoutProfileInput> | WorkspaceMemberCreateWithoutProfileInput[] | WorkspaceMemberUncheckedCreateWithoutProfileInput[]
+    connectOrCreate?: WorkspaceMemberCreateOrConnectWithoutProfileInput | WorkspaceMemberCreateOrConnectWithoutProfileInput[]
+    createMany?: WorkspaceMemberCreateManyProfileInputEnvelope
+    connect?: WorkspaceMemberWhereUniqueInput | WorkspaceMemberWhereUniqueInput[]
   }
 
   export type TalentPoolUncheckedCreateNestedManyWithoutProfileInput = {
@@ -26764,17 +26827,17 @@ export namespace Prisma {
     connect?: TalentPoolWhereUniqueInput | TalentPoolWhereUniqueInput[]
   }
 
-  export type WorkspaceInvitationUserUncheckedCreateNestedManyWithoutProfileInput = {
-    create?: XOR<WorkspaceInvitationUserCreateWithoutProfileInput, WorkspaceInvitationUserUncheckedCreateWithoutProfileInput> | WorkspaceInvitationUserCreateWithoutProfileInput[] | WorkspaceInvitationUserUncheckedCreateWithoutProfileInput[]
-    connectOrCreate?: WorkspaceInvitationUserCreateOrConnectWithoutProfileInput | WorkspaceInvitationUserCreateOrConnectWithoutProfileInput[]
-    createMany?: WorkspaceInvitationUserCreateManyProfileInputEnvelope
-    connect?: WorkspaceInvitationUserWhereUniqueInput | WorkspaceInvitationUserWhereUniqueInput[]
-  }
-
   export type PrimaryProfileUncheckedCreateNestedOneWithoutProfileInput = {
     create?: XOR<PrimaryProfileCreateWithoutProfileInput, PrimaryProfileUncheckedCreateWithoutProfileInput>
     connectOrCreate?: PrimaryProfileCreateOrConnectWithoutProfileInput
     connect?: PrimaryProfileWhereUniqueInput
+  }
+
+  export type WorkspaceMemberUncheckedCreateNestedManyWithoutProfileInput = {
+    create?: XOR<WorkspaceMemberCreateWithoutProfileInput, WorkspaceMemberUncheckedCreateWithoutProfileInput> | WorkspaceMemberCreateWithoutProfileInput[] | WorkspaceMemberUncheckedCreateWithoutProfileInput[]
+    connectOrCreate?: WorkspaceMemberCreateOrConnectWithoutProfileInput | WorkspaceMemberCreateOrConnectWithoutProfileInput[]
+    createMany?: WorkspaceMemberCreateManyProfileInputEnvelope
+    connect?: WorkspaceMemberWhereUniqueInput | WorkspaceMemberWhereUniqueInput[]
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -26809,20 +26872,6 @@ export namespace Prisma {
     deleteMany?: TalentPoolScalarWhereInput | TalentPoolScalarWhereInput[]
   }
 
-  export type WorkspaceInvitationUserUpdateManyWithoutProfileNestedInput = {
-    create?: XOR<WorkspaceInvitationUserCreateWithoutProfileInput, WorkspaceInvitationUserUncheckedCreateWithoutProfileInput> | WorkspaceInvitationUserCreateWithoutProfileInput[] | WorkspaceInvitationUserUncheckedCreateWithoutProfileInput[]
-    connectOrCreate?: WorkspaceInvitationUserCreateOrConnectWithoutProfileInput | WorkspaceInvitationUserCreateOrConnectWithoutProfileInput[]
-    upsert?: WorkspaceInvitationUserUpsertWithWhereUniqueWithoutProfileInput | WorkspaceInvitationUserUpsertWithWhereUniqueWithoutProfileInput[]
-    createMany?: WorkspaceInvitationUserCreateManyProfileInputEnvelope
-    set?: WorkspaceInvitationUserWhereUniqueInput | WorkspaceInvitationUserWhereUniqueInput[]
-    disconnect?: WorkspaceInvitationUserWhereUniqueInput | WorkspaceInvitationUserWhereUniqueInput[]
-    delete?: WorkspaceInvitationUserWhereUniqueInput | WorkspaceInvitationUserWhereUniqueInput[]
-    connect?: WorkspaceInvitationUserWhereUniqueInput | WorkspaceInvitationUserWhereUniqueInput[]
-    update?: WorkspaceInvitationUserUpdateWithWhereUniqueWithoutProfileInput | WorkspaceInvitationUserUpdateWithWhereUniqueWithoutProfileInput[]
-    updateMany?: WorkspaceInvitationUserUpdateManyWithWhereWithoutProfileInput | WorkspaceInvitationUserUpdateManyWithWhereWithoutProfileInput[]
-    deleteMany?: WorkspaceInvitationUserScalarWhereInput | WorkspaceInvitationUserScalarWhereInput[]
-  }
-
   export type PrimaryProfileUpdateOneWithoutProfileNestedInput = {
     create?: XOR<PrimaryProfileCreateWithoutProfileInput, PrimaryProfileUncheckedCreateWithoutProfileInput>
     connectOrCreate?: PrimaryProfileCreateOrConnectWithoutProfileInput
@@ -26831,6 +26880,20 @@ export namespace Prisma {
     delete?: PrimaryProfileWhereInput | boolean
     connect?: PrimaryProfileWhereUniqueInput
     update?: XOR<XOR<PrimaryProfileUpdateToOneWithWhereWithoutProfileInput, PrimaryProfileUpdateWithoutProfileInput>, PrimaryProfileUncheckedUpdateWithoutProfileInput>
+  }
+
+  export type WorkspaceMemberUpdateManyWithoutProfileNestedInput = {
+    create?: XOR<WorkspaceMemberCreateWithoutProfileInput, WorkspaceMemberUncheckedCreateWithoutProfileInput> | WorkspaceMemberCreateWithoutProfileInput[] | WorkspaceMemberUncheckedCreateWithoutProfileInput[]
+    connectOrCreate?: WorkspaceMemberCreateOrConnectWithoutProfileInput | WorkspaceMemberCreateOrConnectWithoutProfileInput[]
+    upsert?: WorkspaceMemberUpsertWithWhereUniqueWithoutProfileInput | WorkspaceMemberUpsertWithWhereUniqueWithoutProfileInput[]
+    createMany?: WorkspaceMemberCreateManyProfileInputEnvelope
+    set?: WorkspaceMemberWhereUniqueInput | WorkspaceMemberWhereUniqueInput[]
+    disconnect?: WorkspaceMemberWhereUniqueInput | WorkspaceMemberWhereUniqueInput[]
+    delete?: WorkspaceMemberWhereUniqueInput | WorkspaceMemberWhereUniqueInput[]
+    connect?: WorkspaceMemberWhereUniqueInput | WorkspaceMemberWhereUniqueInput[]
+    update?: WorkspaceMemberUpdateWithWhereUniqueWithoutProfileInput | WorkspaceMemberUpdateWithWhereUniqueWithoutProfileInput[]
+    updateMany?: WorkspaceMemberUpdateManyWithWhereWithoutProfileInput | WorkspaceMemberUpdateManyWithWhereWithoutProfileInput[]
+    deleteMany?: WorkspaceMemberScalarWhereInput | WorkspaceMemberScalarWhereInput[]
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -26855,20 +26918,6 @@ export namespace Prisma {
     deleteMany?: TalentPoolScalarWhereInput | TalentPoolScalarWhereInput[]
   }
 
-  export type WorkspaceInvitationUserUncheckedUpdateManyWithoutProfileNestedInput = {
-    create?: XOR<WorkspaceInvitationUserCreateWithoutProfileInput, WorkspaceInvitationUserUncheckedCreateWithoutProfileInput> | WorkspaceInvitationUserCreateWithoutProfileInput[] | WorkspaceInvitationUserUncheckedCreateWithoutProfileInput[]
-    connectOrCreate?: WorkspaceInvitationUserCreateOrConnectWithoutProfileInput | WorkspaceInvitationUserCreateOrConnectWithoutProfileInput[]
-    upsert?: WorkspaceInvitationUserUpsertWithWhereUniqueWithoutProfileInput | WorkspaceInvitationUserUpsertWithWhereUniqueWithoutProfileInput[]
-    createMany?: WorkspaceInvitationUserCreateManyProfileInputEnvelope
-    set?: WorkspaceInvitationUserWhereUniqueInput | WorkspaceInvitationUserWhereUniqueInput[]
-    disconnect?: WorkspaceInvitationUserWhereUniqueInput | WorkspaceInvitationUserWhereUniqueInput[]
-    delete?: WorkspaceInvitationUserWhereUniqueInput | WorkspaceInvitationUserWhereUniqueInput[]
-    connect?: WorkspaceInvitationUserWhereUniqueInput | WorkspaceInvitationUserWhereUniqueInput[]
-    update?: WorkspaceInvitationUserUpdateWithWhereUniqueWithoutProfileInput | WorkspaceInvitationUserUpdateWithWhereUniqueWithoutProfileInput[]
-    updateMany?: WorkspaceInvitationUserUpdateManyWithWhereWithoutProfileInput | WorkspaceInvitationUserUpdateManyWithWhereWithoutProfileInput[]
-    deleteMany?: WorkspaceInvitationUserScalarWhereInput | WorkspaceInvitationUserScalarWhereInput[]
-  }
-
   export type PrimaryProfileUncheckedUpdateOneWithoutProfileNestedInput = {
     create?: XOR<PrimaryProfileCreateWithoutProfileInput, PrimaryProfileUncheckedCreateWithoutProfileInput>
     connectOrCreate?: PrimaryProfileCreateOrConnectWithoutProfileInput
@@ -26877,6 +26926,20 @@ export namespace Prisma {
     delete?: PrimaryProfileWhereInput | boolean
     connect?: PrimaryProfileWhereUniqueInput
     update?: XOR<XOR<PrimaryProfileUpdateToOneWithWhereWithoutProfileInput, PrimaryProfileUpdateWithoutProfileInput>, PrimaryProfileUncheckedUpdateWithoutProfileInput>
+  }
+
+  export type WorkspaceMemberUncheckedUpdateManyWithoutProfileNestedInput = {
+    create?: XOR<WorkspaceMemberCreateWithoutProfileInput, WorkspaceMemberUncheckedCreateWithoutProfileInput> | WorkspaceMemberCreateWithoutProfileInput[] | WorkspaceMemberUncheckedCreateWithoutProfileInput[]
+    connectOrCreate?: WorkspaceMemberCreateOrConnectWithoutProfileInput | WorkspaceMemberCreateOrConnectWithoutProfileInput[]
+    upsert?: WorkspaceMemberUpsertWithWhereUniqueWithoutProfileInput | WorkspaceMemberUpsertWithWhereUniqueWithoutProfileInput[]
+    createMany?: WorkspaceMemberCreateManyProfileInputEnvelope
+    set?: WorkspaceMemberWhereUniqueInput | WorkspaceMemberWhereUniqueInput[]
+    disconnect?: WorkspaceMemberWhereUniqueInput | WorkspaceMemberWhereUniqueInput[]
+    delete?: WorkspaceMemberWhereUniqueInput | WorkspaceMemberWhereUniqueInput[]
+    connect?: WorkspaceMemberWhereUniqueInput | WorkspaceMemberWhereUniqueInput[]
+    update?: WorkspaceMemberUpdateWithWhereUniqueWithoutProfileInput | WorkspaceMemberUpdateWithWhereUniqueWithoutProfileInput[]
+    updateMany?: WorkspaceMemberUpdateManyWithWhereWithoutProfileInput | WorkspaceMemberUpdateManyWithWhereWithoutProfileInput[]
+    deleteMany?: WorkspaceMemberScalarWhereInput | WorkspaceMemberScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutPrimaryProfileInput = {
@@ -26942,11 +27005,11 @@ export namespace Prisma {
     connect?: WorkspaceOwnerWhereUniqueInput | WorkspaceOwnerWhereUniqueInput[]
   }
 
-  export type WorkspaceInvitationCreateNestedManyWithoutWorkspaceInput = {
-    create?: XOR<WorkspaceInvitationCreateWithoutWorkspaceInput, WorkspaceInvitationUncheckedCreateWithoutWorkspaceInput> | WorkspaceInvitationCreateWithoutWorkspaceInput[] | WorkspaceInvitationUncheckedCreateWithoutWorkspaceInput[]
-    connectOrCreate?: WorkspaceInvitationCreateOrConnectWithoutWorkspaceInput | WorkspaceInvitationCreateOrConnectWithoutWorkspaceInput[]
-    createMany?: WorkspaceInvitationCreateManyWorkspaceInputEnvelope
-    connect?: WorkspaceInvitationWhereUniqueInput | WorkspaceInvitationWhereUniqueInput[]
+  export type ProjectCreateNestedManyWithoutWorkspaceInput = {
+    create?: XOR<ProjectCreateWithoutWorkspaceInput, ProjectUncheckedCreateWithoutWorkspaceInput> | ProjectCreateWithoutWorkspaceInput[] | ProjectUncheckedCreateWithoutWorkspaceInput[]
+    connectOrCreate?: ProjectCreateOrConnectWithoutWorkspaceInput | ProjectCreateOrConnectWithoutWorkspaceInput[]
+    createMany?: ProjectCreateManyWorkspaceInputEnvelope
+    connect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
   }
 
   export type CompanyUncheckedCreateNestedManyWithoutWorkspaceInput = {
@@ -26984,11 +27047,11 @@ export namespace Prisma {
     connect?: WorkspaceOwnerWhereUniqueInput | WorkspaceOwnerWhereUniqueInput[]
   }
 
-  export type WorkspaceInvitationUncheckedCreateNestedManyWithoutWorkspaceInput = {
-    create?: XOR<WorkspaceInvitationCreateWithoutWorkspaceInput, WorkspaceInvitationUncheckedCreateWithoutWorkspaceInput> | WorkspaceInvitationCreateWithoutWorkspaceInput[] | WorkspaceInvitationUncheckedCreateWithoutWorkspaceInput[]
-    connectOrCreate?: WorkspaceInvitationCreateOrConnectWithoutWorkspaceInput | WorkspaceInvitationCreateOrConnectWithoutWorkspaceInput[]
-    createMany?: WorkspaceInvitationCreateManyWorkspaceInputEnvelope
-    connect?: WorkspaceInvitationWhereUniqueInput | WorkspaceInvitationWhereUniqueInput[]
+  export type ProjectUncheckedCreateNestedManyWithoutWorkspaceInput = {
+    create?: XOR<ProjectCreateWithoutWorkspaceInput, ProjectUncheckedCreateWithoutWorkspaceInput> | ProjectCreateWithoutWorkspaceInput[] | ProjectUncheckedCreateWithoutWorkspaceInput[]
+    connectOrCreate?: ProjectCreateOrConnectWithoutWorkspaceInput | ProjectCreateOrConnectWithoutWorkspaceInput[]
+    createMany?: ProjectCreateManyWorkspaceInputEnvelope
+    connect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
   }
 
   export type CompanyUpdateManyWithoutWorkspaceNestedInput = {
@@ -27061,18 +27124,18 @@ export namespace Prisma {
     deleteMany?: WorkspaceOwnerScalarWhereInput | WorkspaceOwnerScalarWhereInput[]
   }
 
-  export type WorkspaceInvitationUpdateManyWithoutWorkspaceNestedInput = {
-    create?: XOR<WorkspaceInvitationCreateWithoutWorkspaceInput, WorkspaceInvitationUncheckedCreateWithoutWorkspaceInput> | WorkspaceInvitationCreateWithoutWorkspaceInput[] | WorkspaceInvitationUncheckedCreateWithoutWorkspaceInput[]
-    connectOrCreate?: WorkspaceInvitationCreateOrConnectWithoutWorkspaceInput | WorkspaceInvitationCreateOrConnectWithoutWorkspaceInput[]
-    upsert?: WorkspaceInvitationUpsertWithWhereUniqueWithoutWorkspaceInput | WorkspaceInvitationUpsertWithWhereUniqueWithoutWorkspaceInput[]
-    createMany?: WorkspaceInvitationCreateManyWorkspaceInputEnvelope
-    set?: WorkspaceInvitationWhereUniqueInput | WorkspaceInvitationWhereUniqueInput[]
-    disconnect?: WorkspaceInvitationWhereUniqueInput | WorkspaceInvitationWhereUniqueInput[]
-    delete?: WorkspaceInvitationWhereUniqueInput | WorkspaceInvitationWhereUniqueInput[]
-    connect?: WorkspaceInvitationWhereUniqueInput | WorkspaceInvitationWhereUniqueInput[]
-    update?: WorkspaceInvitationUpdateWithWhereUniqueWithoutWorkspaceInput | WorkspaceInvitationUpdateWithWhereUniqueWithoutWorkspaceInput[]
-    updateMany?: WorkspaceInvitationUpdateManyWithWhereWithoutWorkspaceInput | WorkspaceInvitationUpdateManyWithWhereWithoutWorkspaceInput[]
-    deleteMany?: WorkspaceInvitationScalarWhereInput | WorkspaceInvitationScalarWhereInput[]
+  export type ProjectUpdateManyWithoutWorkspaceNestedInput = {
+    create?: XOR<ProjectCreateWithoutWorkspaceInput, ProjectUncheckedCreateWithoutWorkspaceInput> | ProjectCreateWithoutWorkspaceInput[] | ProjectUncheckedCreateWithoutWorkspaceInput[]
+    connectOrCreate?: ProjectCreateOrConnectWithoutWorkspaceInput | ProjectCreateOrConnectWithoutWorkspaceInput[]
+    upsert?: ProjectUpsertWithWhereUniqueWithoutWorkspaceInput | ProjectUpsertWithWhereUniqueWithoutWorkspaceInput[]
+    createMany?: ProjectCreateManyWorkspaceInputEnvelope
+    set?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
+    disconnect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
+    delete?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
+    connect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
+    update?: ProjectUpdateWithWhereUniqueWithoutWorkspaceInput | ProjectUpdateWithWhereUniqueWithoutWorkspaceInput[]
+    updateMany?: ProjectUpdateManyWithWhereWithoutWorkspaceInput | ProjectUpdateManyWithWhereWithoutWorkspaceInput[]
+    deleteMany?: ProjectScalarWhereInput | ProjectScalarWhereInput[]
   }
 
   export type CompanyUncheckedUpdateManyWithoutWorkspaceNestedInput = {
@@ -27145,18 +27208,18 @@ export namespace Prisma {
     deleteMany?: WorkspaceOwnerScalarWhereInput | WorkspaceOwnerScalarWhereInput[]
   }
 
-  export type WorkspaceInvitationUncheckedUpdateManyWithoutWorkspaceNestedInput = {
-    create?: XOR<WorkspaceInvitationCreateWithoutWorkspaceInput, WorkspaceInvitationUncheckedCreateWithoutWorkspaceInput> | WorkspaceInvitationCreateWithoutWorkspaceInput[] | WorkspaceInvitationUncheckedCreateWithoutWorkspaceInput[]
-    connectOrCreate?: WorkspaceInvitationCreateOrConnectWithoutWorkspaceInput | WorkspaceInvitationCreateOrConnectWithoutWorkspaceInput[]
-    upsert?: WorkspaceInvitationUpsertWithWhereUniqueWithoutWorkspaceInput | WorkspaceInvitationUpsertWithWhereUniqueWithoutWorkspaceInput[]
-    createMany?: WorkspaceInvitationCreateManyWorkspaceInputEnvelope
-    set?: WorkspaceInvitationWhereUniqueInput | WorkspaceInvitationWhereUniqueInput[]
-    disconnect?: WorkspaceInvitationWhereUniqueInput | WorkspaceInvitationWhereUniqueInput[]
-    delete?: WorkspaceInvitationWhereUniqueInput | WorkspaceInvitationWhereUniqueInput[]
-    connect?: WorkspaceInvitationWhereUniqueInput | WorkspaceInvitationWhereUniqueInput[]
-    update?: WorkspaceInvitationUpdateWithWhereUniqueWithoutWorkspaceInput | WorkspaceInvitationUpdateWithWhereUniqueWithoutWorkspaceInput[]
-    updateMany?: WorkspaceInvitationUpdateManyWithWhereWithoutWorkspaceInput | WorkspaceInvitationUpdateManyWithWhereWithoutWorkspaceInput[]
-    deleteMany?: WorkspaceInvitationScalarWhereInput | WorkspaceInvitationScalarWhereInput[]
+  export type ProjectUncheckedUpdateManyWithoutWorkspaceNestedInput = {
+    create?: XOR<ProjectCreateWithoutWorkspaceInput, ProjectUncheckedCreateWithoutWorkspaceInput> | ProjectCreateWithoutWorkspaceInput[] | ProjectUncheckedCreateWithoutWorkspaceInput[]
+    connectOrCreate?: ProjectCreateOrConnectWithoutWorkspaceInput | ProjectCreateOrConnectWithoutWorkspaceInput[]
+    upsert?: ProjectUpsertWithWhereUniqueWithoutWorkspaceInput | ProjectUpsertWithWhereUniqueWithoutWorkspaceInput[]
+    createMany?: ProjectCreateManyWorkspaceInputEnvelope
+    set?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
+    disconnect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
+    delete?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
+    connect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
+    update?: ProjectUpdateWithWhereUniqueWithoutWorkspaceInput | ProjectUpdateWithWhereUniqueWithoutWorkspaceInput[]
+    updateMany?: ProjectUpdateManyWithWhereWithoutWorkspaceInput | ProjectUpdateManyWithWhereWithoutWorkspaceInput[]
+    deleteMany?: ProjectScalarWhereInput | ProjectScalarWhereInput[]
   }
 
   export type WorkspaceCreateNestedOneWithoutWorkspaceMembersInput = {
@@ -27171,18 +27234,23 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type ProfileCreateNestedOneWithoutWorkspaceMembersInput = {
+    create?: XOR<ProfileCreateWithoutWorkspaceMembersInput, ProfileUncheckedCreateWithoutWorkspaceMembersInput>
+    connectOrCreate?: ProfileCreateOrConnectWithoutWorkspaceMembersInput
+    connect?: ProfileWhereUniqueInput
+  }
+
+  export type WorkspaceMemberCreateNestedOneWithoutInvitedMembersInput = {
+    create?: XOR<WorkspaceMemberCreateWithoutInvitedMembersInput, WorkspaceMemberUncheckedCreateWithoutInvitedMembersInput>
+    connectOrCreate?: WorkspaceMemberCreateOrConnectWithoutInvitedMembersInput
+    connect?: WorkspaceMemberWhereUniqueInput
+  }
+
   export type WorkspaceOwnerCreateNestedManyWithoutWorkspaceMemberInput = {
     create?: XOR<WorkspaceOwnerCreateWithoutWorkspaceMemberInput, WorkspaceOwnerUncheckedCreateWithoutWorkspaceMemberInput> | WorkspaceOwnerCreateWithoutWorkspaceMemberInput[] | WorkspaceOwnerUncheckedCreateWithoutWorkspaceMemberInput[]
     connectOrCreate?: WorkspaceOwnerCreateOrConnectWithoutWorkspaceMemberInput | WorkspaceOwnerCreateOrConnectWithoutWorkspaceMemberInput[]
     createMany?: WorkspaceOwnerCreateManyWorkspaceMemberInputEnvelope
     connect?: WorkspaceOwnerWhereUniqueInput | WorkspaceOwnerWhereUniqueInput[]
-  }
-
-  export type WorkspaceInvitationCreateNestedManyWithoutCreatedByMemberInput = {
-    create?: XOR<WorkspaceInvitationCreateWithoutCreatedByMemberInput, WorkspaceInvitationUncheckedCreateWithoutCreatedByMemberInput> | WorkspaceInvitationCreateWithoutCreatedByMemberInput[] | WorkspaceInvitationUncheckedCreateWithoutCreatedByMemberInput[]
-    connectOrCreate?: WorkspaceInvitationCreateOrConnectWithoutCreatedByMemberInput | WorkspaceInvitationCreateOrConnectWithoutCreatedByMemberInput[]
-    createMany?: WorkspaceInvitationCreateManyCreatedByMemberInputEnvelope
-    connect?: WorkspaceInvitationWhereUniqueInput | WorkspaceInvitationWhereUniqueInput[]
   }
 
   export type CompanyCreateNestedManyWithoutCreatedByMemberInput = {
@@ -27192,6 +27260,13 @@ export namespace Prisma {
     connect?: CompanyWhereUniqueInput | CompanyWhereUniqueInput[]
   }
 
+  export type WorkspaceMemberCreateNestedManyWithoutInviterInput = {
+    create?: XOR<WorkspaceMemberCreateWithoutInviterInput, WorkspaceMemberUncheckedCreateWithoutInviterInput> | WorkspaceMemberCreateWithoutInviterInput[] | WorkspaceMemberUncheckedCreateWithoutInviterInput[]
+    connectOrCreate?: WorkspaceMemberCreateOrConnectWithoutInviterInput | WorkspaceMemberCreateOrConnectWithoutInviterInput[]
+    createMany?: WorkspaceMemberCreateManyInviterInputEnvelope
+    connect?: WorkspaceMemberWhereUniqueInput | WorkspaceMemberWhereUniqueInput[]
+  }
+
   export type WorkspaceOwnerUncheckedCreateNestedManyWithoutWorkspaceMemberInput = {
     create?: XOR<WorkspaceOwnerCreateWithoutWorkspaceMemberInput, WorkspaceOwnerUncheckedCreateWithoutWorkspaceMemberInput> | WorkspaceOwnerCreateWithoutWorkspaceMemberInput[] | WorkspaceOwnerUncheckedCreateWithoutWorkspaceMemberInput[]
     connectOrCreate?: WorkspaceOwnerCreateOrConnectWithoutWorkspaceMemberInput | WorkspaceOwnerCreateOrConnectWithoutWorkspaceMemberInput[]
@@ -27199,18 +27274,18 @@ export namespace Prisma {
     connect?: WorkspaceOwnerWhereUniqueInput | WorkspaceOwnerWhereUniqueInput[]
   }
 
-  export type WorkspaceInvitationUncheckedCreateNestedManyWithoutCreatedByMemberInput = {
-    create?: XOR<WorkspaceInvitationCreateWithoutCreatedByMemberInput, WorkspaceInvitationUncheckedCreateWithoutCreatedByMemberInput> | WorkspaceInvitationCreateWithoutCreatedByMemberInput[] | WorkspaceInvitationUncheckedCreateWithoutCreatedByMemberInput[]
-    connectOrCreate?: WorkspaceInvitationCreateOrConnectWithoutCreatedByMemberInput | WorkspaceInvitationCreateOrConnectWithoutCreatedByMemberInput[]
-    createMany?: WorkspaceInvitationCreateManyCreatedByMemberInputEnvelope
-    connect?: WorkspaceInvitationWhereUniqueInput | WorkspaceInvitationWhereUniqueInput[]
-  }
-
   export type CompanyUncheckedCreateNestedManyWithoutCreatedByMemberInput = {
     create?: XOR<CompanyCreateWithoutCreatedByMemberInput, CompanyUncheckedCreateWithoutCreatedByMemberInput> | CompanyCreateWithoutCreatedByMemberInput[] | CompanyUncheckedCreateWithoutCreatedByMemberInput[]
     connectOrCreate?: CompanyCreateOrConnectWithoutCreatedByMemberInput | CompanyCreateOrConnectWithoutCreatedByMemberInput[]
     createMany?: CompanyCreateManyCreatedByMemberInputEnvelope
     connect?: CompanyWhereUniqueInput | CompanyWhereUniqueInput[]
+  }
+
+  export type WorkspaceMemberUncheckedCreateNestedManyWithoutInviterInput = {
+    create?: XOR<WorkspaceMemberCreateWithoutInviterInput, WorkspaceMemberUncheckedCreateWithoutInviterInput> | WorkspaceMemberCreateWithoutInviterInput[] | WorkspaceMemberUncheckedCreateWithoutInviterInput[]
+    connectOrCreate?: WorkspaceMemberCreateOrConnectWithoutInviterInput | WorkspaceMemberCreateOrConnectWithoutInviterInput[]
+    createMany?: WorkspaceMemberCreateManyInviterInputEnvelope
+    connect?: WorkspaceMemberWhereUniqueInput | WorkspaceMemberWhereUniqueInput[]
   }
 
   export type WorkspaceUpdateOneRequiredWithoutWorkspaceMembersNestedInput = {
@@ -27229,6 +27304,24 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutWorkspaceMembersInput, UserUpdateWithoutWorkspaceMembersInput>, UserUncheckedUpdateWithoutWorkspaceMembersInput>
   }
 
+  export type ProfileUpdateOneRequiredWithoutWorkspaceMembersNestedInput = {
+    create?: XOR<ProfileCreateWithoutWorkspaceMembersInput, ProfileUncheckedCreateWithoutWorkspaceMembersInput>
+    connectOrCreate?: ProfileCreateOrConnectWithoutWorkspaceMembersInput
+    upsert?: ProfileUpsertWithoutWorkspaceMembersInput
+    connect?: ProfileWhereUniqueInput
+    update?: XOR<XOR<ProfileUpdateToOneWithWhereWithoutWorkspaceMembersInput, ProfileUpdateWithoutWorkspaceMembersInput>, ProfileUncheckedUpdateWithoutWorkspaceMembersInput>
+  }
+
+  export type WorkspaceMemberUpdateOneWithoutInvitedMembersNestedInput = {
+    create?: XOR<WorkspaceMemberCreateWithoutInvitedMembersInput, WorkspaceMemberUncheckedCreateWithoutInvitedMembersInput>
+    connectOrCreate?: WorkspaceMemberCreateOrConnectWithoutInvitedMembersInput
+    upsert?: WorkspaceMemberUpsertWithoutInvitedMembersInput
+    disconnect?: WorkspaceMemberWhereInput | boolean
+    delete?: WorkspaceMemberWhereInput | boolean
+    connect?: WorkspaceMemberWhereUniqueInput
+    update?: XOR<XOR<WorkspaceMemberUpdateToOneWithWhereWithoutInvitedMembersInput, WorkspaceMemberUpdateWithoutInvitedMembersInput>, WorkspaceMemberUncheckedUpdateWithoutInvitedMembersInput>
+  }
+
   export type WorkspaceOwnerUpdateManyWithoutWorkspaceMemberNestedInput = {
     create?: XOR<WorkspaceOwnerCreateWithoutWorkspaceMemberInput, WorkspaceOwnerUncheckedCreateWithoutWorkspaceMemberInput> | WorkspaceOwnerCreateWithoutWorkspaceMemberInput[] | WorkspaceOwnerUncheckedCreateWithoutWorkspaceMemberInput[]
     connectOrCreate?: WorkspaceOwnerCreateOrConnectWithoutWorkspaceMemberInput | WorkspaceOwnerCreateOrConnectWithoutWorkspaceMemberInput[]
@@ -27241,20 +27334,6 @@ export namespace Prisma {
     update?: WorkspaceOwnerUpdateWithWhereUniqueWithoutWorkspaceMemberInput | WorkspaceOwnerUpdateWithWhereUniqueWithoutWorkspaceMemberInput[]
     updateMany?: WorkspaceOwnerUpdateManyWithWhereWithoutWorkspaceMemberInput | WorkspaceOwnerUpdateManyWithWhereWithoutWorkspaceMemberInput[]
     deleteMany?: WorkspaceOwnerScalarWhereInput | WorkspaceOwnerScalarWhereInput[]
-  }
-
-  export type WorkspaceInvitationUpdateManyWithoutCreatedByMemberNestedInput = {
-    create?: XOR<WorkspaceInvitationCreateWithoutCreatedByMemberInput, WorkspaceInvitationUncheckedCreateWithoutCreatedByMemberInput> | WorkspaceInvitationCreateWithoutCreatedByMemberInput[] | WorkspaceInvitationUncheckedCreateWithoutCreatedByMemberInput[]
-    connectOrCreate?: WorkspaceInvitationCreateOrConnectWithoutCreatedByMemberInput | WorkspaceInvitationCreateOrConnectWithoutCreatedByMemberInput[]
-    upsert?: WorkspaceInvitationUpsertWithWhereUniqueWithoutCreatedByMemberInput | WorkspaceInvitationUpsertWithWhereUniqueWithoutCreatedByMemberInput[]
-    createMany?: WorkspaceInvitationCreateManyCreatedByMemberInputEnvelope
-    set?: WorkspaceInvitationWhereUniqueInput | WorkspaceInvitationWhereUniqueInput[]
-    disconnect?: WorkspaceInvitationWhereUniqueInput | WorkspaceInvitationWhereUniqueInput[]
-    delete?: WorkspaceInvitationWhereUniqueInput | WorkspaceInvitationWhereUniqueInput[]
-    connect?: WorkspaceInvitationWhereUniqueInput | WorkspaceInvitationWhereUniqueInput[]
-    update?: WorkspaceInvitationUpdateWithWhereUniqueWithoutCreatedByMemberInput | WorkspaceInvitationUpdateWithWhereUniqueWithoutCreatedByMemberInput[]
-    updateMany?: WorkspaceInvitationUpdateManyWithWhereWithoutCreatedByMemberInput | WorkspaceInvitationUpdateManyWithWhereWithoutCreatedByMemberInput[]
-    deleteMany?: WorkspaceInvitationScalarWhereInput | WorkspaceInvitationScalarWhereInput[]
   }
 
   export type CompanyUpdateManyWithoutCreatedByMemberNestedInput = {
@@ -27271,6 +27350,20 @@ export namespace Prisma {
     deleteMany?: CompanyScalarWhereInput | CompanyScalarWhereInput[]
   }
 
+  export type WorkspaceMemberUpdateManyWithoutInviterNestedInput = {
+    create?: XOR<WorkspaceMemberCreateWithoutInviterInput, WorkspaceMemberUncheckedCreateWithoutInviterInput> | WorkspaceMemberCreateWithoutInviterInput[] | WorkspaceMemberUncheckedCreateWithoutInviterInput[]
+    connectOrCreate?: WorkspaceMemberCreateOrConnectWithoutInviterInput | WorkspaceMemberCreateOrConnectWithoutInviterInput[]
+    upsert?: WorkspaceMemberUpsertWithWhereUniqueWithoutInviterInput | WorkspaceMemberUpsertWithWhereUniqueWithoutInviterInput[]
+    createMany?: WorkspaceMemberCreateManyInviterInputEnvelope
+    set?: WorkspaceMemberWhereUniqueInput | WorkspaceMemberWhereUniqueInput[]
+    disconnect?: WorkspaceMemberWhereUniqueInput | WorkspaceMemberWhereUniqueInput[]
+    delete?: WorkspaceMemberWhereUniqueInput | WorkspaceMemberWhereUniqueInput[]
+    connect?: WorkspaceMemberWhereUniqueInput | WorkspaceMemberWhereUniqueInput[]
+    update?: WorkspaceMemberUpdateWithWhereUniqueWithoutInviterInput | WorkspaceMemberUpdateWithWhereUniqueWithoutInviterInput[]
+    updateMany?: WorkspaceMemberUpdateManyWithWhereWithoutInviterInput | WorkspaceMemberUpdateManyWithWhereWithoutInviterInput[]
+    deleteMany?: WorkspaceMemberScalarWhereInput | WorkspaceMemberScalarWhereInput[]
+  }
+
   export type WorkspaceOwnerUncheckedUpdateManyWithoutWorkspaceMemberNestedInput = {
     create?: XOR<WorkspaceOwnerCreateWithoutWorkspaceMemberInput, WorkspaceOwnerUncheckedCreateWithoutWorkspaceMemberInput> | WorkspaceOwnerCreateWithoutWorkspaceMemberInput[] | WorkspaceOwnerUncheckedCreateWithoutWorkspaceMemberInput[]
     connectOrCreate?: WorkspaceOwnerCreateOrConnectWithoutWorkspaceMemberInput | WorkspaceOwnerCreateOrConnectWithoutWorkspaceMemberInput[]
@@ -27285,20 +27378,6 @@ export namespace Prisma {
     deleteMany?: WorkspaceOwnerScalarWhereInput | WorkspaceOwnerScalarWhereInput[]
   }
 
-  export type WorkspaceInvitationUncheckedUpdateManyWithoutCreatedByMemberNestedInput = {
-    create?: XOR<WorkspaceInvitationCreateWithoutCreatedByMemberInput, WorkspaceInvitationUncheckedCreateWithoutCreatedByMemberInput> | WorkspaceInvitationCreateWithoutCreatedByMemberInput[] | WorkspaceInvitationUncheckedCreateWithoutCreatedByMemberInput[]
-    connectOrCreate?: WorkspaceInvitationCreateOrConnectWithoutCreatedByMemberInput | WorkspaceInvitationCreateOrConnectWithoutCreatedByMemberInput[]
-    upsert?: WorkspaceInvitationUpsertWithWhereUniqueWithoutCreatedByMemberInput | WorkspaceInvitationUpsertWithWhereUniqueWithoutCreatedByMemberInput[]
-    createMany?: WorkspaceInvitationCreateManyCreatedByMemberInputEnvelope
-    set?: WorkspaceInvitationWhereUniqueInput | WorkspaceInvitationWhereUniqueInput[]
-    disconnect?: WorkspaceInvitationWhereUniqueInput | WorkspaceInvitationWhereUniqueInput[]
-    delete?: WorkspaceInvitationWhereUniqueInput | WorkspaceInvitationWhereUniqueInput[]
-    connect?: WorkspaceInvitationWhereUniqueInput | WorkspaceInvitationWhereUniqueInput[]
-    update?: WorkspaceInvitationUpdateWithWhereUniqueWithoutCreatedByMemberInput | WorkspaceInvitationUpdateWithWhereUniqueWithoutCreatedByMemberInput[]
-    updateMany?: WorkspaceInvitationUpdateManyWithWhereWithoutCreatedByMemberInput | WorkspaceInvitationUpdateManyWithWhereWithoutCreatedByMemberInput[]
-    deleteMany?: WorkspaceInvitationScalarWhereInput | WorkspaceInvitationScalarWhereInput[]
-  }
-
   export type CompanyUncheckedUpdateManyWithoutCreatedByMemberNestedInput = {
     create?: XOR<CompanyCreateWithoutCreatedByMemberInput, CompanyUncheckedCreateWithoutCreatedByMemberInput> | CompanyCreateWithoutCreatedByMemberInput[] | CompanyUncheckedCreateWithoutCreatedByMemberInput[]
     connectOrCreate?: CompanyCreateOrConnectWithoutCreatedByMemberInput | CompanyCreateOrConnectWithoutCreatedByMemberInput[]
@@ -27311,6 +27390,20 @@ export namespace Prisma {
     update?: CompanyUpdateWithWhereUniqueWithoutCreatedByMemberInput | CompanyUpdateWithWhereUniqueWithoutCreatedByMemberInput[]
     updateMany?: CompanyUpdateManyWithWhereWithoutCreatedByMemberInput | CompanyUpdateManyWithWhereWithoutCreatedByMemberInput[]
     deleteMany?: CompanyScalarWhereInput | CompanyScalarWhereInput[]
+  }
+
+  export type WorkspaceMemberUncheckedUpdateManyWithoutInviterNestedInput = {
+    create?: XOR<WorkspaceMemberCreateWithoutInviterInput, WorkspaceMemberUncheckedCreateWithoutInviterInput> | WorkspaceMemberCreateWithoutInviterInput[] | WorkspaceMemberUncheckedCreateWithoutInviterInput[]
+    connectOrCreate?: WorkspaceMemberCreateOrConnectWithoutInviterInput | WorkspaceMemberCreateOrConnectWithoutInviterInput[]
+    upsert?: WorkspaceMemberUpsertWithWhereUniqueWithoutInviterInput | WorkspaceMemberUpsertWithWhereUniqueWithoutInviterInput[]
+    createMany?: WorkspaceMemberCreateManyInviterInputEnvelope
+    set?: WorkspaceMemberWhereUniqueInput | WorkspaceMemberWhereUniqueInput[]
+    disconnect?: WorkspaceMemberWhereUniqueInput | WorkspaceMemberWhereUniqueInput[]
+    delete?: WorkspaceMemberWhereUniqueInput | WorkspaceMemberWhereUniqueInput[]
+    connect?: WorkspaceMemberWhereUniqueInput | WorkspaceMemberWhereUniqueInput[]
+    update?: WorkspaceMemberUpdateWithWhereUniqueWithoutInviterInput | WorkspaceMemberUpdateWithWhereUniqueWithoutInviterInput[]
+    updateMany?: WorkspaceMemberUpdateManyWithWhereWithoutInviterInput | WorkspaceMemberUpdateManyWithWhereWithoutInviterInput[]
+    deleteMany?: WorkspaceMemberScalarWhereInput | WorkspaceMemberScalarWhereInput[]
   }
 
   export type WorkspaceCreateNestedOneWithoutWorkspaceOwnersInput = {
@@ -27339,116 +27432,6 @@ export namespace Prisma {
     upsert?: WorkspaceMemberUpsertWithoutOwnersInput
     connect?: WorkspaceMemberWhereUniqueInput
     update?: XOR<XOR<WorkspaceMemberUpdateToOneWithWhereWithoutOwnersInput, WorkspaceMemberUpdateWithoutOwnersInput>, WorkspaceMemberUncheckedUpdateWithoutOwnersInput>
-  }
-
-  export type WorkspaceCreateNestedOneWithoutWorkspaceInvitationsInput = {
-    create?: XOR<WorkspaceCreateWithoutWorkspaceInvitationsInput, WorkspaceUncheckedCreateWithoutWorkspaceInvitationsInput>
-    connectOrCreate?: WorkspaceCreateOrConnectWithoutWorkspaceInvitationsInput
-    connect?: WorkspaceWhereUniqueInput
-  }
-
-  export type WorkspaceMemberCreateNestedOneWithoutWorkspaceInvitationsCreatedInput = {
-    create?: XOR<WorkspaceMemberCreateWithoutWorkspaceInvitationsCreatedInput, WorkspaceMemberUncheckedCreateWithoutWorkspaceInvitationsCreatedInput>
-    connectOrCreate?: WorkspaceMemberCreateOrConnectWithoutWorkspaceInvitationsCreatedInput
-    connect?: WorkspaceMemberWhereUniqueInput
-  }
-
-  export type WorkspaceInvitationUserCreateNestedManyWithoutInvitationInput = {
-    create?: XOR<WorkspaceInvitationUserCreateWithoutInvitationInput, WorkspaceInvitationUserUncheckedCreateWithoutInvitationInput> | WorkspaceInvitationUserCreateWithoutInvitationInput[] | WorkspaceInvitationUserUncheckedCreateWithoutInvitationInput[]
-    connectOrCreate?: WorkspaceInvitationUserCreateOrConnectWithoutInvitationInput | WorkspaceInvitationUserCreateOrConnectWithoutInvitationInput[]
-    createMany?: WorkspaceInvitationUserCreateManyInvitationInputEnvelope
-    connect?: WorkspaceInvitationUserWhereUniqueInput | WorkspaceInvitationUserWhereUniqueInput[]
-  }
-
-  export type WorkspaceInvitationUserUncheckedCreateNestedManyWithoutInvitationInput = {
-    create?: XOR<WorkspaceInvitationUserCreateWithoutInvitationInput, WorkspaceInvitationUserUncheckedCreateWithoutInvitationInput> | WorkspaceInvitationUserCreateWithoutInvitationInput[] | WorkspaceInvitationUserUncheckedCreateWithoutInvitationInput[]
-    connectOrCreate?: WorkspaceInvitationUserCreateOrConnectWithoutInvitationInput | WorkspaceInvitationUserCreateOrConnectWithoutInvitationInput[]
-    createMany?: WorkspaceInvitationUserCreateManyInvitationInputEnvelope
-    connect?: WorkspaceInvitationUserWhereUniqueInput | WorkspaceInvitationUserWhereUniqueInput[]
-  }
-
-  export type EnumInvitationTypeFieldUpdateOperationsInput = {
-    set?: $Enums.InvitationType
-  }
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
-  }
-
-  export type WorkspaceUpdateOneRequiredWithoutWorkspaceInvitationsNestedInput = {
-    create?: XOR<WorkspaceCreateWithoutWorkspaceInvitationsInput, WorkspaceUncheckedCreateWithoutWorkspaceInvitationsInput>
-    connectOrCreate?: WorkspaceCreateOrConnectWithoutWorkspaceInvitationsInput
-    upsert?: WorkspaceUpsertWithoutWorkspaceInvitationsInput
-    connect?: WorkspaceWhereUniqueInput
-    update?: XOR<XOR<WorkspaceUpdateToOneWithWhereWithoutWorkspaceInvitationsInput, WorkspaceUpdateWithoutWorkspaceInvitationsInput>, WorkspaceUncheckedUpdateWithoutWorkspaceInvitationsInput>
-  }
-
-  export type WorkspaceMemberUpdateOneRequiredWithoutWorkspaceInvitationsCreatedNestedInput = {
-    create?: XOR<WorkspaceMemberCreateWithoutWorkspaceInvitationsCreatedInput, WorkspaceMemberUncheckedCreateWithoutWorkspaceInvitationsCreatedInput>
-    connectOrCreate?: WorkspaceMemberCreateOrConnectWithoutWorkspaceInvitationsCreatedInput
-    upsert?: WorkspaceMemberUpsertWithoutWorkspaceInvitationsCreatedInput
-    connect?: WorkspaceMemberWhereUniqueInput
-    update?: XOR<XOR<WorkspaceMemberUpdateToOneWithWhereWithoutWorkspaceInvitationsCreatedInput, WorkspaceMemberUpdateWithoutWorkspaceInvitationsCreatedInput>, WorkspaceMemberUncheckedUpdateWithoutWorkspaceInvitationsCreatedInput>
-  }
-
-  export type WorkspaceInvitationUserUpdateManyWithoutInvitationNestedInput = {
-    create?: XOR<WorkspaceInvitationUserCreateWithoutInvitationInput, WorkspaceInvitationUserUncheckedCreateWithoutInvitationInput> | WorkspaceInvitationUserCreateWithoutInvitationInput[] | WorkspaceInvitationUserUncheckedCreateWithoutInvitationInput[]
-    connectOrCreate?: WorkspaceInvitationUserCreateOrConnectWithoutInvitationInput | WorkspaceInvitationUserCreateOrConnectWithoutInvitationInput[]
-    upsert?: WorkspaceInvitationUserUpsertWithWhereUniqueWithoutInvitationInput | WorkspaceInvitationUserUpsertWithWhereUniqueWithoutInvitationInput[]
-    createMany?: WorkspaceInvitationUserCreateManyInvitationInputEnvelope
-    set?: WorkspaceInvitationUserWhereUniqueInput | WorkspaceInvitationUserWhereUniqueInput[]
-    disconnect?: WorkspaceInvitationUserWhereUniqueInput | WorkspaceInvitationUserWhereUniqueInput[]
-    delete?: WorkspaceInvitationUserWhereUniqueInput | WorkspaceInvitationUserWhereUniqueInput[]
-    connect?: WorkspaceInvitationUserWhereUniqueInput | WorkspaceInvitationUserWhereUniqueInput[]
-    update?: WorkspaceInvitationUserUpdateWithWhereUniqueWithoutInvitationInput | WorkspaceInvitationUserUpdateWithWhereUniqueWithoutInvitationInput[]
-    updateMany?: WorkspaceInvitationUserUpdateManyWithWhereWithoutInvitationInput | WorkspaceInvitationUserUpdateManyWithWhereWithoutInvitationInput[]
-    deleteMany?: WorkspaceInvitationUserScalarWhereInput | WorkspaceInvitationUserScalarWhereInput[]
-  }
-
-  export type WorkspaceInvitationUserUncheckedUpdateManyWithoutInvitationNestedInput = {
-    create?: XOR<WorkspaceInvitationUserCreateWithoutInvitationInput, WorkspaceInvitationUserUncheckedCreateWithoutInvitationInput> | WorkspaceInvitationUserCreateWithoutInvitationInput[] | WorkspaceInvitationUserUncheckedCreateWithoutInvitationInput[]
-    connectOrCreate?: WorkspaceInvitationUserCreateOrConnectWithoutInvitationInput | WorkspaceInvitationUserCreateOrConnectWithoutInvitationInput[]
-    upsert?: WorkspaceInvitationUserUpsertWithWhereUniqueWithoutInvitationInput | WorkspaceInvitationUserUpsertWithWhereUniqueWithoutInvitationInput[]
-    createMany?: WorkspaceInvitationUserCreateManyInvitationInputEnvelope
-    set?: WorkspaceInvitationUserWhereUniqueInput | WorkspaceInvitationUserWhereUniqueInput[]
-    disconnect?: WorkspaceInvitationUserWhereUniqueInput | WorkspaceInvitationUserWhereUniqueInput[]
-    delete?: WorkspaceInvitationUserWhereUniqueInput | WorkspaceInvitationUserWhereUniqueInput[]
-    connect?: WorkspaceInvitationUserWhereUniqueInput | WorkspaceInvitationUserWhereUniqueInput[]
-    update?: WorkspaceInvitationUserUpdateWithWhereUniqueWithoutInvitationInput | WorkspaceInvitationUserUpdateWithWhereUniqueWithoutInvitationInput[]
-    updateMany?: WorkspaceInvitationUserUpdateManyWithWhereWithoutInvitationInput | WorkspaceInvitationUserUpdateManyWithWhereWithoutInvitationInput[]
-    deleteMany?: WorkspaceInvitationUserScalarWhereInput | WorkspaceInvitationUserScalarWhereInput[]
-  }
-
-  export type WorkspaceInvitationCreateNestedOneWithoutInvitationUsersInput = {
-    create?: XOR<WorkspaceInvitationCreateWithoutInvitationUsersInput, WorkspaceInvitationUncheckedCreateWithoutInvitationUsersInput>
-    connectOrCreate?: WorkspaceInvitationCreateOrConnectWithoutInvitationUsersInput
-    connect?: WorkspaceInvitationWhereUniqueInput
-  }
-
-  export type ProfileCreateNestedOneWithoutWorkspaceInvitationUsersInput = {
-    create?: XOR<ProfileCreateWithoutWorkspaceInvitationUsersInput, ProfileUncheckedCreateWithoutWorkspaceInvitationUsersInput>
-    connectOrCreate?: ProfileCreateOrConnectWithoutWorkspaceInvitationUsersInput
-    connect?: ProfileWhereUniqueInput
-  }
-
-  export type EnumInvitationStatusFieldUpdateOperationsInput = {
-    set?: $Enums.InvitationStatus
-  }
-
-  export type WorkspaceInvitationUpdateOneRequiredWithoutInvitationUsersNestedInput = {
-    create?: XOR<WorkspaceInvitationCreateWithoutInvitationUsersInput, WorkspaceInvitationUncheckedCreateWithoutInvitationUsersInput>
-    connectOrCreate?: WorkspaceInvitationCreateOrConnectWithoutInvitationUsersInput
-    upsert?: WorkspaceInvitationUpsertWithoutInvitationUsersInput
-    connect?: WorkspaceInvitationWhereUniqueInput
-    update?: XOR<XOR<WorkspaceInvitationUpdateToOneWithWhereWithoutInvitationUsersInput, WorkspaceInvitationUpdateWithoutInvitationUsersInput>, WorkspaceInvitationUncheckedUpdateWithoutInvitationUsersInput>
-  }
-
-  export type ProfileUpdateOneRequiredWithoutWorkspaceInvitationUsersNestedInput = {
-    create?: XOR<ProfileCreateWithoutWorkspaceInvitationUsersInput, ProfileUncheckedCreateWithoutWorkspaceInvitationUsersInput>
-    connectOrCreate?: ProfileCreateOrConnectWithoutWorkspaceInvitationUsersInput
-    upsert?: ProfileUpsertWithoutWorkspaceInvitationUsersInput
-    connect?: ProfileWhereUniqueInput
-    update?: XOR<XOR<ProfileUpdateToOneWithWhereWithoutWorkspaceInvitationUsersInput, ProfileUpdateWithoutWorkspaceInvitationUsersInput>, ProfileUncheckedUpdateWithoutWorkspaceInvitationUsersInput>
   }
 
   export type WorkspaceCreateNestedOneWithoutCompaniesInput = {
@@ -27815,6 +27798,118 @@ export namespace Prisma {
     update?: XOR<XOR<EmployeeUpdateToOneWithWhereWithoutOwnersInput, EmployeeUpdateWithoutOwnersInput>, EmployeeUncheckedUpdateWithoutOwnersInput>
   }
 
+  export type ProjectCreateNestedOneWithoutProjectOwnersInput = {
+    create?: XOR<ProjectCreateWithoutProjectOwnersInput, ProjectUncheckedCreateWithoutProjectOwnersInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutProjectOwnersInput
+    connect?: ProjectWhereUniqueInput
+  }
+
+  export type ProjectUpdateOneRequiredWithoutProjectOwnersNestedInput = {
+    create?: XOR<ProjectCreateWithoutProjectOwnersInput, ProjectUncheckedCreateWithoutProjectOwnersInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutProjectOwnersInput
+    upsert?: ProjectUpsertWithoutProjectOwnersInput
+    connect?: ProjectWhereUniqueInput
+    update?: XOR<XOR<ProjectUpdateToOneWithWhereWithoutProjectOwnersInput, ProjectUpdateWithoutProjectOwnersInput>, ProjectUncheckedUpdateWithoutProjectOwnersInput>
+  }
+
+  export type WorkspaceCreateNestedOneWithoutProjectsInput = {
+    create?: XOR<WorkspaceCreateWithoutProjectsInput, WorkspaceUncheckedCreateWithoutProjectsInput>
+    connectOrCreate?: WorkspaceCreateOrConnectWithoutProjectsInput
+    connect?: WorkspaceWhereUniqueInput
+  }
+
+  export type ProjectOwnerCreateNestedManyWithoutProjectInput = {
+    create?: XOR<ProjectOwnerCreateWithoutProjectInput, ProjectOwnerUncheckedCreateWithoutProjectInput> | ProjectOwnerCreateWithoutProjectInput[] | ProjectOwnerUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: ProjectOwnerCreateOrConnectWithoutProjectInput | ProjectOwnerCreateOrConnectWithoutProjectInput[]
+    createMany?: ProjectOwnerCreateManyProjectInputEnvelope
+    connect?: ProjectOwnerWhereUniqueInput | ProjectOwnerWhereUniqueInput[]
+  }
+
+  export type SiteCreateNestedManyWithoutProjectInput = {
+    create?: XOR<SiteCreateWithoutProjectInput, SiteUncheckedCreateWithoutProjectInput> | SiteCreateWithoutProjectInput[] | SiteUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: SiteCreateOrConnectWithoutProjectInput | SiteCreateOrConnectWithoutProjectInput[]
+    createMany?: SiteCreateManyProjectInputEnvelope
+    connect?: SiteWhereUniqueInput | SiteWhereUniqueInput[]
+  }
+
+  export type ProjectOwnerUncheckedCreateNestedManyWithoutProjectInput = {
+    create?: XOR<ProjectOwnerCreateWithoutProjectInput, ProjectOwnerUncheckedCreateWithoutProjectInput> | ProjectOwnerCreateWithoutProjectInput[] | ProjectOwnerUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: ProjectOwnerCreateOrConnectWithoutProjectInput | ProjectOwnerCreateOrConnectWithoutProjectInput[]
+    createMany?: ProjectOwnerCreateManyProjectInputEnvelope
+    connect?: ProjectOwnerWhereUniqueInput | ProjectOwnerWhereUniqueInput[]
+  }
+
+  export type SiteUncheckedCreateNestedManyWithoutProjectInput = {
+    create?: XOR<SiteCreateWithoutProjectInput, SiteUncheckedCreateWithoutProjectInput> | SiteCreateWithoutProjectInput[] | SiteUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: SiteCreateOrConnectWithoutProjectInput | SiteCreateOrConnectWithoutProjectInput[]
+    createMany?: SiteCreateManyProjectInputEnvelope
+    connect?: SiteWhereUniqueInput | SiteWhereUniqueInput[]
+  }
+
+  export type WorkspaceUpdateOneRequiredWithoutProjectsNestedInput = {
+    create?: XOR<WorkspaceCreateWithoutProjectsInput, WorkspaceUncheckedCreateWithoutProjectsInput>
+    connectOrCreate?: WorkspaceCreateOrConnectWithoutProjectsInput
+    upsert?: WorkspaceUpsertWithoutProjectsInput
+    connect?: WorkspaceWhereUniqueInput
+    update?: XOR<XOR<WorkspaceUpdateToOneWithWhereWithoutProjectsInput, WorkspaceUpdateWithoutProjectsInput>, WorkspaceUncheckedUpdateWithoutProjectsInput>
+  }
+
+  export type ProjectOwnerUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<ProjectOwnerCreateWithoutProjectInput, ProjectOwnerUncheckedCreateWithoutProjectInput> | ProjectOwnerCreateWithoutProjectInput[] | ProjectOwnerUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: ProjectOwnerCreateOrConnectWithoutProjectInput | ProjectOwnerCreateOrConnectWithoutProjectInput[]
+    upsert?: ProjectOwnerUpsertWithWhereUniqueWithoutProjectInput | ProjectOwnerUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: ProjectOwnerCreateManyProjectInputEnvelope
+    set?: ProjectOwnerWhereUniqueInput | ProjectOwnerWhereUniqueInput[]
+    disconnect?: ProjectOwnerWhereUniqueInput | ProjectOwnerWhereUniqueInput[]
+    delete?: ProjectOwnerWhereUniqueInput | ProjectOwnerWhereUniqueInput[]
+    connect?: ProjectOwnerWhereUniqueInput | ProjectOwnerWhereUniqueInput[]
+    update?: ProjectOwnerUpdateWithWhereUniqueWithoutProjectInput | ProjectOwnerUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: ProjectOwnerUpdateManyWithWhereWithoutProjectInput | ProjectOwnerUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: ProjectOwnerScalarWhereInput | ProjectOwnerScalarWhereInput[]
+  }
+
+  export type SiteUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<SiteCreateWithoutProjectInput, SiteUncheckedCreateWithoutProjectInput> | SiteCreateWithoutProjectInput[] | SiteUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: SiteCreateOrConnectWithoutProjectInput | SiteCreateOrConnectWithoutProjectInput[]
+    upsert?: SiteUpsertWithWhereUniqueWithoutProjectInput | SiteUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: SiteCreateManyProjectInputEnvelope
+    set?: SiteWhereUniqueInput | SiteWhereUniqueInput[]
+    disconnect?: SiteWhereUniqueInput | SiteWhereUniqueInput[]
+    delete?: SiteWhereUniqueInput | SiteWhereUniqueInput[]
+    connect?: SiteWhereUniqueInput | SiteWhereUniqueInput[]
+    update?: SiteUpdateWithWhereUniqueWithoutProjectInput | SiteUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: SiteUpdateManyWithWhereWithoutProjectInput | SiteUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: SiteScalarWhereInput | SiteScalarWhereInput[]
+  }
+
+  export type ProjectOwnerUncheckedUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<ProjectOwnerCreateWithoutProjectInput, ProjectOwnerUncheckedCreateWithoutProjectInput> | ProjectOwnerCreateWithoutProjectInput[] | ProjectOwnerUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: ProjectOwnerCreateOrConnectWithoutProjectInput | ProjectOwnerCreateOrConnectWithoutProjectInput[]
+    upsert?: ProjectOwnerUpsertWithWhereUniqueWithoutProjectInput | ProjectOwnerUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: ProjectOwnerCreateManyProjectInputEnvelope
+    set?: ProjectOwnerWhereUniqueInput | ProjectOwnerWhereUniqueInput[]
+    disconnect?: ProjectOwnerWhereUniqueInput | ProjectOwnerWhereUniqueInput[]
+    delete?: ProjectOwnerWhereUniqueInput | ProjectOwnerWhereUniqueInput[]
+    connect?: ProjectOwnerWhereUniqueInput | ProjectOwnerWhereUniqueInput[]
+    update?: ProjectOwnerUpdateWithWhereUniqueWithoutProjectInput | ProjectOwnerUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: ProjectOwnerUpdateManyWithWhereWithoutProjectInput | ProjectOwnerUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: ProjectOwnerScalarWhereInput | ProjectOwnerScalarWhereInput[]
+  }
+
+  export type SiteUncheckedUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<SiteCreateWithoutProjectInput, SiteUncheckedCreateWithoutProjectInput> | SiteCreateWithoutProjectInput[] | SiteUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: SiteCreateOrConnectWithoutProjectInput | SiteCreateOrConnectWithoutProjectInput[]
+    upsert?: SiteUpsertWithWhereUniqueWithoutProjectInput | SiteUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: SiteCreateManyProjectInputEnvelope
+    set?: SiteWhereUniqueInput | SiteWhereUniqueInput[]
+    disconnect?: SiteWhereUniqueInput | SiteWhereUniqueInput[]
+    delete?: SiteWhereUniqueInput | SiteWhereUniqueInput[]
+    connect?: SiteWhereUniqueInput | SiteWhereUniqueInput[]
+    update?: SiteUpdateWithWhereUniqueWithoutProjectInput | SiteUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: SiteUpdateManyWithWhereWithoutProjectInput | SiteUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: SiteScalarWhereInput | SiteScalarWhereInput[]
+  }
+
   export type WorkspaceCreateNestedOneWithoutSitesInput = {
     create?: XOR<WorkspaceCreateWithoutSitesInput, WorkspaceUncheckedCreateWithoutSitesInput>
     connectOrCreate?: WorkspaceCreateOrConnectWithoutSitesInput
@@ -27825,6 +27920,12 @@ export namespace Prisma {
     create?: XOR<CompanyCreateWithoutSitesInput, CompanyUncheckedCreateWithoutSitesInput>
     connectOrCreate?: CompanyCreateOrConnectWithoutSitesInput
     connect?: CompanyWhereUniqueInput
+  }
+
+  export type ProjectCreateNestedOneWithoutSitesInput = {
+    create?: XOR<ProjectCreateWithoutSitesInput, ProjectUncheckedCreateWithoutSitesInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutSitesInput
+    connect?: ProjectWhereUniqueInput
   }
 
   export type SiteAttendanceCreateNestedManyWithoutSiteInput = {
@@ -27855,6 +27956,16 @@ export namespace Prisma {
     upsert?: CompanyUpsertWithoutSitesInput
     connect?: CompanyWhereUniqueInput
     update?: XOR<XOR<CompanyUpdateToOneWithWhereWithoutSitesInput, CompanyUpdateWithoutSitesInput>, CompanyUncheckedUpdateWithoutSitesInput>
+  }
+
+  export type ProjectUpdateOneWithoutSitesNestedInput = {
+    create?: XOR<ProjectCreateWithoutSitesInput, ProjectUncheckedCreateWithoutSitesInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutSitesInput
+    upsert?: ProjectUpsertWithoutSitesInput
+    disconnect?: ProjectWhereInput | boolean
+    delete?: ProjectWhereInput | boolean
+    connect?: ProjectWhereUniqueInput
+    update?: XOR<XOR<ProjectUpdateToOneWithWhereWithoutSitesInput, ProjectUpdateWithoutSitesInput>, ProjectUncheckedUpdateWithoutSitesInput>
   }
 
   export type SiteAttendanceUpdateManyWithoutSiteNestedInput = {
@@ -28069,10 +28180,58 @@ export namespace Prisma {
     deleteMany?: SiteAttendanceScalarWhereInput | SiteAttendanceScalarWhereInput[]
   }
 
+  export type CompanyIndustryCodeCreateNestedManyWithoutIndustrialAccidentInsurancePremiumRateInput = {
+    create?: XOR<CompanyIndustryCodeCreateWithoutIndustrialAccidentInsurancePremiumRateInput, CompanyIndustryCodeUncheckedCreateWithoutIndustrialAccidentInsurancePremiumRateInput> | CompanyIndustryCodeCreateWithoutIndustrialAccidentInsurancePremiumRateInput[] | CompanyIndustryCodeUncheckedCreateWithoutIndustrialAccidentInsurancePremiumRateInput[]
+    connectOrCreate?: CompanyIndustryCodeCreateOrConnectWithoutIndustrialAccidentInsurancePremiumRateInput | CompanyIndustryCodeCreateOrConnectWithoutIndustrialAccidentInsurancePremiumRateInput[]
+    createMany?: CompanyIndustryCodeCreateManyIndustrialAccidentInsurancePremiumRateInputEnvelope
+    connect?: CompanyIndustryCodeWhereUniqueInput | CompanyIndustryCodeWhereUniqueInput[]
+  }
+
+  export type CompanyIndustryCodeUncheckedCreateNestedManyWithoutIndustrialAccidentInsurancePremiumRateInput = {
+    create?: XOR<CompanyIndustryCodeCreateWithoutIndustrialAccidentInsurancePremiumRateInput, CompanyIndustryCodeUncheckedCreateWithoutIndustrialAccidentInsurancePremiumRateInput> | CompanyIndustryCodeCreateWithoutIndustrialAccidentInsurancePremiumRateInput[] | CompanyIndustryCodeUncheckedCreateWithoutIndustrialAccidentInsurancePremiumRateInput[]
+    connectOrCreate?: CompanyIndustryCodeCreateOrConnectWithoutIndustrialAccidentInsurancePremiumRateInput | CompanyIndustryCodeCreateOrConnectWithoutIndustrialAccidentInsurancePremiumRateInput[]
+    createMany?: CompanyIndustryCodeCreateManyIndustrialAccidentInsurancePremiumRateInputEnvelope
+    connect?: CompanyIndustryCodeWhereUniqueInput | CompanyIndustryCodeWhereUniqueInput[]
+  }
+
+  export type CompanyIndustryCodeUpdateManyWithoutIndustrialAccidentInsurancePremiumRateNestedInput = {
+    create?: XOR<CompanyIndustryCodeCreateWithoutIndustrialAccidentInsurancePremiumRateInput, CompanyIndustryCodeUncheckedCreateWithoutIndustrialAccidentInsurancePremiumRateInput> | CompanyIndustryCodeCreateWithoutIndustrialAccidentInsurancePremiumRateInput[] | CompanyIndustryCodeUncheckedCreateWithoutIndustrialAccidentInsurancePremiumRateInput[]
+    connectOrCreate?: CompanyIndustryCodeCreateOrConnectWithoutIndustrialAccidentInsurancePremiumRateInput | CompanyIndustryCodeCreateOrConnectWithoutIndustrialAccidentInsurancePremiumRateInput[]
+    upsert?: CompanyIndustryCodeUpsertWithWhereUniqueWithoutIndustrialAccidentInsurancePremiumRateInput | CompanyIndustryCodeUpsertWithWhereUniqueWithoutIndustrialAccidentInsurancePremiumRateInput[]
+    createMany?: CompanyIndustryCodeCreateManyIndustrialAccidentInsurancePremiumRateInputEnvelope
+    set?: CompanyIndustryCodeWhereUniqueInput | CompanyIndustryCodeWhereUniqueInput[]
+    disconnect?: CompanyIndustryCodeWhereUniqueInput | CompanyIndustryCodeWhereUniqueInput[]
+    delete?: CompanyIndustryCodeWhereUniqueInput | CompanyIndustryCodeWhereUniqueInput[]
+    connect?: CompanyIndustryCodeWhereUniqueInput | CompanyIndustryCodeWhereUniqueInput[]
+    update?: CompanyIndustryCodeUpdateWithWhereUniqueWithoutIndustrialAccidentInsurancePremiumRateInput | CompanyIndustryCodeUpdateWithWhereUniqueWithoutIndustrialAccidentInsurancePremiumRateInput[]
+    updateMany?: CompanyIndustryCodeUpdateManyWithWhereWithoutIndustrialAccidentInsurancePremiumRateInput | CompanyIndustryCodeUpdateManyWithWhereWithoutIndustrialAccidentInsurancePremiumRateInput[]
+    deleteMany?: CompanyIndustryCodeScalarWhereInput | CompanyIndustryCodeScalarWhereInput[]
+  }
+
+  export type CompanyIndustryCodeUncheckedUpdateManyWithoutIndustrialAccidentInsurancePremiumRateNestedInput = {
+    create?: XOR<CompanyIndustryCodeCreateWithoutIndustrialAccidentInsurancePremiumRateInput, CompanyIndustryCodeUncheckedCreateWithoutIndustrialAccidentInsurancePremiumRateInput> | CompanyIndustryCodeCreateWithoutIndustrialAccidentInsurancePremiumRateInput[] | CompanyIndustryCodeUncheckedCreateWithoutIndustrialAccidentInsurancePremiumRateInput[]
+    connectOrCreate?: CompanyIndustryCodeCreateOrConnectWithoutIndustrialAccidentInsurancePremiumRateInput | CompanyIndustryCodeCreateOrConnectWithoutIndustrialAccidentInsurancePremiumRateInput[]
+    upsert?: CompanyIndustryCodeUpsertWithWhereUniqueWithoutIndustrialAccidentInsurancePremiumRateInput | CompanyIndustryCodeUpsertWithWhereUniqueWithoutIndustrialAccidentInsurancePremiumRateInput[]
+    createMany?: CompanyIndustryCodeCreateManyIndustrialAccidentInsurancePremiumRateInputEnvelope
+    set?: CompanyIndustryCodeWhereUniqueInput | CompanyIndustryCodeWhereUniqueInput[]
+    disconnect?: CompanyIndustryCodeWhereUniqueInput | CompanyIndustryCodeWhereUniqueInput[]
+    delete?: CompanyIndustryCodeWhereUniqueInput | CompanyIndustryCodeWhereUniqueInput[]
+    connect?: CompanyIndustryCodeWhereUniqueInput | CompanyIndustryCodeWhereUniqueInput[]
+    update?: CompanyIndustryCodeUpdateWithWhereUniqueWithoutIndustrialAccidentInsurancePremiumRateInput | CompanyIndustryCodeUpdateWithWhereUniqueWithoutIndustrialAccidentInsurancePremiumRateInput[]
+    updateMany?: CompanyIndustryCodeUpdateManyWithWhereWithoutIndustrialAccidentInsurancePremiumRateInput | CompanyIndustryCodeUpdateManyWithWhereWithoutIndustrialAccidentInsurancePremiumRateInput[]
+    deleteMany?: CompanyIndustryCodeScalarWhereInput | CompanyIndustryCodeScalarWhereInput[]
+  }
+
   export type CompanyCreateNestedOneWithoutCompanyIndustryCodesInput = {
     create?: XOR<CompanyCreateWithoutCompanyIndustryCodesInput, CompanyUncheckedCreateWithoutCompanyIndustryCodesInput>
     connectOrCreate?: CompanyCreateOrConnectWithoutCompanyIndustryCodesInput
     connect?: CompanyWhereUniqueInput
+  }
+
+  export type IndustrialAccidentInsurancePremiumRateCreateNestedOneWithoutCompanyIndustryCodesInput = {
+    create?: XOR<IndustrialAccidentInsurancePremiumRateCreateWithoutCompanyIndustryCodesInput, IndustrialAccidentInsurancePremiumRateUncheckedCreateWithoutCompanyIndustryCodesInput>
+    connectOrCreate?: IndustrialAccidentInsurancePremiumRateCreateOrConnectWithoutCompanyIndustryCodesInput
+    connect?: IndustrialAccidentInsurancePremiumRateWhereUniqueInput
   }
 
   export type CompanyUpdateOneRequiredWithoutCompanyIndustryCodesNestedInput = {
@@ -28081,6 +28240,14 @@ export namespace Prisma {
     upsert?: CompanyUpsertWithoutCompanyIndustryCodesInput
     connect?: CompanyWhereUniqueInput
     update?: XOR<XOR<CompanyUpdateToOneWithWhereWithoutCompanyIndustryCodesInput, CompanyUpdateWithoutCompanyIndustryCodesInput>, CompanyUncheckedUpdateWithoutCompanyIndustryCodesInput>
+  }
+
+  export type IndustrialAccidentInsurancePremiumRateUpdateOneRequiredWithoutCompanyIndustryCodesNestedInput = {
+    create?: XOR<IndustrialAccidentInsurancePremiumRateCreateWithoutCompanyIndustryCodesInput, IndustrialAccidentInsurancePremiumRateUncheckedCreateWithoutCompanyIndustryCodesInput>
+    connectOrCreate?: IndustrialAccidentInsurancePremiumRateCreateOrConnectWithoutCompanyIndustryCodesInput
+    upsert?: IndustrialAccidentInsurancePremiumRateUpsertWithoutCompanyIndustryCodesInput
+    connect?: IndustrialAccidentInsurancePremiumRateWhereUniqueInput
+    update?: XOR<XOR<IndustrialAccidentInsurancePremiumRateUpdateToOneWithWhereWithoutCompanyIndustryCodesInput, IndustrialAccidentInsurancePremiumRateUpdateWithoutCompanyIndustryCodesInput>, IndustrialAccidentInsurancePremiumRateUncheckedUpdateWithoutCompanyIndustryCodesInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -28271,53 +28438,6 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type NestedEnumInvitationTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.InvitationType | EnumInvitationTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.InvitationType[]
-    notIn?: $Enums.InvitationType[]
-    not?: NestedEnumInvitationTypeFilter<$PrismaModel> | $Enums.InvitationType
-  }
-
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedEnumInvitationTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.InvitationType | EnumInvitationTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.InvitationType[]
-    notIn?: $Enums.InvitationType[]
-    not?: NestedEnumInvitationTypeWithAggregatesFilter<$PrismaModel> | $Enums.InvitationType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumInvitationTypeFilter<$PrismaModel>
-    _max?: NestedEnumInvitationTypeFilter<$PrismaModel>
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
-  export type NestedEnumInvitationStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.InvitationStatus | EnumInvitationStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.InvitationStatus[]
-    notIn?: $Enums.InvitationStatus[]
-    not?: NestedEnumInvitationStatusFilter<$PrismaModel> | $Enums.InvitationStatus
-  }
-
-  export type NestedEnumInvitationStatusWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.InvitationStatus | EnumInvitationStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.InvitationStatus[]
-    notIn?: $Enums.InvitationStatus[]
-    not?: NestedEnumInvitationStatusWithAggregatesFilter<$PrismaModel> | $Enums.InvitationStatus
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumInvitationStatusFilter<$PrismaModel>
-    _max?: NestedEnumInvitationStatusFilter<$PrismaModel>
-  }
-
   export type PrimaryProfileCreateWithoutUserInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -28344,8 +28464,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     talentPools?: TalentPoolCreateNestedManyWithoutProfileInput
-    workspaceInvitationUsers?: WorkspaceInvitationUserCreateNestedManyWithoutProfileInput
     primaryProfile?: PrimaryProfileCreateNestedOneWithoutProfileInput
+    workspaceMembers?: WorkspaceMemberCreateNestedManyWithoutProfileInput
   }
 
   export type ProfileUncheckedCreateWithoutUserInput = {
@@ -28357,8 +28477,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     talentPools?: TalentPoolUncheckedCreateNestedManyWithoutProfileInput
-    workspaceInvitationUsers?: WorkspaceInvitationUserUncheckedCreateNestedManyWithoutProfileInput
     primaryProfile?: PrimaryProfileUncheckedCreateNestedOneWithoutProfileInput
+    workspaceMembers?: WorkspaceMemberUncheckedCreateNestedManyWithoutProfileInput
   }
 
   export type ProfileCreateOrConnectWithoutUserInput = {
@@ -28374,19 +28494,23 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     workspace: WorkspaceCreateNestedOneWithoutWorkspaceMembersInput
+    profile: ProfileCreateNestedOneWithoutWorkspaceMembersInput
+    inviter?: WorkspaceMemberCreateNestedOneWithoutInvitedMembersInput
     owners?: WorkspaceOwnerCreateNestedManyWithoutWorkspaceMemberInput
-    workspaceInvitationsCreated?: WorkspaceInvitationCreateNestedManyWithoutCreatedByMemberInput
     companiesCreated?: CompanyCreateNestedManyWithoutCreatedByMemberInput
+    invitedMembers?: WorkspaceMemberCreateNestedManyWithoutInviterInput
   }
 
   export type WorkspaceMemberUncheckedCreateWithoutUserInput = {
     id?: number
     workspaceId: number
+    profileId: number
+    inviterId?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     owners?: WorkspaceOwnerUncheckedCreateNestedManyWithoutWorkspaceMemberInput
-    workspaceInvitationsCreated?: WorkspaceInvitationUncheckedCreateNestedManyWithoutCreatedByMemberInput
     companiesCreated?: CompanyUncheckedCreateNestedManyWithoutCreatedByMemberInput
+    invitedMembers?: WorkspaceMemberUncheckedCreateNestedManyWithoutInviterInput
   }
 
   export type WorkspaceMemberCreateOrConnectWithoutUserInput = {
@@ -28475,6 +28599,8 @@ export namespace Prisma {
     id?: IntFilter<"WorkspaceMember"> | number
     workspaceId?: IntFilter<"WorkspaceMember"> | number
     userId?: IntFilter<"WorkspaceMember"> | number
+    profileId?: IntFilter<"WorkspaceMember"> | number
+    inviterId?: IntNullableFilter<"WorkspaceMember"> | number | null
     createdAt?: DateTimeFilter<"WorkspaceMember"> | Date | string
     updatedAt?: DateTimeFilter<"WorkspaceMember"> | Date | string
   }
@@ -28539,32 +28665,6 @@ export namespace Prisma {
     data: TalentPoolCreateManyProfileInput | TalentPoolCreateManyProfileInput[]
   }
 
-  export type WorkspaceInvitationUserCreateWithoutProfileInput = {
-    status?: $Enums.InvitationStatus
-    acceptedAt?: Date | string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    invitation: WorkspaceInvitationCreateNestedOneWithoutInvitationUsersInput
-  }
-
-  export type WorkspaceInvitationUserUncheckedCreateWithoutProfileInput = {
-    id?: number
-    invitationId: number
-    status?: $Enums.InvitationStatus
-    acceptedAt?: Date | string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type WorkspaceInvitationUserCreateOrConnectWithoutProfileInput = {
-    where: WorkspaceInvitationUserWhereUniqueInput
-    create: XOR<WorkspaceInvitationUserCreateWithoutProfileInput, WorkspaceInvitationUserUncheckedCreateWithoutProfileInput>
-  }
-
-  export type WorkspaceInvitationUserCreateManyProfileInputEnvelope = {
-    data: WorkspaceInvitationUserCreateManyProfileInput | WorkspaceInvitationUserCreateManyProfileInput[]
-  }
-
   export type PrimaryProfileCreateWithoutProfileInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -28581,6 +28681,38 @@ export namespace Prisma {
   export type PrimaryProfileCreateOrConnectWithoutProfileInput = {
     where: PrimaryProfileWhereUniqueInput
     create: XOR<PrimaryProfileCreateWithoutProfileInput, PrimaryProfileUncheckedCreateWithoutProfileInput>
+  }
+
+  export type WorkspaceMemberCreateWithoutProfileInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    workspace: WorkspaceCreateNestedOneWithoutWorkspaceMembersInput
+    user: UserCreateNestedOneWithoutWorkspaceMembersInput
+    inviter?: WorkspaceMemberCreateNestedOneWithoutInvitedMembersInput
+    owners?: WorkspaceOwnerCreateNestedManyWithoutWorkspaceMemberInput
+    companiesCreated?: CompanyCreateNestedManyWithoutCreatedByMemberInput
+    invitedMembers?: WorkspaceMemberCreateNestedManyWithoutInviterInput
+  }
+
+  export type WorkspaceMemberUncheckedCreateWithoutProfileInput = {
+    id?: number
+    workspaceId: number
+    userId: number
+    inviterId?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owners?: WorkspaceOwnerUncheckedCreateNestedManyWithoutWorkspaceMemberInput
+    companiesCreated?: CompanyUncheckedCreateNestedManyWithoutCreatedByMemberInput
+    invitedMembers?: WorkspaceMemberUncheckedCreateNestedManyWithoutInviterInput
+  }
+
+  export type WorkspaceMemberCreateOrConnectWithoutProfileInput = {
+    where: WorkspaceMemberWhereUniqueInput
+    create: XOR<WorkspaceMemberCreateWithoutProfileInput, WorkspaceMemberUncheckedCreateWithoutProfileInput>
+  }
+
+  export type WorkspaceMemberCreateManyProfileInputEnvelope = {
+    data: WorkspaceMemberCreateManyProfileInput | WorkspaceMemberCreateManyProfileInput[]
   }
 
   export type UserUpsertWithoutProfilesInput = {
@@ -28643,35 +28775,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"TalentPool"> | Date | string
   }
 
-  export type WorkspaceInvitationUserUpsertWithWhereUniqueWithoutProfileInput = {
-    where: WorkspaceInvitationUserWhereUniqueInput
-    update: XOR<WorkspaceInvitationUserUpdateWithoutProfileInput, WorkspaceInvitationUserUncheckedUpdateWithoutProfileInput>
-    create: XOR<WorkspaceInvitationUserCreateWithoutProfileInput, WorkspaceInvitationUserUncheckedCreateWithoutProfileInput>
-  }
-
-  export type WorkspaceInvitationUserUpdateWithWhereUniqueWithoutProfileInput = {
-    where: WorkspaceInvitationUserWhereUniqueInput
-    data: XOR<WorkspaceInvitationUserUpdateWithoutProfileInput, WorkspaceInvitationUserUncheckedUpdateWithoutProfileInput>
-  }
-
-  export type WorkspaceInvitationUserUpdateManyWithWhereWithoutProfileInput = {
-    where: WorkspaceInvitationUserScalarWhereInput
-    data: XOR<WorkspaceInvitationUserUpdateManyMutationInput, WorkspaceInvitationUserUncheckedUpdateManyWithoutProfileInput>
-  }
-
-  export type WorkspaceInvitationUserScalarWhereInput = {
-    AND?: WorkspaceInvitationUserScalarWhereInput | WorkspaceInvitationUserScalarWhereInput[]
-    OR?: WorkspaceInvitationUserScalarWhereInput[]
-    NOT?: WorkspaceInvitationUserScalarWhereInput | WorkspaceInvitationUserScalarWhereInput[]
-    id?: IntFilter<"WorkspaceInvitationUser"> | number
-    invitationId?: IntFilter<"WorkspaceInvitationUser"> | number
-    profileId?: IntFilter<"WorkspaceInvitationUser"> | number
-    status?: EnumInvitationStatusFilter<"WorkspaceInvitationUser"> | $Enums.InvitationStatus
-    acceptedAt?: DateTimeNullableFilter<"WorkspaceInvitationUser"> | Date | string | null
-    createdAt?: DateTimeFilter<"WorkspaceInvitationUser"> | Date | string
-    updatedAt?: DateTimeFilter<"WorkspaceInvitationUser"> | Date | string
-  }
-
   export type PrimaryProfileUpsertWithoutProfileInput = {
     update: XOR<PrimaryProfileUpdateWithoutProfileInput, PrimaryProfileUncheckedUpdateWithoutProfileInput>
     create: XOR<PrimaryProfileCreateWithoutProfileInput, PrimaryProfileUncheckedCreateWithoutProfileInput>
@@ -28694,6 +28797,22 @@ export namespace Prisma {
     userId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WorkspaceMemberUpsertWithWhereUniqueWithoutProfileInput = {
+    where: WorkspaceMemberWhereUniqueInput
+    update: XOR<WorkspaceMemberUpdateWithoutProfileInput, WorkspaceMemberUncheckedUpdateWithoutProfileInput>
+    create: XOR<WorkspaceMemberCreateWithoutProfileInput, WorkspaceMemberUncheckedCreateWithoutProfileInput>
+  }
+
+  export type WorkspaceMemberUpdateWithWhereUniqueWithoutProfileInput = {
+    where: WorkspaceMemberWhereUniqueInput
+    data: XOR<WorkspaceMemberUpdateWithoutProfileInput, WorkspaceMemberUncheckedUpdateWithoutProfileInput>
+  }
+
+  export type WorkspaceMemberUpdateManyWithWhereWithoutProfileInput = {
+    where: WorkspaceMemberScalarWhereInput
+    data: XOR<WorkspaceMemberUpdateManyMutationInput, WorkspaceMemberUncheckedUpdateManyWithoutProfileInput>
   }
 
   export type UserCreateWithoutPrimaryProfileInput = {
@@ -28727,7 +28846,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     user?: UserCreateNestedOneWithoutProfilesInput
     talentPools?: TalentPoolCreateNestedManyWithoutProfileInput
-    workspaceInvitationUsers?: WorkspaceInvitationUserCreateNestedManyWithoutProfileInput
+    workspaceMembers?: WorkspaceMemberCreateNestedManyWithoutProfileInput
   }
 
   export type ProfileUncheckedCreateWithoutPrimaryProfileInput = {
@@ -28740,7 +28859,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     talentPools?: TalentPoolUncheckedCreateNestedManyWithoutProfileInput
-    workspaceInvitationUsers?: WorkspaceInvitationUserUncheckedCreateNestedManyWithoutProfileInput
+    workspaceMembers?: WorkspaceMemberUncheckedCreateNestedManyWithoutProfileInput
   }
 
   export type ProfileCreateOrConnectWithoutPrimaryProfileInput = {
@@ -28796,7 +28915,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneWithoutProfilesNestedInput
     talentPools?: TalentPoolUpdateManyWithoutProfileNestedInput
-    workspaceInvitationUsers?: WorkspaceInvitationUserUpdateManyWithoutProfileNestedInput
+    workspaceMembers?: WorkspaceMemberUpdateManyWithoutProfileNestedInput
   }
 
   export type ProfileUncheckedUpdateWithoutPrimaryProfileInput = {
@@ -28809,7 +28928,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     talentPools?: TalentPoolUncheckedUpdateManyWithoutProfileNestedInput
-    workspaceInvitationUsers?: WorkspaceInvitationUserUncheckedUpdateManyWithoutProfileNestedInput
+    workspaceMembers?: WorkspaceMemberUncheckedUpdateManyWithoutProfileNestedInput
   }
 
   export type CompanyCreateWithoutWorkspaceInput = {
@@ -28864,11 +28983,13 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     company: CompanyCreateNestedOneWithoutSitesInput
+    project?: ProjectCreateNestedOneWithoutSitesInput
     siteAttendances?: SiteAttendanceCreateNestedManyWithoutSiteInput
   }
 
   export type SiteUncheckedCreateWithoutWorkspaceInput = {
     id?: number
+    projectId?: number | null
     companyId: number
     name: string
     location: string
@@ -28932,19 +29053,23 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutWorkspaceMembersInput
+    profile: ProfileCreateNestedOneWithoutWorkspaceMembersInput
+    inviter?: WorkspaceMemberCreateNestedOneWithoutInvitedMembersInput
     owners?: WorkspaceOwnerCreateNestedManyWithoutWorkspaceMemberInput
-    workspaceInvitationsCreated?: WorkspaceInvitationCreateNestedManyWithoutCreatedByMemberInput
     companiesCreated?: CompanyCreateNestedManyWithoutCreatedByMemberInput
+    invitedMembers?: WorkspaceMemberCreateNestedManyWithoutInviterInput
   }
 
   export type WorkspaceMemberUncheckedCreateWithoutWorkspaceInput = {
     id?: number
     userId: number
+    profileId: number
+    inviterId?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     owners?: WorkspaceOwnerUncheckedCreateNestedManyWithoutWorkspaceMemberInput
-    workspaceInvitationsCreated?: WorkspaceInvitationUncheckedCreateNestedManyWithoutCreatedByMemberInput
     companiesCreated?: CompanyUncheckedCreateNestedManyWithoutCreatedByMemberInput
+    invitedMembers?: WorkspaceMemberUncheckedCreateNestedManyWithoutInviterInput
   }
 
   export type WorkspaceMemberCreateOrConnectWithoutWorkspaceInput = {
@@ -28978,40 +29103,30 @@ export namespace Prisma {
     data: WorkspaceOwnerCreateManyWorkspaceInput | WorkspaceOwnerCreateManyWorkspaceInput[]
   }
 
-  export type WorkspaceInvitationCreateWithoutWorkspaceInput = {
-    invitationType: $Enums.InvitationType
-    invitationCode: string
-    expiresAt?: Date | string | null
-    maxUses?: number | null
-    currentUses?: number
-    isActive?: boolean
+  export type ProjectCreateWithoutWorkspaceInput = {
+    name: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    createdByMember: WorkspaceMemberCreateNestedOneWithoutWorkspaceInvitationsCreatedInput
-    invitationUsers?: WorkspaceInvitationUserCreateNestedManyWithoutInvitationInput
+    projectOwners?: ProjectOwnerCreateNestedManyWithoutProjectInput
+    sites?: SiteCreateNestedManyWithoutProjectInput
   }
 
-  export type WorkspaceInvitationUncheckedCreateWithoutWorkspaceInput = {
+  export type ProjectUncheckedCreateWithoutWorkspaceInput = {
     id?: number
-    createdBy: number
-    invitationType: $Enums.InvitationType
-    invitationCode: string
-    expiresAt?: Date | string | null
-    maxUses?: number | null
-    currentUses?: number
-    isActive?: boolean
+    name: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    invitationUsers?: WorkspaceInvitationUserUncheckedCreateNestedManyWithoutInvitationInput
+    projectOwners?: ProjectOwnerUncheckedCreateNestedManyWithoutProjectInput
+    sites?: SiteUncheckedCreateNestedManyWithoutProjectInput
   }
 
-  export type WorkspaceInvitationCreateOrConnectWithoutWorkspaceInput = {
-    where: WorkspaceInvitationWhereUniqueInput
-    create: XOR<WorkspaceInvitationCreateWithoutWorkspaceInput, WorkspaceInvitationUncheckedCreateWithoutWorkspaceInput>
+  export type ProjectCreateOrConnectWithoutWorkspaceInput = {
+    where: ProjectWhereUniqueInput
+    create: XOR<ProjectCreateWithoutWorkspaceInput, ProjectUncheckedCreateWithoutWorkspaceInput>
   }
 
-  export type WorkspaceInvitationCreateManyWorkspaceInputEnvelope = {
-    data: WorkspaceInvitationCreateManyWorkspaceInput | WorkspaceInvitationCreateManyWorkspaceInput[]
+  export type ProjectCreateManyWorkspaceInputEnvelope = {
+    data: ProjectCreateManyWorkspaceInput | ProjectCreateManyWorkspaceInput[]
   }
 
   export type CompanyUpsertWithWhereUniqueWithoutWorkspaceInput = {
@@ -29068,6 +29183,7 @@ export namespace Prisma {
     NOT?: SiteScalarWhereInput | SiteScalarWhereInput[]
     id?: IntFilter<"Site"> | number
     workspaceId?: IntFilter<"Site"> | number
+    projectId?: IntNullableFilter<"Site"> | number | null
     companyId?: IntFilter<"Site"> | number
     name?: StringFilter<"Site"> | string
     location?: StringFilter<"Site"> | string
@@ -29138,37 +29254,31 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"WorkspaceOwner"> | Date | string
   }
 
-  export type WorkspaceInvitationUpsertWithWhereUniqueWithoutWorkspaceInput = {
-    where: WorkspaceInvitationWhereUniqueInput
-    update: XOR<WorkspaceInvitationUpdateWithoutWorkspaceInput, WorkspaceInvitationUncheckedUpdateWithoutWorkspaceInput>
-    create: XOR<WorkspaceInvitationCreateWithoutWorkspaceInput, WorkspaceInvitationUncheckedCreateWithoutWorkspaceInput>
+  export type ProjectUpsertWithWhereUniqueWithoutWorkspaceInput = {
+    where: ProjectWhereUniqueInput
+    update: XOR<ProjectUpdateWithoutWorkspaceInput, ProjectUncheckedUpdateWithoutWorkspaceInput>
+    create: XOR<ProjectCreateWithoutWorkspaceInput, ProjectUncheckedCreateWithoutWorkspaceInput>
   }
 
-  export type WorkspaceInvitationUpdateWithWhereUniqueWithoutWorkspaceInput = {
-    where: WorkspaceInvitationWhereUniqueInput
-    data: XOR<WorkspaceInvitationUpdateWithoutWorkspaceInput, WorkspaceInvitationUncheckedUpdateWithoutWorkspaceInput>
+  export type ProjectUpdateWithWhereUniqueWithoutWorkspaceInput = {
+    where: ProjectWhereUniqueInput
+    data: XOR<ProjectUpdateWithoutWorkspaceInput, ProjectUncheckedUpdateWithoutWorkspaceInput>
   }
 
-  export type WorkspaceInvitationUpdateManyWithWhereWithoutWorkspaceInput = {
-    where: WorkspaceInvitationScalarWhereInput
-    data: XOR<WorkspaceInvitationUpdateManyMutationInput, WorkspaceInvitationUncheckedUpdateManyWithoutWorkspaceInput>
+  export type ProjectUpdateManyWithWhereWithoutWorkspaceInput = {
+    where: ProjectScalarWhereInput
+    data: XOR<ProjectUpdateManyMutationInput, ProjectUncheckedUpdateManyWithoutWorkspaceInput>
   }
 
-  export type WorkspaceInvitationScalarWhereInput = {
-    AND?: WorkspaceInvitationScalarWhereInput | WorkspaceInvitationScalarWhereInput[]
-    OR?: WorkspaceInvitationScalarWhereInput[]
-    NOT?: WorkspaceInvitationScalarWhereInput | WorkspaceInvitationScalarWhereInput[]
-    id?: IntFilter<"WorkspaceInvitation"> | number
-    workspaceId?: IntFilter<"WorkspaceInvitation"> | number
-    createdBy?: IntFilter<"WorkspaceInvitation"> | number
-    invitationType?: EnumInvitationTypeFilter<"WorkspaceInvitation"> | $Enums.InvitationType
-    invitationCode?: StringFilter<"WorkspaceInvitation"> | string
-    expiresAt?: DateTimeNullableFilter<"WorkspaceInvitation"> | Date | string | null
-    maxUses?: IntNullableFilter<"WorkspaceInvitation"> | number | null
-    currentUses?: IntFilter<"WorkspaceInvitation"> | number
-    isActive?: BoolFilter<"WorkspaceInvitation"> | boolean
-    createdAt?: DateTimeFilter<"WorkspaceInvitation"> | Date | string
-    updatedAt?: DateTimeFilter<"WorkspaceInvitation"> | Date | string
+  export type ProjectScalarWhereInput = {
+    AND?: ProjectScalarWhereInput | ProjectScalarWhereInput[]
+    OR?: ProjectScalarWhereInput[]
+    NOT?: ProjectScalarWhereInput | ProjectScalarWhereInput[]
+    id?: IntFilter<"Project"> | number
+    workspaceId?: IntFilter<"Project"> | number
+    name?: StringFilter<"Project"> | string
+    createdAt?: DateTimeFilter<"Project"> | Date | string
+    updatedAt?: DateTimeFilter<"Project"> | Date | string
   }
 
   export type WorkspaceCreateWithoutWorkspaceMembersInput = {
@@ -29179,7 +29289,7 @@ export namespace Prisma {
     sites?: SiteCreateNestedManyWithoutWorkspaceInput
     talentPools?: TalentPoolCreateNestedManyWithoutWorkspaceInput
     workspaceOwners?: WorkspaceOwnerCreateNestedManyWithoutWorkspaceInput
-    workspaceInvitations?: WorkspaceInvitationCreateNestedManyWithoutWorkspaceInput
+    projects?: ProjectCreateNestedManyWithoutWorkspaceInput
   }
 
   export type WorkspaceUncheckedCreateWithoutWorkspaceMembersInput = {
@@ -29191,7 +29301,7 @@ export namespace Prisma {
     sites?: SiteUncheckedCreateNestedManyWithoutWorkspaceInput
     talentPools?: TalentPoolUncheckedCreateNestedManyWithoutWorkspaceInput
     workspaceOwners?: WorkspaceOwnerUncheckedCreateNestedManyWithoutWorkspaceInput
-    workspaceInvitations?: WorkspaceInvitationUncheckedCreateNestedManyWithoutWorkspaceInput
+    projects?: ProjectUncheckedCreateNestedManyWithoutWorkspaceInput
   }
 
   export type WorkspaceCreateOrConnectWithoutWorkspaceMembersInput = {
@@ -29221,6 +29331,64 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutWorkspaceMembersInput, UserUncheckedCreateWithoutWorkspaceMembersInput>
   }
 
+  export type ProfileCreateWithoutWorkspaceMembersInput = {
+    name: string
+    birthday?: Date | string | null
+    address?: string | null
+    phone?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user?: UserCreateNestedOneWithoutProfilesInput
+    talentPools?: TalentPoolCreateNestedManyWithoutProfileInput
+    primaryProfile?: PrimaryProfileCreateNestedOneWithoutProfileInput
+  }
+
+  export type ProfileUncheckedCreateWithoutWorkspaceMembersInput = {
+    id?: number
+    userId?: number | null
+    name: string
+    birthday?: Date | string | null
+    address?: string | null
+    phone?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    talentPools?: TalentPoolUncheckedCreateNestedManyWithoutProfileInput
+    primaryProfile?: PrimaryProfileUncheckedCreateNestedOneWithoutProfileInput
+  }
+
+  export type ProfileCreateOrConnectWithoutWorkspaceMembersInput = {
+    where: ProfileWhereUniqueInput
+    create: XOR<ProfileCreateWithoutWorkspaceMembersInput, ProfileUncheckedCreateWithoutWorkspaceMembersInput>
+  }
+
+  export type WorkspaceMemberCreateWithoutInvitedMembersInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    workspace: WorkspaceCreateNestedOneWithoutWorkspaceMembersInput
+    user: UserCreateNestedOneWithoutWorkspaceMembersInput
+    profile: ProfileCreateNestedOneWithoutWorkspaceMembersInput
+    inviter?: WorkspaceMemberCreateNestedOneWithoutInvitedMembersInput
+    owners?: WorkspaceOwnerCreateNestedManyWithoutWorkspaceMemberInput
+    companiesCreated?: CompanyCreateNestedManyWithoutCreatedByMemberInput
+  }
+
+  export type WorkspaceMemberUncheckedCreateWithoutInvitedMembersInput = {
+    id?: number
+    workspaceId: number
+    userId: number
+    profileId: number
+    inviterId?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owners?: WorkspaceOwnerUncheckedCreateNestedManyWithoutWorkspaceMemberInput
+    companiesCreated?: CompanyUncheckedCreateNestedManyWithoutCreatedByMemberInput
+  }
+
+  export type WorkspaceMemberCreateOrConnectWithoutInvitedMembersInput = {
+    where: WorkspaceMemberWhereUniqueInput
+    create: XOR<WorkspaceMemberCreateWithoutInvitedMembersInput, WorkspaceMemberUncheckedCreateWithoutInvitedMembersInput>
+  }
+
   export type WorkspaceOwnerCreateWithoutWorkspaceMemberInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -29241,42 +29409,6 @@ export namespace Prisma {
 
   export type WorkspaceOwnerCreateManyWorkspaceMemberInputEnvelope = {
     data: WorkspaceOwnerCreateManyWorkspaceMemberInput | WorkspaceOwnerCreateManyWorkspaceMemberInput[]
-  }
-
-  export type WorkspaceInvitationCreateWithoutCreatedByMemberInput = {
-    invitationType: $Enums.InvitationType
-    invitationCode: string
-    expiresAt?: Date | string | null
-    maxUses?: number | null
-    currentUses?: number
-    isActive?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    workspace: WorkspaceCreateNestedOneWithoutWorkspaceInvitationsInput
-    invitationUsers?: WorkspaceInvitationUserCreateNestedManyWithoutInvitationInput
-  }
-
-  export type WorkspaceInvitationUncheckedCreateWithoutCreatedByMemberInput = {
-    id?: number
-    workspaceId: number
-    invitationType: $Enums.InvitationType
-    invitationCode: string
-    expiresAt?: Date | string | null
-    maxUses?: number | null
-    currentUses?: number
-    isActive?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    invitationUsers?: WorkspaceInvitationUserUncheckedCreateNestedManyWithoutInvitationInput
-  }
-
-  export type WorkspaceInvitationCreateOrConnectWithoutCreatedByMemberInput = {
-    where: WorkspaceInvitationWhereUniqueInput
-    create: XOR<WorkspaceInvitationCreateWithoutCreatedByMemberInput, WorkspaceInvitationUncheckedCreateWithoutCreatedByMemberInput>
-  }
-
-  export type WorkspaceInvitationCreateManyCreatedByMemberInputEnvelope = {
-    data: WorkspaceInvitationCreateManyCreatedByMemberInput | WorkspaceInvitationCreateManyCreatedByMemberInput[]
   }
 
   export type CompanyCreateWithoutCreatedByMemberInput = {
@@ -29321,6 +29453,38 @@ export namespace Prisma {
     data: CompanyCreateManyCreatedByMemberInput | CompanyCreateManyCreatedByMemberInput[]
   }
 
+  export type WorkspaceMemberCreateWithoutInviterInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    workspace: WorkspaceCreateNestedOneWithoutWorkspaceMembersInput
+    user: UserCreateNestedOneWithoutWorkspaceMembersInput
+    profile: ProfileCreateNestedOneWithoutWorkspaceMembersInput
+    owners?: WorkspaceOwnerCreateNestedManyWithoutWorkspaceMemberInput
+    companiesCreated?: CompanyCreateNestedManyWithoutCreatedByMemberInput
+    invitedMembers?: WorkspaceMemberCreateNestedManyWithoutInviterInput
+  }
+
+  export type WorkspaceMemberUncheckedCreateWithoutInviterInput = {
+    id?: number
+    workspaceId: number
+    userId: number
+    profileId: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owners?: WorkspaceOwnerUncheckedCreateNestedManyWithoutWorkspaceMemberInput
+    companiesCreated?: CompanyUncheckedCreateNestedManyWithoutCreatedByMemberInput
+    invitedMembers?: WorkspaceMemberUncheckedCreateNestedManyWithoutInviterInput
+  }
+
+  export type WorkspaceMemberCreateOrConnectWithoutInviterInput = {
+    where: WorkspaceMemberWhereUniqueInput
+    create: XOR<WorkspaceMemberCreateWithoutInviterInput, WorkspaceMemberUncheckedCreateWithoutInviterInput>
+  }
+
+  export type WorkspaceMemberCreateManyInviterInputEnvelope = {
+    data: WorkspaceMemberCreateManyInviterInput | WorkspaceMemberCreateManyInviterInput[]
+  }
+
   export type WorkspaceUpsertWithoutWorkspaceMembersInput = {
     update: XOR<WorkspaceUpdateWithoutWorkspaceMembersInput, WorkspaceUncheckedUpdateWithoutWorkspaceMembersInput>
     create: XOR<WorkspaceCreateWithoutWorkspaceMembersInput, WorkspaceUncheckedCreateWithoutWorkspaceMembersInput>
@@ -29340,7 +29504,7 @@ export namespace Prisma {
     sites?: SiteUpdateManyWithoutWorkspaceNestedInput
     talentPools?: TalentPoolUpdateManyWithoutWorkspaceNestedInput
     workspaceOwners?: WorkspaceOwnerUpdateManyWithoutWorkspaceNestedInput
-    workspaceInvitations?: WorkspaceInvitationUpdateManyWithoutWorkspaceNestedInput
+    projects?: ProjectUpdateManyWithoutWorkspaceNestedInput
   }
 
   export type WorkspaceUncheckedUpdateWithoutWorkspaceMembersInput = {
@@ -29352,7 +29516,7 @@ export namespace Prisma {
     sites?: SiteUncheckedUpdateManyWithoutWorkspaceNestedInput
     talentPools?: TalentPoolUncheckedUpdateManyWithoutWorkspaceNestedInput
     workspaceOwners?: WorkspaceOwnerUncheckedUpdateManyWithoutWorkspaceNestedInput
-    workspaceInvitations?: WorkspaceInvitationUncheckedUpdateManyWithoutWorkspaceNestedInput
+    projects?: ProjectUncheckedUpdateManyWithoutWorkspaceNestedInput
   }
 
   export type UserUpsertWithoutWorkspaceMembersInput = {
@@ -29383,6 +29547,76 @@ export namespace Prisma {
     profiles?: ProfileUncheckedUpdateManyWithoutUserNestedInput
   }
 
+  export type ProfileUpsertWithoutWorkspaceMembersInput = {
+    update: XOR<ProfileUpdateWithoutWorkspaceMembersInput, ProfileUncheckedUpdateWithoutWorkspaceMembersInput>
+    create: XOR<ProfileCreateWithoutWorkspaceMembersInput, ProfileUncheckedCreateWithoutWorkspaceMembersInput>
+    where?: ProfileWhereInput
+  }
+
+  export type ProfileUpdateToOneWithWhereWithoutWorkspaceMembersInput = {
+    where?: ProfileWhereInput
+    data: XOR<ProfileUpdateWithoutWorkspaceMembersInput, ProfileUncheckedUpdateWithoutWorkspaceMembersInput>
+  }
+
+  export type ProfileUpdateWithoutWorkspaceMembersInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    birthday?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneWithoutProfilesNestedInput
+    talentPools?: TalentPoolUpdateManyWithoutProfileNestedInput
+    primaryProfile?: PrimaryProfileUpdateOneWithoutProfileNestedInput
+  }
+
+  export type ProfileUncheckedUpdateWithoutWorkspaceMembersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: NullableIntFieldUpdateOperationsInput | number | null
+    name?: StringFieldUpdateOperationsInput | string
+    birthday?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    talentPools?: TalentPoolUncheckedUpdateManyWithoutProfileNestedInput
+    primaryProfile?: PrimaryProfileUncheckedUpdateOneWithoutProfileNestedInput
+  }
+
+  export type WorkspaceMemberUpsertWithoutInvitedMembersInput = {
+    update: XOR<WorkspaceMemberUpdateWithoutInvitedMembersInput, WorkspaceMemberUncheckedUpdateWithoutInvitedMembersInput>
+    create: XOR<WorkspaceMemberCreateWithoutInvitedMembersInput, WorkspaceMemberUncheckedCreateWithoutInvitedMembersInput>
+    where?: WorkspaceMemberWhereInput
+  }
+
+  export type WorkspaceMemberUpdateToOneWithWhereWithoutInvitedMembersInput = {
+    where?: WorkspaceMemberWhereInput
+    data: XOR<WorkspaceMemberUpdateWithoutInvitedMembersInput, WorkspaceMemberUncheckedUpdateWithoutInvitedMembersInput>
+  }
+
+  export type WorkspaceMemberUpdateWithoutInvitedMembersInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workspace?: WorkspaceUpdateOneRequiredWithoutWorkspaceMembersNestedInput
+    user?: UserUpdateOneRequiredWithoutWorkspaceMembersNestedInput
+    profile?: ProfileUpdateOneRequiredWithoutWorkspaceMembersNestedInput
+    inviter?: WorkspaceMemberUpdateOneWithoutInvitedMembersNestedInput
+    owners?: WorkspaceOwnerUpdateManyWithoutWorkspaceMemberNestedInput
+    companiesCreated?: CompanyUpdateManyWithoutCreatedByMemberNestedInput
+  }
+
+  export type WorkspaceMemberUncheckedUpdateWithoutInvitedMembersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    workspaceId?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    profileId?: IntFieldUpdateOperationsInput | number
+    inviterId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owners?: WorkspaceOwnerUncheckedUpdateManyWithoutWorkspaceMemberNestedInput
+    companiesCreated?: CompanyUncheckedUpdateManyWithoutCreatedByMemberNestedInput
+  }
+
   export type WorkspaceOwnerUpsertWithWhereUniqueWithoutWorkspaceMemberInput = {
     where: WorkspaceOwnerWhereUniqueInput
     update: XOR<WorkspaceOwnerUpdateWithoutWorkspaceMemberInput, WorkspaceOwnerUncheckedUpdateWithoutWorkspaceMemberInput>
@@ -29397,22 +29631,6 @@ export namespace Prisma {
   export type WorkspaceOwnerUpdateManyWithWhereWithoutWorkspaceMemberInput = {
     where: WorkspaceOwnerScalarWhereInput
     data: XOR<WorkspaceOwnerUpdateManyMutationInput, WorkspaceOwnerUncheckedUpdateManyWithoutWorkspaceMemberInput>
-  }
-
-  export type WorkspaceInvitationUpsertWithWhereUniqueWithoutCreatedByMemberInput = {
-    where: WorkspaceInvitationWhereUniqueInput
-    update: XOR<WorkspaceInvitationUpdateWithoutCreatedByMemberInput, WorkspaceInvitationUncheckedUpdateWithoutCreatedByMemberInput>
-    create: XOR<WorkspaceInvitationCreateWithoutCreatedByMemberInput, WorkspaceInvitationUncheckedCreateWithoutCreatedByMemberInput>
-  }
-
-  export type WorkspaceInvitationUpdateWithWhereUniqueWithoutCreatedByMemberInput = {
-    where: WorkspaceInvitationWhereUniqueInput
-    data: XOR<WorkspaceInvitationUpdateWithoutCreatedByMemberInput, WorkspaceInvitationUncheckedUpdateWithoutCreatedByMemberInput>
-  }
-
-  export type WorkspaceInvitationUpdateManyWithWhereWithoutCreatedByMemberInput = {
-    where: WorkspaceInvitationScalarWhereInput
-    data: XOR<WorkspaceInvitationUpdateManyMutationInput, WorkspaceInvitationUncheckedUpdateManyWithoutCreatedByMemberInput>
   }
 
   export type CompanyUpsertWithWhereUniqueWithoutCreatedByMemberInput = {
@@ -29431,6 +29649,22 @@ export namespace Prisma {
     data: XOR<CompanyUpdateManyMutationInput, CompanyUncheckedUpdateManyWithoutCreatedByMemberInput>
   }
 
+  export type WorkspaceMemberUpsertWithWhereUniqueWithoutInviterInput = {
+    where: WorkspaceMemberWhereUniqueInput
+    update: XOR<WorkspaceMemberUpdateWithoutInviterInput, WorkspaceMemberUncheckedUpdateWithoutInviterInput>
+    create: XOR<WorkspaceMemberCreateWithoutInviterInput, WorkspaceMemberUncheckedCreateWithoutInviterInput>
+  }
+
+  export type WorkspaceMemberUpdateWithWhereUniqueWithoutInviterInput = {
+    where: WorkspaceMemberWhereUniqueInput
+    data: XOR<WorkspaceMemberUpdateWithoutInviterInput, WorkspaceMemberUncheckedUpdateWithoutInviterInput>
+  }
+
+  export type WorkspaceMemberUpdateManyWithWhereWithoutInviterInput = {
+    where: WorkspaceMemberScalarWhereInput
+    data: XOR<WorkspaceMemberUpdateManyMutationInput, WorkspaceMemberUncheckedUpdateManyWithoutInviterInput>
+  }
+
   export type WorkspaceCreateWithoutWorkspaceOwnersInput = {
     name: string
     createdAt?: Date | string
@@ -29439,7 +29673,7 @@ export namespace Prisma {
     sites?: SiteCreateNestedManyWithoutWorkspaceInput
     talentPools?: TalentPoolCreateNestedManyWithoutWorkspaceInput
     workspaceMembers?: WorkspaceMemberCreateNestedManyWithoutWorkspaceInput
-    workspaceInvitations?: WorkspaceInvitationCreateNestedManyWithoutWorkspaceInput
+    projects?: ProjectCreateNestedManyWithoutWorkspaceInput
   }
 
   export type WorkspaceUncheckedCreateWithoutWorkspaceOwnersInput = {
@@ -29451,7 +29685,7 @@ export namespace Prisma {
     sites?: SiteUncheckedCreateNestedManyWithoutWorkspaceInput
     talentPools?: TalentPoolUncheckedCreateNestedManyWithoutWorkspaceInput
     workspaceMembers?: WorkspaceMemberUncheckedCreateNestedManyWithoutWorkspaceInput
-    workspaceInvitations?: WorkspaceInvitationUncheckedCreateNestedManyWithoutWorkspaceInput
+    projects?: ProjectUncheckedCreateNestedManyWithoutWorkspaceInput
   }
 
   export type WorkspaceCreateOrConnectWithoutWorkspaceOwnersInput = {
@@ -29464,18 +29698,22 @@ export namespace Prisma {
     updatedAt?: Date | string
     workspace: WorkspaceCreateNestedOneWithoutWorkspaceMembersInput
     user: UserCreateNestedOneWithoutWorkspaceMembersInput
-    workspaceInvitationsCreated?: WorkspaceInvitationCreateNestedManyWithoutCreatedByMemberInput
+    profile: ProfileCreateNestedOneWithoutWorkspaceMembersInput
+    inviter?: WorkspaceMemberCreateNestedOneWithoutInvitedMembersInput
     companiesCreated?: CompanyCreateNestedManyWithoutCreatedByMemberInput
+    invitedMembers?: WorkspaceMemberCreateNestedManyWithoutInviterInput
   }
 
   export type WorkspaceMemberUncheckedCreateWithoutOwnersInput = {
     id?: number
     workspaceId: number
     userId: number
+    profileId: number
+    inviterId?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    workspaceInvitationsCreated?: WorkspaceInvitationUncheckedCreateNestedManyWithoutCreatedByMemberInput
     companiesCreated?: CompanyUncheckedCreateNestedManyWithoutCreatedByMemberInput
+    invitedMembers?: WorkspaceMemberUncheckedCreateNestedManyWithoutInviterInput
   }
 
   export type WorkspaceMemberCreateOrConnectWithoutOwnersInput = {
@@ -29502,7 +29740,7 @@ export namespace Prisma {
     sites?: SiteUpdateManyWithoutWorkspaceNestedInput
     talentPools?: TalentPoolUpdateManyWithoutWorkspaceNestedInput
     workspaceMembers?: WorkspaceMemberUpdateManyWithoutWorkspaceNestedInput
-    workspaceInvitations?: WorkspaceInvitationUpdateManyWithoutWorkspaceNestedInput
+    projects?: ProjectUpdateManyWithoutWorkspaceNestedInput
   }
 
   export type WorkspaceUncheckedUpdateWithoutWorkspaceOwnersInput = {
@@ -29514,7 +29752,7 @@ export namespace Prisma {
     sites?: SiteUncheckedUpdateManyWithoutWorkspaceNestedInput
     talentPools?: TalentPoolUncheckedUpdateManyWithoutWorkspaceNestedInput
     workspaceMembers?: WorkspaceMemberUncheckedUpdateManyWithoutWorkspaceNestedInput
-    workspaceInvitations?: WorkspaceInvitationUncheckedUpdateManyWithoutWorkspaceNestedInput
+    projects?: ProjectUncheckedUpdateManyWithoutWorkspaceNestedInput
   }
 
   export type WorkspaceMemberUpsertWithoutOwnersInput = {
@@ -29533,312 +29771,22 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspace?: WorkspaceUpdateOneRequiredWithoutWorkspaceMembersNestedInput
     user?: UserUpdateOneRequiredWithoutWorkspaceMembersNestedInput
-    workspaceInvitationsCreated?: WorkspaceInvitationUpdateManyWithoutCreatedByMemberNestedInput
+    profile?: ProfileUpdateOneRequiredWithoutWorkspaceMembersNestedInput
+    inviter?: WorkspaceMemberUpdateOneWithoutInvitedMembersNestedInput
     companiesCreated?: CompanyUpdateManyWithoutCreatedByMemberNestedInput
+    invitedMembers?: WorkspaceMemberUpdateManyWithoutInviterNestedInput
   }
 
   export type WorkspaceMemberUncheckedUpdateWithoutOwnersInput = {
     id?: IntFieldUpdateOperationsInput | number
     workspaceId?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
+    profileId?: IntFieldUpdateOperationsInput | number
+    inviterId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    workspaceInvitationsCreated?: WorkspaceInvitationUncheckedUpdateManyWithoutCreatedByMemberNestedInput
     companiesCreated?: CompanyUncheckedUpdateManyWithoutCreatedByMemberNestedInput
-  }
-
-  export type WorkspaceCreateWithoutWorkspaceInvitationsInput = {
-    name: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    companies?: CompanyCreateNestedManyWithoutWorkspaceInput
-    sites?: SiteCreateNestedManyWithoutWorkspaceInput
-    talentPools?: TalentPoolCreateNestedManyWithoutWorkspaceInput
-    workspaceMembers?: WorkspaceMemberCreateNestedManyWithoutWorkspaceInput
-    workspaceOwners?: WorkspaceOwnerCreateNestedManyWithoutWorkspaceInput
-  }
-
-  export type WorkspaceUncheckedCreateWithoutWorkspaceInvitationsInput = {
-    id?: number
-    name: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    companies?: CompanyUncheckedCreateNestedManyWithoutWorkspaceInput
-    sites?: SiteUncheckedCreateNestedManyWithoutWorkspaceInput
-    talentPools?: TalentPoolUncheckedCreateNestedManyWithoutWorkspaceInput
-    workspaceMembers?: WorkspaceMemberUncheckedCreateNestedManyWithoutWorkspaceInput
-    workspaceOwners?: WorkspaceOwnerUncheckedCreateNestedManyWithoutWorkspaceInput
-  }
-
-  export type WorkspaceCreateOrConnectWithoutWorkspaceInvitationsInput = {
-    where: WorkspaceWhereUniqueInput
-    create: XOR<WorkspaceCreateWithoutWorkspaceInvitationsInput, WorkspaceUncheckedCreateWithoutWorkspaceInvitationsInput>
-  }
-
-  export type WorkspaceMemberCreateWithoutWorkspaceInvitationsCreatedInput = {
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    workspace: WorkspaceCreateNestedOneWithoutWorkspaceMembersInput
-    user: UserCreateNestedOneWithoutWorkspaceMembersInput
-    owners?: WorkspaceOwnerCreateNestedManyWithoutWorkspaceMemberInput
-    companiesCreated?: CompanyCreateNestedManyWithoutCreatedByMemberInput
-  }
-
-  export type WorkspaceMemberUncheckedCreateWithoutWorkspaceInvitationsCreatedInput = {
-    id?: number
-    workspaceId: number
-    userId: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    owners?: WorkspaceOwnerUncheckedCreateNestedManyWithoutWorkspaceMemberInput
-    companiesCreated?: CompanyUncheckedCreateNestedManyWithoutCreatedByMemberInput
-  }
-
-  export type WorkspaceMemberCreateOrConnectWithoutWorkspaceInvitationsCreatedInput = {
-    where: WorkspaceMemberWhereUniqueInput
-    create: XOR<WorkspaceMemberCreateWithoutWorkspaceInvitationsCreatedInput, WorkspaceMemberUncheckedCreateWithoutWorkspaceInvitationsCreatedInput>
-  }
-
-  export type WorkspaceInvitationUserCreateWithoutInvitationInput = {
-    status?: $Enums.InvitationStatus
-    acceptedAt?: Date | string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    profile: ProfileCreateNestedOneWithoutWorkspaceInvitationUsersInput
-  }
-
-  export type WorkspaceInvitationUserUncheckedCreateWithoutInvitationInput = {
-    id?: number
-    profileId: number
-    status?: $Enums.InvitationStatus
-    acceptedAt?: Date | string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type WorkspaceInvitationUserCreateOrConnectWithoutInvitationInput = {
-    where: WorkspaceInvitationUserWhereUniqueInput
-    create: XOR<WorkspaceInvitationUserCreateWithoutInvitationInput, WorkspaceInvitationUserUncheckedCreateWithoutInvitationInput>
-  }
-
-  export type WorkspaceInvitationUserCreateManyInvitationInputEnvelope = {
-    data: WorkspaceInvitationUserCreateManyInvitationInput | WorkspaceInvitationUserCreateManyInvitationInput[]
-  }
-
-  export type WorkspaceUpsertWithoutWorkspaceInvitationsInput = {
-    update: XOR<WorkspaceUpdateWithoutWorkspaceInvitationsInput, WorkspaceUncheckedUpdateWithoutWorkspaceInvitationsInput>
-    create: XOR<WorkspaceCreateWithoutWorkspaceInvitationsInput, WorkspaceUncheckedCreateWithoutWorkspaceInvitationsInput>
-    where?: WorkspaceWhereInput
-  }
-
-  export type WorkspaceUpdateToOneWithWhereWithoutWorkspaceInvitationsInput = {
-    where?: WorkspaceWhereInput
-    data: XOR<WorkspaceUpdateWithoutWorkspaceInvitationsInput, WorkspaceUncheckedUpdateWithoutWorkspaceInvitationsInput>
-  }
-
-  export type WorkspaceUpdateWithoutWorkspaceInvitationsInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    companies?: CompanyUpdateManyWithoutWorkspaceNestedInput
-    sites?: SiteUpdateManyWithoutWorkspaceNestedInput
-    talentPools?: TalentPoolUpdateManyWithoutWorkspaceNestedInput
-    workspaceMembers?: WorkspaceMemberUpdateManyWithoutWorkspaceNestedInput
-    workspaceOwners?: WorkspaceOwnerUpdateManyWithoutWorkspaceNestedInput
-  }
-
-  export type WorkspaceUncheckedUpdateWithoutWorkspaceInvitationsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    companies?: CompanyUncheckedUpdateManyWithoutWorkspaceNestedInput
-    sites?: SiteUncheckedUpdateManyWithoutWorkspaceNestedInput
-    talentPools?: TalentPoolUncheckedUpdateManyWithoutWorkspaceNestedInput
-    workspaceMembers?: WorkspaceMemberUncheckedUpdateManyWithoutWorkspaceNestedInput
-    workspaceOwners?: WorkspaceOwnerUncheckedUpdateManyWithoutWorkspaceNestedInput
-  }
-
-  export type WorkspaceMemberUpsertWithoutWorkspaceInvitationsCreatedInput = {
-    update: XOR<WorkspaceMemberUpdateWithoutWorkspaceInvitationsCreatedInput, WorkspaceMemberUncheckedUpdateWithoutWorkspaceInvitationsCreatedInput>
-    create: XOR<WorkspaceMemberCreateWithoutWorkspaceInvitationsCreatedInput, WorkspaceMemberUncheckedCreateWithoutWorkspaceInvitationsCreatedInput>
-    where?: WorkspaceMemberWhereInput
-  }
-
-  export type WorkspaceMemberUpdateToOneWithWhereWithoutWorkspaceInvitationsCreatedInput = {
-    where?: WorkspaceMemberWhereInput
-    data: XOR<WorkspaceMemberUpdateWithoutWorkspaceInvitationsCreatedInput, WorkspaceMemberUncheckedUpdateWithoutWorkspaceInvitationsCreatedInput>
-  }
-
-  export type WorkspaceMemberUpdateWithoutWorkspaceInvitationsCreatedInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    workspace?: WorkspaceUpdateOneRequiredWithoutWorkspaceMembersNestedInput
-    user?: UserUpdateOneRequiredWithoutWorkspaceMembersNestedInput
-    owners?: WorkspaceOwnerUpdateManyWithoutWorkspaceMemberNestedInput
-    companiesCreated?: CompanyUpdateManyWithoutCreatedByMemberNestedInput
-  }
-
-  export type WorkspaceMemberUncheckedUpdateWithoutWorkspaceInvitationsCreatedInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    workspaceId?: IntFieldUpdateOperationsInput | number
-    userId?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    owners?: WorkspaceOwnerUncheckedUpdateManyWithoutWorkspaceMemberNestedInput
-    companiesCreated?: CompanyUncheckedUpdateManyWithoutCreatedByMemberNestedInput
-  }
-
-  export type WorkspaceInvitationUserUpsertWithWhereUniqueWithoutInvitationInput = {
-    where: WorkspaceInvitationUserWhereUniqueInput
-    update: XOR<WorkspaceInvitationUserUpdateWithoutInvitationInput, WorkspaceInvitationUserUncheckedUpdateWithoutInvitationInput>
-    create: XOR<WorkspaceInvitationUserCreateWithoutInvitationInput, WorkspaceInvitationUserUncheckedCreateWithoutInvitationInput>
-  }
-
-  export type WorkspaceInvitationUserUpdateWithWhereUniqueWithoutInvitationInput = {
-    where: WorkspaceInvitationUserWhereUniqueInput
-    data: XOR<WorkspaceInvitationUserUpdateWithoutInvitationInput, WorkspaceInvitationUserUncheckedUpdateWithoutInvitationInput>
-  }
-
-  export type WorkspaceInvitationUserUpdateManyWithWhereWithoutInvitationInput = {
-    where: WorkspaceInvitationUserScalarWhereInput
-    data: XOR<WorkspaceInvitationUserUpdateManyMutationInput, WorkspaceInvitationUserUncheckedUpdateManyWithoutInvitationInput>
-  }
-
-  export type WorkspaceInvitationCreateWithoutInvitationUsersInput = {
-    invitationType: $Enums.InvitationType
-    invitationCode: string
-    expiresAt?: Date | string | null
-    maxUses?: number | null
-    currentUses?: number
-    isActive?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    workspace: WorkspaceCreateNestedOneWithoutWorkspaceInvitationsInput
-    createdByMember: WorkspaceMemberCreateNestedOneWithoutWorkspaceInvitationsCreatedInput
-  }
-
-  export type WorkspaceInvitationUncheckedCreateWithoutInvitationUsersInput = {
-    id?: number
-    workspaceId: number
-    createdBy: number
-    invitationType: $Enums.InvitationType
-    invitationCode: string
-    expiresAt?: Date | string | null
-    maxUses?: number | null
-    currentUses?: number
-    isActive?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type WorkspaceInvitationCreateOrConnectWithoutInvitationUsersInput = {
-    where: WorkspaceInvitationWhereUniqueInput
-    create: XOR<WorkspaceInvitationCreateWithoutInvitationUsersInput, WorkspaceInvitationUncheckedCreateWithoutInvitationUsersInput>
-  }
-
-  export type ProfileCreateWithoutWorkspaceInvitationUsersInput = {
-    name: string
-    birthday?: Date | string | null
-    address?: string | null
-    phone?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    user?: UserCreateNestedOneWithoutProfilesInput
-    talentPools?: TalentPoolCreateNestedManyWithoutProfileInput
-    primaryProfile?: PrimaryProfileCreateNestedOneWithoutProfileInput
-  }
-
-  export type ProfileUncheckedCreateWithoutWorkspaceInvitationUsersInput = {
-    id?: number
-    userId?: number | null
-    name: string
-    birthday?: Date | string | null
-    address?: string | null
-    phone?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    talentPools?: TalentPoolUncheckedCreateNestedManyWithoutProfileInput
-    primaryProfile?: PrimaryProfileUncheckedCreateNestedOneWithoutProfileInput
-  }
-
-  export type ProfileCreateOrConnectWithoutWorkspaceInvitationUsersInput = {
-    where: ProfileWhereUniqueInput
-    create: XOR<ProfileCreateWithoutWorkspaceInvitationUsersInput, ProfileUncheckedCreateWithoutWorkspaceInvitationUsersInput>
-  }
-
-  export type WorkspaceInvitationUpsertWithoutInvitationUsersInput = {
-    update: XOR<WorkspaceInvitationUpdateWithoutInvitationUsersInput, WorkspaceInvitationUncheckedUpdateWithoutInvitationUsersInput>
-    create: XOR<WorkspaceInvitationCreateWithoutInvitationUsersInput, WorkspaceInvitationUncheckedCreateWithoutInvitationUsersInput>
-    where?: WorkspaceInvitationWhereInput
-  }
-
-  export type WorkspaceInvitationUpdateToOneWithWhereWithoutInvitationUsersInput = {
-    where?: WorkspaceInvitationWhereInput
-    data: XOR<WorkspaceInvitationUpdateWithoutInvitationUsersInput, WorkspaceInvitationUncheckedUpdateWithoutInvitationUsersInput>
-  }
-
-  export type WorkspaceInvitationUpdateWithoutInvitationUsersInput = {
-    invitationType?: EnumInvitationTypeFieldUpdateOperationsInput | $Enums.InvitationType
-    invitationCode?: StringFieldUpdateOperationsInput | string
-    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    maxUses?: NullableIntFieldUpdateOperationsInput | number | null
-    currentUses?: IntFieldUpdateOperationsInput | number
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    workspace?: WorkspaceUpdateOneRequiredWithoutWorkspaceInvitationsNestedInput
-    createdByMember?: WorkspaceMemberUpdateOneRequiredWithoutWorkspaceInvitationsCreatedNestedInput
-  }
-
-  export type WorkspaceInvitationUncheckedUpdateWithoutInvitationUsersInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    workspaceId?: IntFieldUpdateOperationsInput | number
-    createdBy?: IntFieldUpdateOperationsInput | number
-    invitationType?: EnumInvitationTypeFieldUpdateOperationsInput | $Enums.InvitationType
-    invitationCode?: StringFieldUpdateOperationsInput | string
-    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    maxUses?: NullableIntFieldUpdateOperationsInput | number | null
-    currentUses?: IntFieldUpdateOperationsInput | number
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ProfileUpsertWithoutWorkspaceInvitationUsersInput = {
-    update: XOR<ProfileUpdateWithoutWorkspaceInvitationUsersInput, ProfileUncheckedUpdateWithoutWorkspaceInvitationUsersInput>
-    create: XOR<ProfileCreateWithoutWorkspaceInvitationUsersInput, ProfileUncheckedCreateWithoutWorkspaceInvitationUsersInput>
-    where?: ProfileWhereInput
-  }
-
-  export type ProfileUpdateToOneWithWhereWithoutWorkspaceInvitationUsersInput = {
-    where?: ProfileWhereInput
-    data: XOR<ProfileUpdateWithoutWorkspaceInvitationUsersInput, ProfileUncheckedUpdateWithoutWorkspaceInvitationUsersInput>
-  }
-
-  export type ProfileUpdateWithoutWorkspaceInvitationUsersInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    birthday?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneWithoutProfilesNestedInput
-    talentPools?: TalentPoolUpdateManyWithoutProfileNestedInput
-    primaryProfile?: PrimaryProfileUpdateOneWithoutProfileNestedInput
-  }
-
-  export type ProfileUncheckedUpdateWithoutWorkspaceInvitationUsersInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    userId?: NullableIntFieldUpdateOperationsInput | number | null
-    name?: StringFieldUpdateOperationsInput | string
-    birthday?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    talentPools?: TalentPoolUncheckedUpdateManyWithoutProfileNestedInput
-    primaryProfile?: PrimaryProfileUncheckedUpdateOneWithoutProfileNestedInput
+    invitedMembers?: WorkspaceMemberUncheckedUpdateManyWithoutInviterNestedInput
   }
 
   export type WorkspaceCreateWithoutCompaniesInput = {
@@ -29849,7 +29797,7 @@ export namespace Prisma {
     talentPools?: TalentPoolCreateNestedManyWithoutWorkspaceInput
     workspaceMembers?: WorkspaceMemberCreateNestedManyWithoutWorkspaceInput
     workspaceOwners?: WorkspaceOwnerCreateNestedManyWithoutWorkspaceInput
-    workspaceInvitations?: WorkspaceInvitationCreateNestedManyWithoutWorkspaceInput
+    projects?: ProjectCreateNestedManyWithoutWorkspaceInput
   }
 
   export type WorkspaceUncheckedCreateWithoutCompaniesInput = {
@@ -29861,7 +29809,7 @@ export namespace Prisma {
     talentPools?: TalentPoolUncheckedCreateNestedManyWithoutWorkspaceInput
     workspaceMembers?: WorkspaceMemberUncheckedCreateNestedManyWithoutWorkspaceInput
     workspaceOwners?: WorkspaceOwnerUncheckedCreateNestedManyWithoutWorkspaceInput
-    workspaceInvitations?: WorkspaceInvitationUncheckedCreateNestedManyWithoutWorkspaceInput
+    projects?: ProjectUncheckedCreateNestedManyWithoutWorkspaceInput
   }
 
   export type WorkspaceCreateOrConnectWithoutCompaniesInput = {
@@ -29870,9 +29818,9 @@ export namespace Prisma {
   }
 
   export type CompanyIndustryCodeCreateWithoutCompanyInput = {
-    industryCode: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    industrialAccidentInsurancePremiumRate: IndustrialAccidentInsurancePremiumRateCreateNestedOneWithoutCompanyIndustryCodesInput
   }
 
   export type CompanyIndustryCodeUncheckedCreateWithoutCompanyInput = {
@@ -29969,12 +29917,14 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     workspace: WorkspaceCreateNestedOneWithoutSitesInput
+    project?: ProjectCreateNestedOneWithoutSitesInput
     siteAttendances?: SiteAttendanceCreateNestedManyWithoutSiteInput
   }
 
   export type SiteUncheckedCreateWithoutCompanyInput = {
     id?: number
     workspaceId: number
+    projectId?: number | null
     name: string
     location: string
     startDate: Date | string
@@ -30000,18 +29950,22 @@ export namespace Prisma {
     updatedAt?: Date | string
     workspace: WorkspaceCreateNestedOneWithoutWorkspaceMembersInput
     user: UserCreateNestedOneWithoutWorkspaceMembersInput
+    profile: ProfileCreateNestedOneWithoutWorkspaceMembersInput
+    inviter?: WorkspaceMemberCreateNestedOneWithoutInvitedMembersInput
     owners?: WorkspaceOwnerCreateNestedManyWithoutWorkspaceMemberInput
-    workspaceInvitationsCreated?: WorkspaceInvitationCreateNestedManyWithoutCreatedByMemberInput
+    invitedMembers?: WorkspaceMemberCreateNestedManyWithoutInviterInput
   }
 
   export type WorkspaceMemberUncheckedCreateWithoutCompaniesCreatedInput = {
     id?: number
     workspaceId: number
     userId: number
+    profileId: number
+    inviterId?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     owners?: WorkspaceOwnerUncheckedCreateNestedManyWithoutWorkspaceMemberInput
-    workspaceInvitationsCreated?: WorkspaceInvitationUncheckedCreateNestedManyWithoutCreatedByMemberInput
+    invitedMembers?: WorkspaceMemberUncheckedCreateNestedManyWithoutInviterInput
   }
 
   export type WorkspaceMemberCreateOrConnectWithoutCompaniesCreatedInput = {
@@ -30038,7 +29992,7 @@ export namespace Prisma {
     talentPools?: TalentPoolUpdateManyWithoutWorkspaceNestedInput
     workspaceMembers?: WorkspaceMemberUpdateManyWithoutWorkspaceNestedInput
     workspaceOwners?: WorkspaceOwnerUpdateManyWithoutWorkspaceNestedInput
-    workspaceInvitations?: WorkspaceInvitationUpdateManyWithoutWorkspaceNestedInput
+    projects?: ProjectUpdateManyWithoutWorkspaceNestedInput
   }
 
   export type WorkspaceUncheckedUpdateWithoutCompaniesInput = {
@@ -30050,7 +30004,7 @@ export namespace Prisma {
     talentPools?: TalentPoolUncheckedUpdateManyWithoutWorkspaceNestedInput
     workspaceMembers?: WorkspaceMemberUncheckedUpdateManyWithoutWorkspaceNestedInput
     workspaceOwners?: WorkspaceOwnerUncheckedUpdateManyWithoutWorkspaceNestedInput
-    workspaceInvitations?: WorkspaceInvitationUncheckedUpdateManyWithoutWorkspaceNestedInput
+    projects?: ProjectUncheckedUpdateManyWithoutWorkspaceNestedInput
   }
 
   export type CompanyIndustryCodeUpsertWithWhereUniqueWithoutCompanyInput = {
@@ -30193,18 +30147,22 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspace?: WorkspaceUpdateOneRequiredWithoutWorkspaceMembersNestedInput
     user?: UserUpdateOneRequiredWithoutWorkspaceMembersNestedInput
+    profile?: ProfileUpdateOneRequiredWithoutWorkspaceMembersNestedInput
+    inviter?: WorkspaceMemberUpdateOneWithoutInvitedMembersNestedInput
     owners?: WorkspaceOwnerUpdateManyWithoutWorkspaceMemberNestedInput
-    workspaceInvitationsCreated?: WorkspaceInvitationUpdateManyWithoutCreatedByMemberNestedInput
+    invitedMembers?: WorkspaceMemberUpdateManyWithoutInviterNestedInput
   }
 
   export type WorkspaceMemberUncheckedUpdateWithoutCompaniesCreatedInput = {
     id?: IntFieldUpdateOperationsInput | number
     workspaceId?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
+    profileId?: IntFieldUpdateOperationsInput | number
+    inviterId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owners?: WorkspaceOwnerUncheckedUpdateManyWithoutWorkspaceMemberNestedInput
-    workspaceInvitationsCreated?: WorkspaceInvitationUncheckedUpdateManyWithoutCreatedByMemberNestedInput
+    invitedMembers?: WorkspaceMemberUncheckedUpdateManyWithoutInviterNestedInput
   }
 
   export type CompanyCreateWithoutEmployeesInput = {
@@ -30685,6 +30643,227 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ProjectCreateWithoutProjectOwnersInput = {
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    workspace: WorkspaceCreateNestedOneWithoutProjectsInput
+    sites?: SiteCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectUncheckedCreateWithoutProjectOwnersInput = {
+    id?: number
+    workspaceId: number
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sites?: SiteUncheckedCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectCreateOrConnectWithoutProjectOwnersInput = {
+    where: ProjectWhereUniqueInput
+    create: XOR<ProjectCreateWithoutProjectOwnersInput, ProjectUncheckedCreateWithoutProjectOwnersInput>
+  }
+
+  export type ProjectUpsertWithoutProjectOwnersInput = {
+    update: XOR<ProjectUpdateWithoutProjectOwnersInput, ProjectUncheckedUpdateWithoutProjectOwnersInput>
+    create: XOR<ProjectCreateWithoutProjectOwnersInput, ProjectUncheckedCreateWithoutProjectOwnersInput>
+    where?: ProjectWhereInput
+  }
+
+  export type ProjectUpdateToOneWithWhereWithoutProjectOwnersInput = {
+    where?: ProjectWhereInput
+    data: XOR<ProjectUpdateWithoutProjectOwnersInput, ProjectUncheckedUpdateWithoutProjectOwnersInput>
+  }
+
+  export type ProjectUpdateWithoutProjectOwnersInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workspace?: WorkspaceUpdateOneRequiredWithoutProjectsNestedInput
+    sites?: SiteUpdateManyWithoutProjectNestedInput
+  }
+
+  export type ProjectUncheckedUpdateWithoutProjectOwnersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    workspaceId?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sites?: SiteUncheckedUpdateManyWithoutProjectNestedInput
+  }
+
+  export type WorkspaceCreateWithoutProjectsInput = {
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    companies?: CompanyCreateNestedManyWithoutWorkspaceInput
+    sites?: SiteCreateNestedManyWithoutWorkspaceInput
+    talentPools?: TalentPoolCreateNestedManyWithoutWorkspaceInput
+    workspaceMembers?: WorkspaceMemberCreateNestedManyWithoutWorkspaceInput
+    workspaceOwners?: WorkspaceOwnerCreateNestedManyWithoutWorkspaceInput
+  }
+
+  export type WorkspaceUncheckedCreateWithoutProjectsInput = {
+    id?: number
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    companies?: CompanyUncheckedCreateNestedManyWithoutWorkspaceInput
+    sites?: SiteUncheckedCreateNestedManyWithoutWorkspaceInput
+    talentPools?: TalentPoolUncheckedCreateNestedManyWithoutWorkspaceInput
+    workspaceMembers?: WorkspaceMemberUncheckedCreateNestedManyWithoutWorkspaceInput
+    workspaceOwners?: WorkspaceOwnerUncheckedCreateNestedManyWithoutWorkspaceInput
+  }
+
+  export type WorkspaceCreateOrConnectWithoutProjectsInput = {
+    where: WorkspaceWhereUniqueInput
+    create: XOR<WorkspaceCreateWithoutProjectsInput, WorkspaceUncheckedCreateWithoutProjectsInput>
+  }
+
+  export type ProjectOwnerCreateWithoutProjectInput = {
+    name: string
+    address: string
+    phone: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ProjectOwnerUncheckedCreateWithoutProjectInput = {
+    id?: number
+    name: string
+    address: string
+    phone: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ProjectOwnerCreateOrConnectWithoutProjectInput = {
+    where: ProjectOwnerWhereUniqueInput
+    create: XOR<ProjectOwnerCreateWithoutProjectInput, ProjectOwnerUncheckedCreateWithoutProjectInput>
+  }
+
+  export type ProjectOwnerCreateManyProjectInputEnvelope = {
+    data: ProjectOwnerCreateManyProjectInput | ProjectOwnerCreateManyProjectInput[]
+  }
+
+  export type SiteCreateWithoutProjectInput = {
+    name: string
+    location: string
+    startDate: Date | string
+    endDate: Date | string
+    managementNumber?: string | null
+    memo?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    workspace: WorkspaceCreateNestedOneWithoutSitesInput
+    company: CompanyCreateNestedOneWithoutSitesInput
+    siteAttendances?: SiteAttendanceCreateNestedManyWithoutSiteInput
+  }
+
+  export type SiteUncheckedCreateWithoutProjectInput = {
+    id?: number
+    workspaceId: number
+    companyId: number
+    name: string
+    location: string
+    startDate: Date | string
+    endDate: Date | string
+    managementNumber?: string | null
+    memo?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    siteAttendances?: SiteAttendanceUncheckedCreateNestedManyWithoutSiteInput
+  }
+
+  export type SiteCreateOrConnectWithoutProjectInput = {
+    where: SiteWhereUniqueInput
+    create: XOR<SiteCreateWithoutProjectInput, SiteUncheckedCreateWithoutProjectInput>
+  }
+
+  export type SiteCreateManyProjectInputEnvelope = {
+    data: SiteCreateManyProjectInput | SiteCreateManyProjectInput[]
+  }
+
+  export type WorkspaceUpsertWithoutProjectsInput = {
+    update: XOR<WorkspaceUpdateWithoutProjectsInput, WorkspaceUncheckedUpdateWithoutProjectsInput>
+    create: XOR<WorkspaceCreateWithoutProjectsInput, WorkspaceUncheckedCreateWithoutProjectsInput>
+    where?: WorkspaceWhereInput
+  }
+
+  export type WorkspaceUpdateToOneWithWhereWithoutProjectsInput = {
+    where?: WorkspaceWhereInput
+    data: XOR<WorkspaceUpdateWithoutProjectsInput, WorkspaceUncheckedUpdateWithoutProjectsInput>
+  }
+
+  export type WorkspaceUpdateWithoutProjectsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    companies?: CompanyUpdateManyWithoutWorkspaceNestedInput
+    sites?: SiteUpdateManyWithoutWorkspaceNestedInput
+    talentPools?: TalentPoolUpdateManyWithoutWorkspaceNestedInput
+    workspaceMembers?: WorkspaceMemberUpdateManyWithoutWorkspaceNestedInput
+    workspaceOwners?: WorkspaceOwnerUpdateManyWithoutWorkspaceNestedInput
+  }
+
+  export type WorkspaceUncheckedUpdateWithoutProjectsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    companies?: CompanyUncheckedUpdateManyWithoutWorkspaceNestedInput
+    sites?: SiteUncheckedUpdateManyWithoutWorkspaceNestedInput
+    talentPools?: TalentPoolUncheckedUpdateManyWithoutWorkspaceNestedInput
+    workspaceMembers?: WorkspaceMemberUncheckedUpdateManyWithoutWorkspaceNestedInput
+    workspaceOwners?: WorkspaceOwnerUncheckedUpdateManyWithoutWorkspaceNestedInput
+  }
+
+  export type ProjectOwnerUpsertWithWhereUniqueWithoutProjectInput = {
+    where: ProjectOwnerWhereUniqueInput
+    update: XOR<ProjectOwnerUpdateWithoutProjectInput, ProjectOwnerUncheckedUpdateWithoutProjectInput>
+    create: XOR<ProjectOwnerCreateWithoutProjectInput, ProjectOwnerUncheckedCreateWithoutProjectInput>
+  }
+
+  export type ProjectOwnerUpdateWithWhereUniqueWithoutProjectInput = {
+    where: ProjectOwnerWhereUniqueInput
+    data: XOR<ProjectOwnerUpdateWithoutProjectInput, ProjectOwnerUncheckedUpdateWithoutProjectInput>
+  }
+
+  export type ProjectOwnerUpdateManyWithWhereWithoutProjectInput = {
+    where: ProjectOwnerScalarWhereInput
+    data: XOR<ProjectOwnerUpdateManyMutationInput, ProjectOwnerUncheckedUpdateManyWithoutProjectInput>
+  }
+
+  export type ProjectOwnerScalarWhereInput = {
+    AND?: ProjectOwnerScalarWhereInput | ProjectOwnerScalarWhereInput[]
+    OR?: ProjectOwnerScalarWhereInput[]
+    NOT?: ProjectOwnerScalarWhereInput | ProjectOwnerScalarWhereInput[]
+    id?: IntFilter<"ProjectOwner"> | number
+    projectId?: IntFilter<"ProjectOwner"> | number
+    name?: StringFilter<"ProjectOwner"> | string
+    address?: StringFilter<"ProjectOwner"> | string
+    phone?: StringFilter<"ProjectOwner"> | string
+    createdAt?: DateTimeFilter<"ProjectOwner"> | Date | string
+    updatedAt?: DateTimeFilter<"ProjectOwner"> | Date | string
+  }
+
+  export type SiteUpsertWithWhereUniqueWithoutProjectInput = {
+    where: SiteWhereUniqueInput
+    update: XOR<SiteUpdateWithoutProjectInput, SiteUncheckedUpdateWithoutProjectInput>
+    create: XOR<SiteCreateWithoutProjectInput, SiteUncheckedCreateWithoutProjectInput>
+  }
+
+  export type SiteUpdateWithWhereUniqueWithoutProjectInput = {
+    where: SiteWhereUniqueInput
+    data: XOR<SiteUpdateWithoutProjectInput, SiteUncheckedUpdateWithoutProjectInput>
+  }
+
+  export type SiteUpdateManyWithWhereWithoutProjectInput = {
+    where: SiteScalarWhereInput
+    data: XOR<SiteUpdateManyMutationInput, SiteUncheckedUpdateManyWithoutProjectInput>
+  }
+
   export type WorkspaceCreateWithoutSitesInput = {
     name: string
     createdAt?: Date | string
@@ -30693,7 +30872,7 @@ export namespace Prisma {
     talentPools?: TalentPoolCreateNestedManyWithoutWorkspaceInput
     workspaceMembers?: WorkspaceMemberCreateNestedManyWithoutWorkspaceInput
     workspaceOwners?: WorkspaceOwnerCreateNestedManyWithoutWorkspaceInput
-    workspaceInvitations?: WorkspaceInvitationCreateNestedManyWithoutWorkspaceInput
+    projects?: ProjectCreateNestedManyWithoutWorkspaceInput
   }
 
   export type WorkspaceUncheckedCreateWithoutSitesInput = {
@@ -30705,7 +30884,7 @@ export namespace Prisma {
     talentPools?: TalentPoolUncheckedCreateNestedManyWithoutWorkspaceInput
     workspaceMembers?: WorkspaceMemberUncheckedCreateNestedManyWithoutWorkspaceInput
     workspaceOwners?: WorkspaceOwnerUncheckedCreateNestedManyWithoutWorkspaceInput
-    workspaceInvitations?: WorkspaceInvitationUncheckedCreateNestedManyWithoutWorkspaceInput
+    projects?: ProjectUncheckedCreateNestedManyWithoutWorkspaceInput
   }
 
   export type WorkspaceCreateOrConnectWithoutSitesInput = {
@@ -30749,6 +30928,28 @@ export namespace Prisma {
   export type CompanyCreateOrConnectWithoutSitesInput = {
     where: CompanyWhereUniqueInput
     create: XOR<CompanyCreateWithoutSitesInput, CompanyUncheckedCreateWithoutSitesInput>
+  }
+
+  export type ProjectCreateWithoutSitesInput = {
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    workspace: WorkspaceCreateNestedOneWithoutProjectsInput
+    projectOwners?: ProjectOwnerCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectUncheckedCreateWithoutSitesInput = {
+    id?: number
+    workspaceId: number
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    projectOwners?: ProjectOwnerUncheckedCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectCreateOrConnectWithoutSitesInput = {
+    where: ProjectWhereUniqueInput
+    create: XOR<ProjectCreateWithoutSitesInput, ProjectUncheckedCreateWithoutSitesInput>
   }
 
   export type SiteAttendanceCreateWithoutSiteInput = {
@@ -30800,7 +31001,7 @@ export namespace Prisma {
     talentPools?: TalentPoolUpdateManyWithoutWorkspaceNestedInput
     workspaceMembers?: WorkspaceMemberUpdateManyWithoutWorkspaceNestedInput
     workspaceOwners?: WorkspaceOwnerUpdateManyWithoutWorkspaceNestedInput
-    workspaceInvitations?: WorkspaceInvitationUpdateManyWithoutWorkspaceNestedInput
+    projects?: ProjectUpdateManyWithoutWorkspaceNestedInput
   }
 
   export type WorkspaceUncheckedUpdateWithoutSitesInput = {
@@ -30812,7 +31013,7 @@ export namespace Prisma {
     talentPools?: TalentPoolUncheckedUpdateManyWithoutWorkspaceNestedInput
     workspaceMembers?: WorkspaceMemberUncheckedUpdateManyWithoutWorkspaceNestedInput
     workspaceOwners?: WorkspaceOwnerUncheckedUpdateManyWithoutWorkspaceNestedInput
-    workspaceInvitations?: WorkspaceInvitationUncheckedUpdateManyWithoutWorkspaceNestedInput
+    projects?: ProjectUncheckedUpdateManyWithoutWorkspaceNestedInput
   }
 
   export type CompanyUpsertWithoutSitesInput = {
@@ -30859,6 +31060,34 @@ export namespace Prisma {
     owners?: OwnerUncheckedUpdateManyWithoutCompanyNestedInput
   }
 
+  export type ProjectUpsertWithoutSitesInput = {
+    update: XOR<ProjectUpdateWithoutSitesInput, ProjectUncheckedUpdateWithoutSitesInput>
+    create: XOR<ProjectCreateWithoutSitesInput, ProjectUncheckedCreateWithoutSitesInput>
+    where?: ProjectWhereInput
+  }
+
+  export type ProjectUpdateToOneWithWhereWithoutSitesInput = {
+    where?: ProjectWhereInput
+    data: XOR<ProjectUpdateWithoutSitesInput, ProjectUncheckedUpdateWithoutSitesInput>
+  }
+
+  export type ProjectUpdateWithoutSitesInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workspace?: WorkspaceUpdateOneRequiredWithoutProjectsNestedInput
+    projectOwners?: ProjectOwnerUpdateManyWithoutProjectNestedInput
+  }
+
+  export type ProjectUncheckedUpdateWithoutSitesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    workspaceId?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    projectOwners?: ProjectOwnerUncheckedUpdateManyWithoutProjectNestedInput
+  }
+
   export type SiteAttendanceUpsertWithWhereUniqueWithoutSiteInput = {
     where: SiteAttendanceWhereUniqueInput
     update: XOR<SiteAttendanceUpdateWithoutSiteInput, SiteAttendanceUncheckedUpdateWithoutSiteInput>
@@ -30901,11 +31130,13 @@ export namespace Prisma {
     updatedAt?: Date | string
     workspace: WorkspaceCreateNestedOneWithoutSitesInput
     company: CompanyCreateNestedOneWithoutSitesInput
+    project?: ProjectCreateNestedOneWithoutSitesInput
   }
 
   export type SiteUncheckedCreateWithoutSiteAttendancesInput = {
     id?: number
     workspaceId: number
+    projectId?: number | null
     companyId: number
     name: string
     location: string
@@ -30978,11 +31209,13 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspace?: WorkspaceUpdateOneRequiredWithoutSitesNestedInput
     company?: CompanyUpdateOneRequiredWithoutSitesNestedInput
+    project?: ProjectUpdateOneWithoutSitesNestedInput
   }
 
   export type SiteUncheckedUpdateWithoutSiteAttendancesInput = {
     id?: IntFieldUpdateOperationsInput | number
     workspaceId?: IntFieldUpdateOperationsInput | number
+    projectId?: NullableIntFieldUpdateOperationsInput | number | null
     companyId?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
@@ -31042,7 +31275,7 @@ export namespace Prisma {
     sites?: SiteCreateNestedManyWithoutWorkspaceInput
     workspaceMembers?: WorkspaceMemberCreateNestedManyWithoutWorkspaceInput
     workspaceOwners?: WorkspaceOwnerCreateNestedManyWithoutWorkspaceInput
-    workspaceInvitations?: WorkspaceInvitationCreateNestedManyWithoutWorkspaceInput
+    projects?: ProjectCreateNestedManyWithoutWorkspaceInput
   }
 
   export type WorkspaceUncheckedCreateWithoutTalentPoolsInput = {
@@ -31054,7 +31287,7 @@ export namespace Prisma {
     sites?: SiteUncheckedCreateNestedManyWithoutWorkspaceInput
     workspaceMembers?: WorkspaceMemberUncheckedCreateNestedManyWithoutWorkspaceInput
     workspaceOwners?: WorkspaceOwnerUncheckedCreateNestedManyWithoutWorkspaceInput
-    workspaceInvitations?: WorkspaceInvitationUncheckedCreateNestedManyWithoutWorkspaceInput
+    projects?: ProjectUncheckedCreateNestedManyWithoutWorkspaceInput
   }
 
   export type WorkspaceCreateOrConnectWithoutTalentPoolsInput = {
@@ -31070,8 +31303,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user?: UserCreateNestedOneWithoutProfilesInput
-    workspaceInvitationUsers?: WorkspaceInvitationUserCreateNestedManyWithoutProfileInput
     primaryProfile?: PrimaryProfileCreateNestedOneWithoutProfileInput
+    workspaceMembers?: WorkspaceMemberCreateNestedManyWithoutProfileInput
   }
 
   export type ProfileUncheckedCreateWithoutTalentPoolsInput = {
@@ -31083,8 +31316,8 @@ export namespace Prisma {
     phone?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    workspaceInvitationUsers?: WorkspaceInvitationUserUncheckedCreateNestedManyWithoutProfileInput
     primaryProfile?: PrimaryProfileUncheckedCreateNestedOneWithoutProfileInput
+    workspaceMembers?: WorkspaceMemberUncheckedCreateNestedManyWithoutProfileInput
   }
 
   export type ProfileCreateOrConnectWithoutTalentPoolsInput = {
@@ -31187,7 +31420,7 @@ export namespace Prisma {
     sites?: SiteUpdateManyWithoutWorkspaceNestedInput
     workspaceMembers?: WorkspaceMemberUpdateManyWithoutWorkspaceNestedInput
     workspaceOwners?: WorkspaceOwnerUpdateManyWithoutWorkspaceNestedInput
-    workspaceInvitations?: WorkspaceInvitationUpdateManyWithoutWorkspaceNestedInput
+    projects?: ProjectUpdateManyWithoutWorkspaceNestedInput
   }
 
   export type WorkspaceUncheckedUpdateWithoutTalentPoolsInput = {
@@ -31199,7 +31432,7 @@ export namespace Prisma {
     sites?: SiteUncheckedUpdateManyWithoutWorkspaceNestedInput
     workspaceMembers?: WorkspaceMemberUncheckedUpdateManyWithoutWorkspaceNestedInput
     workspaceOwners?: WorkspaceOwnerUncheckedUpdateManyWithoutWorkspaceNestedInput
-    workspaceInvitations?: WorkspaceInvitationUncheckedUpdateManyWithoutWorkspaceNestedInput
+    projects?: ProjectUncheckedUpdateManyWithoutWorkspaceNestedInput
   }
 
   export type ProfileUpsertWithoutTalentPoolsInput = {
@@ -31221,8 +31454,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneWithoutProfilesNestedInput
-    workspaceInvitationUsers?: WorkspaceInvitationUserUpdateManyWithoutProfileNestedInput
     primaryProfile?: PrimaryProfileUpdateOneWithoutProfileNestedInput
+    workspaceMembers?: WorkspaceMemberUpdateManyWithoutProfileNestedInput
   }
 
   export type ProfileUncheckedUpdateWithoutTalentPoolsInput = {
@@ -31234,8 +31467,8 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    workspaceInvitationUsers?: WorkspaceInvitationUserUncheckedUpdateManyWithoutProfileNestedInput
     primaryProfile?: PrimaryProfileUncheckedUpdateOneWithoutProfileNestedInput
+    workspaceMembers?: WorkspaceMemberUncheckedUpdateManyWithoutProfileNestedInput
   }
 
   export type EmployeeUpsertWithWhereUniqueWithoutTalentPoolInput = {
@@ -31286,6 +31519,44 @@ export namespace Prisma {
     data: XOR<SiteAttendanceUpdateManyMutationInput, SiteAttendanceUncheckedUpdateManyWithoutTalentPoolInput>
   }
 
+  export type CompanyIndustryCodeCreateWithoutIndustrialAccidentInsurancePremiumRateInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    company: CompanyCreateNestedOneWithoutCompanyIndustryCodesInput
+  }
+
+  export type CompanyIndustryCodeUncheckedCreateWithoutIndustrialAccidentInsurancePremiumRateInput = {
+    id?: number
+    companyId: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CompanyIndustryCodeCreateOrConnectWithoutIndustrialAccidentInsurancePremiumRateInput = {
+    where: CompanyIndustryCodeWhereUniqueInput
+    create: XOR<CompanyIndustryCodeCreateWithoutIndustrialAccidentInsurancePremiumRateInput, CompanyIndustryCodeUncheckedCreateWithoutIndustrialAccidentInsurancePremiumRateInput>
+  }
+
+  export type CompanyIndustryCodeCreateManyIndustrialAccidentInsurancePremiumRateInputEnvelope = {
+    data: CompanyIndustryCodeCreateManyIndustrialAccidentInsurancePremiumRateInput | CompanyIndustryCodeCreateManyIndustrialAccidentInsurancePremiumRateInput[]
+  }
+
+  export type CompanyIndustryCodeUpsertWithWhereUniqueWithoutIndustrialAccidentInsurancePremiumRateInput = {
+    where: CompanyIndustryCodeWhereUniqueInput
+    update: XOR<CompanyIndustryCodeUpdateWithoutIndustrialAccidentInsurancePremiumRateInput, CompanyIndustryCodeUncheckedUpdateWithoutIndustrialAccidentInsurancePremiumRateInput>
+    create: XOR<CompanyIndustryCodeCreateWithoutIndustrialAccidentInsurancePremiumRateInput, CompanyIndustryCodeUncheckedCreateWithoutIndustrialAccidentInsurancePremiumRateInput>
+  }
+
+  export type CompanyIndustryCodeUpdateWithWhereUniqueWithoutIndustrialAccidentInsurancePremiumRateInput = {
+    where: CompanyIndustryCodeWhereUniqueInput
+    data: XOR<CompanyIndustryCodeUpdateWithoutIndustrialAccidentInsurancePremiumRateInput, CompanyIndustryCodeUncheckedUpdateWithoutIndustrialAccidentInsurancePremiumRateInput>
+  }
+
+  export type CompanyIndustryCodeUpdateManyWithWhereWithoutIndustrialAccidentInsurancePremiumRateInput = {
+    where: CompanyIndustryCodeScalarWhereInput
+    data: XOR<CompanyIndustryCodeUpdateManyMutationInput, CompanyIndustryCodeUncheckedUpdateManyWithoutIndustrialAccidentInsurancePremiumRateInput>
+  }
+
   export type CompanyCreateWithoutCompanyIndustryCodesInput = {
     name: string
     location: string
@@ -31322,6 +31593,38 @@ export namespace Prisma {
   export type CompanyCreateOrConnectWithoutCompanyIndustryCodesInput = {
     where: CompanyWhereUniqueInput
     create: XOR<CompanyCreateWithoutCompanyIndustryCodesInput, CompanyUncheckedCreateWithoutCompanyIndustryCodesInput>
+  }
+
+  export type IndustrialAccidentInsurancePremiumRateCreateWithoutCompanyIndustryCodesInput = {
+    firstLevel?: string | null
+    firstLevelCode?: number | null
+    secondLevel?: string | null
+    secondLevelCode?: number | null
+    industryName?: string | null
+    industryCode?: number | null
+    date?: string | null
+    rate?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type IndustrialAccidentInsurancePremiumRateUncheckedCreateWithoutCompanyIndustryCodesInput = {
+    id?: number
+    firstLevel?: string | null
+    firstLevelCode?: number | null
+    secondLevel?: string | null
+    secondLevelCode?: number | null
+    industryName?: string | null
+    industryCode?: number | null
+    date?: string | null
+    rate?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type IndustrialAccidentInsurancePremiumRateCreateOrConnectWithoutCompanyIndustryCodesInput = {
+    where: IndustrialAccidentInsurancePremiumRateWhereUniqueInput
+    create: XOR<IndustrialAccidentInsurancePremiumRateCreateWithoutCompanyIndustryCodesInput, IndustrialAccidentInsurancePremiumRateUncheckedCreateWithoutCompanyIndustryCodesInput>
   }
 
   export type CompanyUpsertWithoutCompanyIndustryCodesInput = {
@@ -31368,6 +31671,44 @@ export namespace Prisma {
     sites?: SiteUncheckedUpdateManyWithoutCompanyNestedInput
   }
 
+  export type IndustrialAccidentInsurancePremiumRateUpsertWithoutCompanyIndustryCodesInput = {
+    update: XOR<IndustrialAccidentInsurancePremiumRateUpdateWithoutCompanyIndustryCodesInput, IndustrialAccidentInsurancePremiumRateUncheckedUpdateWithoutCompanyIndustryCodesInput>
+    create: XOR<IndustrialAccidentInsurancePremiumRateCreateWithoutCompanyIndustryCodesInput, IndustrialAccidentInsurancePremiumRateUncheckedCreateWithoutCompanyIndustryCodesInput>
+    where?: IndustrialAccidentInsurancePremiumRateWhereInput
+  }
+
+  export type IndustrialAccidentInsurancePremiumRateUpdateToOneWithWhereWithoutCompanyIndustryCodesInput = {
+    where?: IndustrialAccidentInsurancePremiumRateWhereInput
+    data: XOR<IndustrialAccidentInsurancePremiumRateUpdateWithoutCompanyIndustryCodesInput, IndustrialAccidentInsurancePremiumRateUncheckedUpdateWithoutCompanyIndustryCodesInput>
+  }
+
+  export type IndustrialAccidentInsurancePremiumRateUpdateWithoutCompanyIndustryCodesInput = {
+    firstLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    firstLevelCode?: NullableIntFieldUpdateOperationsInput | number | null
+    secondLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    secondLevelCode?: NullableIntFieldUpdateOperationsInput | number | null
+    industryName?: NullableStringFieldUpdateOperationsInput | string | null
+    industryCode?: NullableIntFieldUpdateOperationsInput | number | null
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    rate?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type IndustrialAccidentInsurancePremiumRateUncheckedUpdateWithoutCompanyIndustryCodesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    firstLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    firstLevelCode?: NullableIntFieldUpdateOperationsInput | number | null
+    secondLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    secondLevelCode?: NullableIntFieldUpdateOperationsInput | number | null
+    industryName?: NullableStringFieldUpdateOperationsInput | string | null
+    industryCode?: NullableIntFieldUpdateOperationsInput | number | null
+    date?: NullableStringFieldUpdateOperationsInput | string | null
+    rate?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ProfileCreateManyUserInput = {
     id?: number
     name: string
@@ -31381,6 +31722,8 @@ export namespace Prisma {
   export type WorkspaceMemberCreateManyUserInput = {
     id?: number
     workspaceId: number
+    profileId: number
+    inviterId?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -31393,8 +31736,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     talentPools?: TalentPoolUpdateManyWithoutProfileNestedInput
-    workspaceInvitationUsers?: WorkspaceInvitationUserUpdateManyWithoutProfileNestedInput
     primaryProfile?: PrimaryProfileUpdateOneWithoutProfileNestedInput
+    workspaceMembers?: WorkspaceMemberUpdateManyWithoutProfileNestedInput
   }
 
   export type ProfileUncheckedUpdateWithoutUserInput = {
@@ -31406,8 +31749,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     talentPools?: TalentPoolUncheckedUpdateManyWithoutProfileNestedInput
-    workspaceInvitationUsers?: WorkspaceInvitationUserUncheckedUpdateManyWithoutProfileNestedInput
     primaryProfile?: PrimaryProfileUncheckedUpdateOneWithoutProfileNestedInput
+    workspaceMembers?: WorkspaceMemberUncheckedUpdateManyWithoutProfileNestedInput
   }
 
   export type ProfileUncheckedUpdateManyWithoutUserInput = {
@@ -31424,24 +31767,30 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspace?: WorkspaceUpdateOneRequiredWithoutWorkspaceMembersNestedInput
+    profile?: ProfileUpdateOneRequiredWithoutWorkspaceMembersNestedInput
+    inviter?: WorkspaceMemberUpdateOneWithoutInvitedMembersNestedInput
     owners?: WorkspaceOwnerUpdateManyWithoutWorkspaceMemberNestedInput
-    workspaceInvitationsCreated?: WorkspaceInvitationUpdateManyWithoutCreatedByMemberNestedInput
     companiesCreated?: CompanyUpdateManyWithoutCreatedByMemberNestedInput
+    invitedMembers?: WorkspaceMemberUpdateManyWithoutInviterNestedInput
   }
 
   export type WorkspaceMemberUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     workspaceId?: IntFieldUpdateOperationsInput | number
+    profileId?: IntFieldUpdateOperationsInput | number
+    inviterId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owners?: WorkspaceOwnerUncheckedUpdateManyWithoutWorkspaceMemberNestedInput
-    workspaceInvitationsCreated?: WorkspaceInvitationUncheckedUpdateManyWithoutCreatedByMemberNestedInput
     companiesCreated?: CompanyUncheckedUpdateManyWithoutCreatedByMemberNestedInput
+    invitedMembers?: WorkspaceMemberUncheckedUpdateManyWithoutInviterNestedInput
   }
 
   export type WorkspaceMemberUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     workspaceId?: IntFieldUpdateOperationsInput | number
+    profileId?: IntFieldUpdateOperationsInput | number
+    inviterId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -31458,11 +31807,11 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type WorkspaceInvitationUserCreateManyProfileInput = {
+  export type WorkspaceMemberCreateManyProfileInput = {
     id?: number
-    invitationId: number
-    status?: $Enums.InvitationStatus
-    acceptedAt?: Date | string | null
+    workspaceId: number
+    userId: number
+    inviterId?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -31508,28 +31857,34 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type WorkspaceInvitationUserUpdateWithoutProfileInput = {
-    status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
-    acceptedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  export type WorkspaceMemberUpdateWithoutProfileInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    invitation?: WorkspaceInvitationUpdateOneRequiredWithoutInvitationUsersNestedInput
+    workspace?: WorkspaceUpdateOneRequiredWithoutWorkspaceMembersNestedInput
+    user?: UserUpdateOneRequiredWithoutWorkspaceMembersNestedInput
+    inviter?: WorkspaceMemberUpdateOneWithoutInvitedMembersNestedInput
+    owners?: WorkspaceOwnerUpdateManyWithoutWorkspaceMemberNestedInput
+    companiesCreated?: CompanyUpdateManyWithoutCreatedByMemberNestedInput
+    invitedMembers?: WorkspaceMemberUpdateManyWithoutInviterNestedInput
   }
 
-  export type WorkspaceInvitationUserUncheckedUpdateWithoutProfileInput = {
+  export type WorkspaceMemberUncheckedUpdateWithoutProfileInput = {
     id?: IntFieldUpdateOperationsInput | number
-    invitationId?: IntFieldUpdateOperationsInput | number
-    status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
-    acceptedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    workspaceId?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    inviterId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owners?: WorkspaceOwnerUncheckedUpdateManyWithoutWorkspaceMemberNestedInput
+    companiesCreated?: CompanyUncheckedUpdateManyWithoutCreatedByMemberNestedInput
+    invitedMembers?: WorkspaceMemberUncheckedUpdateManyWithoutInviterNestedInput
   }
 
-  export type WorkspaceInvitationUserUncheckedUpdateManyWithoutProfileInput = {
+  export type WorkspaceMemberUncheckedUpdateManyWithoutProfileInput = {
     id?: IntFieldUpdateOperationsInput | number
-    invitationId?: IntFieldUpdateOperationsInput | number
-    status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
-    acceptedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    workspaceId?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    inviterId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -31548,6 +31903,7 @@ export namespace Prisma {
 
   export type SiteCreateManyWorkspaceInput = {
     id?: number
+    projectId?: number | null
     companyId: number
     name: string
     location: string
@@ -31574,6 +31930,8 @@ export namespace Prisma {
   export type WorkspaceMemberCreateManyWorkspaceInput = {
     id?: number
     userId: number
+    profileId: number
+    inviterId?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -31585,15 +31943,9 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type WorkspaceInvitationCreateManyWorkspaceInput = {
+  export type ProjectCreateManyWorkspaceInput = {
     id?: number
-    createdBy: number
-    invitationType: $Enums.InvitationType
-    invitationCode: string
-    expiresAt?: Date | string | null
-    maxUses?: number | null
-    currentUses?: number
-    isActive?: boolean
+    name: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -31653,11 +32005,13 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     company?: CompanyUpdateOneRequiredWithoutSitesNestedInput
+    project?: ProjectUpdateOneWithoutSitesNestedInput
     siteAttendances?: SiteAttendanceUpdateManyWithoutSiteNestedInput
   }
 
   export type SiteUncheckedUpdateWithoutWorkspaceInput = {
     id?: IntFieldUpdateOperationsInput | number
+    projectId?: NullableIntFieldUpdateOperationsInput | number | null
     companyId?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
@@ -31672,6 +32026,7 @@ export namespace Prisma {
 
   export type SiteUncheckedUpdateManyWithoutWorkspaceInput = {
     id?: IntFieldUpdateOperationsInput | number
+    projectId?: NullableIntFieldUpdateOperationsInput | number | null
     companyId?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
@@ -31728,24 +32083,30 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWorkspaceMembersNestedInput
+    profile?: ProfileUpdateOneRequiredWithoutWorkspaceMembersNestedInput
+    inviter?: WorkspaceMemberUpdateOneWithoutInvitedMembersNestedInput
     owners?: WorkspaceOwnerUpdateManyWithoutWorkspaceMemberNestedInput
-    workspaceInvitationsCreated?: WorkspaceInvitationUpdateManyWithoutCreatedByMemberNestedInput
     companiesCreated?: CompanyUpdateManyWithoutCreatedByMemberNestedInput
+    invitedMembers?: WorkspaceMemberUpdateManyWithoutInviterNestedInput
   }
 
   export type WorkspaceMemberUncheckedUpdateWithoutWorkspaceInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
+    profileId?: IntFieldUpdateOperationsInput | number
+    inviterId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owners?: WorkspaceOwnerUncheckedUpdateManyWithoutWorkspaceMemberNestedInput
-    workspaceInvitationsCreated?: WorkspaceInvitationUncheckedUpdateManyWithoutCreatedByMemberNestedInput
     companiesCreated?: CompanyUncheckedUpdateManyWithoutCreatedByMemberNestedInput
+    invitedMembers?: WorkspaceMemberUncheckedUpdateManyWithoutInviterNestedInput
   }
 
   export type WorkspaceMemberUncheckedUpdateManyWithoutWorkspaceInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
+    profileId?: IntFieldUpdateOperationsInput | number
+    inviterId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -31770,42 +32131,26 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type WorkspaceInvitationUpdateWithoutWorkspaceInput = {
-    invitationType?: EnumInvitationTypeFieldUpdateOperationsInput | $Enums.InvitationType
-    invitationCode?: StringFieldUpdateOperationsInput | string
-    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    maxUses?: NullableIntFieldUpdateOperationsInput | number | null
-    currentUses?: IntFieldUpdateOperationsInput | number
-    isActive?: BoolFieldUpdateOperationsInput | boolean
+  export type ProjectUpdateWithoutWorkspaceInput = {
+    name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdByMember?: WorkspaceMemberUpdateOneRequiredWithoutWorkspaceInvitationsCreatedNestedInput
-    invitationUsers?: WorkspaceInvitationUserUpdateManyWithoutInvitationNestedInput
+    projectOwners?: ProjectOwnerUpdateManyWithoutProjectNestedInput
+    sites?: SiteUpdateManyWithoutProjectNestedInput
   }
 
-  export type WorkspaceInvitationUncheckedUpdateWithoutWorkspaceInput = {
+  export type ProjectUncheckedUpdateWithoutWorkspaceInput = {
     id?: IntFieldUpdateOperationsInput | number
-    createdBy?: IntFieldUpdateOperationsInput | number
-    invitationType?: EnumInvitationTypeFieldUpdateOperationsInput | $Enums.InvitationType
-    invitationCode?: StringFieldUpdateOperationsInput | string
-    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    maxUses?: NullableIntFieldUpdateOperationsInput | number | null
-    currentUses?: IntFieldUpdateOperationsInput | number
-    isActive?: BoolFieldUpdateOperationsInput | boolean
+    name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    invitationUsers?: WorkspaceInvitationUserUncheckedUpdateManyWithoutInvitationNestedInput
+    projectOwners?: ProjectOwnerUncheckedUpdateManyWithoutProjectNestedInput
+    sites?: SiteUncheckedUpdateManyWithoutProjectNestedInput
   }
 
-  export type WorkspaceInvitationUncheckedUpdateManyWithoutWorkspaceInput = {
+  export type ProjectUncheckedUpdateManyWithoutWorkspaceInput = {
     id?: IntFieldUpdateOperationsInput | number
-    createdBy?: IntFieldUpdateOperationsInput | number
-    invitationType?: EnumInvitationTypeFieldUpdateOperationsInput | $Enums.InvitationType
-    invitationCode?: StringFieldUpdateOperationsInput | string
-    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    maxUses?: NullableIntFieldUpdateOperationsInput | number | null
-    currentUses?: IntFieldUpdateOperationsInput | number
-    isActive?: BoolFieldUpdateOperationsInput | boolean
+    name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -31813,19 +32158,6 @@ export namespace Prisma {
   export type WorkspaceOwnerCreateManyWorkspaceMemberInput = {
     id?: number
     workspaceId: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type WorkspaceInvitationCreateManyCreatedByMemberInput = {
-    id?: number
-    workspaceId: number
-    invitationType: $Enums.InvitationType
-    invitationCode: string
-    expiresAt?: Date | string | null
-    maxUses?: number | null
-    currentUses?: number
-    isActive?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -31838,6 +32170,15 @@ export namespace Prisma {
     businessNumber?: string | null
     managementNumber?: string | null
     employeeCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type WorkspaceMemberCreateManyInviterInput = {
+    id?: number
+    workspaceId: number
+    userId: number
+    profileId: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -31858,46 +32199,6 @@ export namespace Prisma {
   export type WorkspaceOwnerUncheckedUpdateManyWithoutWorkspaceMemberInput = {
     id?: IntFieldUpdateOperationsInput | number
     workspaceId?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type WorkspaceInvitationUpdateWithoutCreatedByMemberInput = {
-    invitationType?: EnumInvitationTypeFieldUpdateOperationsInput | $Enums.InvitationType
-    invitationCode?: StringFieldUpdateOperationsInput | string
-    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    maxUses?: NullableIntFieldUpdateOperationsInput | number | null
-    currentUses?: IntFieldUpdateOperationsInput | number
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    workspace?: WorkspaceUpdateOneRequiredWithoutWorkspaceInvitationsNestedInput
-    invitationUsers?: WorkspaceInvitationUserUpdateManyWithoutInvitationNestedInput
-  }
-
-  export type WorkspaceInvitationUncheckedUpdateWithoutCreatedByMemberInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    workspaceId?: IntFieldUpdateOperationsInput | number
-    invitationType?: EnumInvitationTypeFieldUpdateOperationsInput | $Enums.InvitationType
-    invitationCode?: StringFieldUpdateOperationsInput | string
-    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    maxUses?: NullableIntFieldUpdateOperationsInput | number | null
-    currentUses?: IntFieldUpdateOperationsInput | number
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    invitationUsers?: WorkspaceInvitationUserUncheckedUpdateManyWithoutInvitationNestedInput
-  }
-
-  export type WorkspaceInvitationUncheckedUpdateManyWithoutCreatedByMemberInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    workspaceId?: IntFieldUpdateOperationsInput | number
-    invitationType?: EnumInvitationTypeFieldUpdateOperationsInput | $Enums.InvitationType
-    invitationCode?: StringFieldUpdateOperationsInput | string
-    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    maxUses?: NullableIntFieldUpdateOperationsInput | number | null
-    currentUses?: IntFieldUpdateOperationsInput | number
-    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -31947,37 +32248,34 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type WorkspaceInvitationUserCreateManyInvitationInput = {
-    id?: number
-    profileId: number
-    status?: $Enums.InvitationStatus
-    acceptedAt?: Date | string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type WorkspaceInvitationUserUpdateWithoutInvitationInput = {
-    status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
-    acceptedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  export type WorkspaceMemberUpdateWithoutInviterInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    profile?: ProfileUpdateOneRequiredWithoutWorkspaceInvitationUsersNestedInput
+    workspace?: WorkspaceUpdateOneRequiredWithoutWorkspaceMembersNestedInput
+    user?: UserUpdateOneRequiredWithoutWorkspaceMembersNestedInput
+    profile?: ProfileUpdateOneRequiredWithoutWorkspaceMembersNestedInput
+    owners?: WorkspaceOwnerUpdateManyWithoutWorkspaceMemberNestedInput
+    companiesCreated?: CompanyUpdateManyWithoutCreatedByMemberNestedInput
+    invitedMembers?: WorkspaceMemberUpdateManyWithoutInviterNestedInput
   }
 
-  export type WorkspaceInvitationUserUncheckedUpdateWithoutInvitationInput = {
+  export type WorkspaceMemberUncheckedUpdateWithoutInviterInput = {
     id?: IntFieldUpdateOperationsInput | number
+    workspaceId?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
     profileId?: IntFieldUpdateOperationsInput | number
-    status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
-    acceptedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owners?: WorkspaceOwnerUncheckedUpdateManyWithoutWorkspaceMemberNestedInput
+    companiesCreated?: CompanyUncheckedUpdateManyWithoutCreatedByMemberNestedInput
+    invitedMembers?: WorkspaceMemberUncheckedUpdateManyWithoutInviterNestedInput
   }
 
-  export type WorkspaceInvitationUserUncheckedUpdateManyWithoutInvitationInput = {
+  export type WorkspaceMemberUncheckedUpdateManyWithoutInviterInput = {
     id?: IntFieldUpdateOperationsInput | number
+    workspaceId?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
     profileId?: IntFieldUpdateOperationsInput | number
-    status?: EnumInvitationStatusFieldUpdateOperationsInput | $Enums.InvitationStatus
-    acceptedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -32013,6 +32311,7 @@ export namespace Prisma {
   export type SiteCreateManyCompanyInput = {
     id?: number
     workspaceId: number
+    projectId?: number | null
     name: string
     location: string
     startDate: Date | string
@@ -32024,9 +32323,9 @@ export namespace Prisma {
   }
 
   export type CompanyIndustryCodeUpdateWithoutCompanyInput = {
-    industryCode?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    industrialAccidentInsurancePremiumRate?: IndustrialAccidentInsurancePremiumRateUpdateOneRequiredWithoutCompanyIndustryCodesNestedInput
   }
 
   export type CompanyIndustryCodeUncheckedUpdateWithoutCompanyInput = {
@@ -32115,12 +32414,14 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspace?: WorkspaceUpdateOneRequiredWithoutSitesNestedInput
+    project?: ProjectUpdateOneWithoutSitesNestedInput
     siteAttendances?: SiteAttendanceUpdateManyWithoutSiteNestedInput
   }
 
   export type SiteUncheckedUpdateWithoutCompanyInput = {
     id?: IntFieldUpdateOperationsInput | number
     workspaceId?: IntFieldUpdateOperationsInput | number
+    projectId?: NullableIntFieldUpdateOperationsInput | number | null
     name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32135,6 +32436,7 @@ export namespace Prisma {
   export type SiteUncheckedUpdateManyWithoutCompanyInput = {
     id?: IntFieldUpdateOperationsInput | number
     workspaceId?: IntFieldUpdateOperationsInput | number
+    projectId?: NullableIntFieldUpdateOperationsInput | number | null
     name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -32168,6 +32470,98 @@ export namespace Prisma {
   export type OwnerUncheckedUpdateManyWithoutEmployeeInput = {
     id?: IntFieldUpdateOperationsInput | number
     companyId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProjectOwnerCreateManyProjectInput = {
+    id?: number
+    name: string
+    address: string
+    phone: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SiteCreateManyProjectInput = {
+    id?: number
+    workspaceId: number
+    companyId: number
+    name: string
+    location: string
+    startDate: Date | string
+    endDate: Date | string
+    managementNumber?: string | null
+    memo?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ProjectOwnerUpdateWithoutProjectInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProjectOwnerUncheckedUpdateWithoutProjectInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProjectOwnerUncheckedUpdateManyWithoutProjectInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SiteUpdateWithoutProjectInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    managementNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    memo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workspace?: WorkspaceUpdateOneRequiredWithoutSitesNestedInput
+    company?: CompanyUpdateOneRequiredWithoutSitesNestedInput
+    siteAttendances?: SiteAttendanceUpdateManyWithoutSiteNestedInput
+  }
+
+  export type SiteUncheckedUpdateWithoutProjectInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    workspaceId?: IntFieldUpdateOperationsInput | number
+    companyId?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    managementNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    memo?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    siteAttendances?: SiteAttendanceUncheckedUpdateManyWithoutSiteNestedInput
+  }
+
+  export type SiteUncheckedUpdateManyWithoutProjectInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    workspaceId?: IntFieldUpdateOperationsInput | number
+    companyId?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    managementNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    memo?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -32310,6 +32704,33 @@ export namespace Prisma {
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: DateTimeFieldUpdateOperationsInput | Date | string
     amount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CompanyIndustryCodeCreateManyIndustrialAccidentInsurancePremiumRateInput = {
+    id?: number
+    companyId: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CompanyIndustryCodeUpdateWithoutIndustrialAccidentInsurancePremiumRateInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    company?: CompanyUpdateOneRequiredWithoutCompanyIndustryCodesNestedInput
+  }
+
+  export type CompanyIndustryCodeUncheckedUpdateWithoutIndustrialAccidentInsurancePremiumRateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    companyId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CompanyIndustryCodeUncheckedUpdateManyWithoutIndustrialAccidentInsurancePremiumRateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    companyId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

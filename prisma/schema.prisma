@@ -23,18 +23,18 @@ model User {
 }
 
 model Profile {
-  id                       Int                       @id @default(autoincrement())
-  userId                   Int?
-  name                     String
-  birthday                 DateTime?
-  address                  String?
-  phone                    String?
-  createdAt                DateTime                  @default(now())
-  updatedAt                DateTime                  @updatedAt
-  user                     User?                     @relation(fields: [userId], references: [id])
-  talentPools              TalentPool[]
-  workspaceInvitationUsers WorkspaceInvitationUser[]
-  primaryProfile           PrimaryProfile?
+  id               Int               @id @default(autoincrement())
+  userId           Int?
+  name             String
+  birthday         DateTime?
+  address          String?
+  phone            String?
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  user             User?             @relation(fields: [userId], references: [id])
+  talentPools      TalentPool[]
+  primaryProfile   PrimaryProfile?
+  workspaceMembers WorkspaceMember[]
 }
 
 model PrimaryProfile {
@@ -51,29 +51,33 @@ model PrimaryProfile {
 }
 
 model Workspace {
-  id                   Int                   @id @default(autoincrement())
-  name                 String
-  createdAt            DateTime              @default(now())
-  updatedAt            DateTime              @updatedAt
-  companies            Company[]
-  sites                Site[]
-  talentPools          TalentPool[]
-  workspaceMembers     WorkspaceMember[]
-  workspaceOwners      WorkspaceOwner[]
-  workspaceInvitations WorkspaceInvitation[]
+  id               Int               @id @default(autoincrement())
+  name             String
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  companies        Company[]
+  sites            Site[]
+  talentPools      TalentPool[]
+  workspaceMembers WorkspaceMember[]
+  workspaceOwners  WorkspaceOwner[]
+  projects         Project[]
 }
 
 model WorkspaceMember {
-  id                          Int                   @id @default(autoincrement())
-  workspaceId                 Int
-  userId                      Int
-  createdAt                   DateTime              @default(now())
-  updatedAt                   DateTime              @updatedAt
-  workspace                   Workspace             @relation(fields: [workspaceId], references: [id])
-  user                        User                  @relation(fields: [userId], references: [id])
-  owners                      WorkspaceOwner[]
-  workspaceInvitationsCreated WorkspaceInvitation[]
-  companiesCreated            Company[]
+  id               Int               @id @default(autoincrement())
+  workspaceId      Int
+  userId           Int
+  profileId        Int
+  inviterId        Int?
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  workspace        Workspace         @relation(fields: [workspaceId], references: [id])
+  user             User              @relation(fields: [userId], references: [id])
+  profile          Profile           @relation(fields: [profileId], references: [id])
+  inviter          WorkspaceMember?  @relation("InvitedBy", fields: [inviterId], references: [id], onDelete: Cascade)
+  owners           WorkspaceOwner[]
+  companiesCreated Company[]
+  invitedMembers   WorkspaceMember[] @relation("InvitedBy")
 
   @@unique([workspaceId, userId])
 }
@@ -86,43 +90,6 @@ model WorkspaceOwner {
   updatedAt         DateTime        @updatedAt
   workspace         Workspace       @relation(fields: [workspaceId], references: [id])
   workspaceMember   WorkspaceMember @relation(fields: [workspaceMemberId], references: [id])
-}
-
-model WorkspaceInvitation {
-  id              Int                       @id @default(autoincrement())
-  workspaceId     Int
-  createdBy       Int
-  invitationType  InvitationType
-  invitationCode  String                    @unique
-  expiresAt       DateTime?
-  maxUses         Int?
-  currentUses     Int                       @default(0)
-  isActive        Boolean                   @default(true)
-  createdAt       DateTime                  @default(now())
-  updatedAt       DateTime                  @updatedAt
-  workspace       Workspace                 @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
-  createdByMember WorkspaceMember           @relation(fields: [createdBy], references: [id])
-  invitationUsers WorkspaceInvitationUser[]
-
-  @@index([workspaceId])
-  @@index([invitationCode])
-  @@index([expiresAt])
-}
-
-model WorkspaceInvitationUser {
-  id           Int                 @id @default(autoincrement())
-  invitationId Int
-  profileId    Int
-  status       InvitationStatus    @default(PENDING)
-  acceptedAt   DateTime?
-  createdAt    DateTime            @default(now())
-  updatedAt    DateTime            @updatedAt
-  invitation   WorkspaceInvitation @relation(fields: [invitationId], references: [id], onDelete: Cascade)
-  profile      Profile             @relation(fields: [profileId], references: [id])
-
-  @@unique([invitationId, profileId])
-  @@index([invitationId])
-  @@index([profileId])
 }
 
 model Company {
@@ -176,9 +143,32 @@ model Owner {
   employee   Employee @relation(fields: [employeeId], references: [id])
 }
 
+model ProjectOwner {
+  id        Int      @id @default(autoincrement())
+  projectId Int
+  name      String
+  address   String
+  phone     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  project   Project  @relation(fields: [projectId], references: [id])
+}
+
+model Project {
+  id            Int            @id @default(autoincrement())
+  workspaceId   Int
+  name          String
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  workspace     Workspace      @relation(fields: [workspaceId], references: [id])
+  projectOwners ProjectOwner[]
+  sites         Site[]
+}
+
 model Site {
   id               Int              @id @default(autoincrement())
   workspaceId      Int
+  projectId        Int?
   companyId        Int
   name             String
   location         String
@@ -190,6 +180,7 @@ model Site {
   updatedAt        DateTime         @updatedAt
   workspace        Workspace        @relation(fields: [workspaceId], references: [id])
   company          Company          @relation(fields: [companyId], references: [id])
+  project          Project?         @relation(fields: [projectId], references: [id])
   siteAttendances  SiteAttendance[]
 }
 
@@ -226,26 +217,28 @@ model TalentPool {
 }
 
 model IndustrialAccidentInsurancePremiumRate {
-  id              Int      @id @default(autoincrement())
-  firstLevel      String?
-  firstLevelCode  Int?
-  secondLevel     String?
-  secondLevelCode Int?
-  thirdLevel      String?
-  thirdLevelCode  Int?
-  date            String?
-  rate            Int?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id                   Int                   @id @default(autoincrement())
+  firstLevel           String?
+  firstLevelCode       Int?
+  secondLevel          String?
+  secondLevelCode      Int?
+  industryName         String?
+  industryCode         Int?
+  date                 String?
+  rate                 Int?
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  companyIndustryCodes CompanyIndustryCode[]
 }
 
 model CompanyIndustryCode {
-  id           Int      @id @default(autoincrement())
-  companyId    Int
-  industryCode Int
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  company      Company  @relation(fields: [companyId], references: [id])
+  id             Int                                    @id @default(autoincrement())
+  companyId      Int
+  industryCode   Int
+  createdAt      DateTime                               @default(now())
+  updatedAt      DateTime                               @updatedAt
+  company        Company                                @relation(fields: [companyId], references: [id])
+  industrialAccidentInsurancePremiumRate   IndustrialAccidentInsurancePremiumRate @relation(fields: [industryCode], references: [id])
 }
 
 enum InvitationType {

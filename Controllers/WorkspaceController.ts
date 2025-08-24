@@ -39,15 +39,21 @@ import { CreateManySiteAttendancesCommand } from "@/Commands/CreateManySiteAtten
 import { CreateManySiteAttendancesCommandHandler } from "@/Commands/CreateManySiteAttendancesCommandHandler";
 import { UpsertAndDeleteManySiteAttendancesCommand } from "@/Commands/UpsertAndDeleteManySiteAttendancesCommand";
 import { UpsertAndDeleteManySiteAttendancesCommandHandler } from "@/Commands/UpsertAndDeleteManySiteAttendancesCommandHandler";
+import { GetMeQuery } from "@/Queries/GetMeQuery";
+import { GetMeQueryHandler } from "@/Queries/GetMeQueryHandler";
+import { IsMemberOfWorkspaceQuery } from "@/Queries/IsMemberOfWorkspaceQuery";
+import { IsMemberOfWorkspaceQueryHandler } from "@/Queries/IsMemberOfWorkspaceQueryHandler";
+import { GetPayStubsQuery } from "@/Queries/GetPayStubsQuery";
+import { GetPayStubsQueryHandler } from "@/Queries/GetPayStubsQueryHandler";
 
 export class WorkspaceController {
     static async create(request: Request, corsHeaders: Record<string, string>, userClaims: TokenClaims, env: Env): Promise<Response> {
         const body = await request.json();
 
         const command = new CreateWorkspaceCommand(userClaims.userId, body.name);
-        await new CreateWorkspaceCommandHandler(Factory.createWorkspaceRepository(env)).handle(command);
+        const result = await new CreateWorkspaceCommandHandler(Factory.createWorkspaceRepository(env)).handle(command);
 
-        return new Response(JSON.stringify({ success: true }), {
+        return new Response(JSON.stringify(result), {
             status: 200,
             headers: corsHeaders
         });
@@ -60,9 +66,9 @@ export class WorkspaceController {
         const workspaceId = parseInt(url.pathname.split('/')[2]);
 
         const command = new UpdateWorkspaceCommand(workspaceId, body.name, userClaims.userId);
-        await new UpdateWorkspaceCommandHandler(Factory.createWorkspaceRepository(env)).handle(command);
+        const result = await new UpdateWorkspaceCommandHandler(Factory.createWorkspaceRepository(env)).handle(command);
 
-        return new Response(JSON.stringify({ success: true }), {
+        return new Response(JSON.stringify(result), {
             status: 200,
             headers: corsHeaders
         });
@@ -76,6 +82,18 @@ export class WorkspaceController {
         await new DeleteWorkspaceCommandHandler(Factory.createWorkspaceRepository(env)).handle(command);
 
         return new Response(JSON.stringify({ success: true }), {
+            status: 200,
+            headers: corsHeaders
+        });
+    }
+
+    static async isMemberOfWorkspace(request: Request, corsHeaders: Record<string, string>, userClaims: TokenClaims, env: Env): Promise<Response> {
+        const url = new URL(request.url);
+        const workspaceId = parseInt(url.pathname.split('/')[2]);
+        const query = new IsMemberOfWorkspaceQuery(workspaceId, userClaims.userId);
+        const result = await new IsMemberOfWorkspaceQueryHandler(Factory.createWorkspaceRepository(env)).handle(query);
+
+        return new Response(JSON.stringify({ isMember: result }), {
             status: 200,
             headers: corsHeaders
         });
@@ -217,7 +235,7 @@ export class WorkspaceController {
         const startDate = new Date(body.startDate);
         const endDate = new Date(body.endDate);
 
-        const command = new UpdateSiteCommand(workspaceId, userClaims.userId, siteId, body.companyId, body.name, body.location, startDate, endDate, body.memo);
+        const command = new UpdateSiteCommand(workspaceId, userClaims.userId, siteId, body.companyId, body.name, body.location, startDate, endDate, body.managementNumber, body.memo);
         const result = await new UpdateSiteCommandHandler(Factory.createSiteRepository(env), Factory.createWorkspaceRepository(env)).handle(command);
 
         return new Response(JSON.stringify(result), {
@@ -336,6 +354,32 @@ export class WorkspaceController {
 
         const command = new UpsertAndDeleteManySiteAttendancesCommand(workspaceId, userClaims.userId, talentPoolId, operations);
         const result = await new UpsertAndDeleteManySiteAttendancesCommandHandler(Factory.createSiteAttendanceRepository(env), Factory.createWorkspaceRepository(env)).handle(command);
+
+        return new Response(JSON.stringify(result), {
+            status: 200,
+            headers: corsHeaders
+        });
+    }
+
+    static async getMe(request: Request, corsHeaders: Record<string, string>, userClaims: TokenClaims, env: Env): Promise<Response> {
+        const query = new GetMeQuery(userClaims.userId);
+        const result = await new GetMeQueryHandler(Factory.createUserRepository(env)).handle(query);
+
+        return new Response(JSON.stringify(result), {
+            status: 200,
+            headers: corsHeaders
+        });
+    }
+
+    static async getPayStubs(request: Request, corsHeaders: Record<string, string>, userClaims: TokenClaims, env: Env): Promise<Response> {
+        const url = new URL(request.url);
+        const workspaceId = parseInt(url.pathname.split('/')[2]);
+        const siteId = url.searchParams.get('siteId') ? parseInt(url.searchParams.get('siteId')!) : undefined;
+        const year = parseInt(url.searchParams.get('year')!);
+        const month = parseInt(url.searchParams.get('month')!);
+
+        const query = new GetPayStubsQuery(userClaims.userId, workspaceId, year, month, siteId);
+        const result = await new GetPayStubsQueryHandler(Factory.createSiteAttendanceRepository(env)).handle(query);
 
         return new Response(JSON.stringify(result), {
             status: 200,

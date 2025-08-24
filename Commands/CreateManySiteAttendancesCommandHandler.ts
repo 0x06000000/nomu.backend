@@ -2,6 +2,7 @@ import { ISiteAttendanceRepository } from "@/Repositories/Interfaces/ISiteAttend
 import { IWorkspaceRepository } from "@/Repositories/Interfaces/IWorkspaceRepository";
 import { CreateManySiteAttendancesCommand } from "@/Commands/CreateManySiteAttendancesCommand";
 import { CreateManySiteAttendancesResponse } from "@/DTOs/CreateManySiteAttendancesResponse";
+import { ForbiddenException } from "@/Exceptions/Exceptions";
 
 export class CreateManySiteAttendancesCommandHandler {
     constructor(private readonly siteAttendanceRepository: ISiteAttendanceRepository, private readonly workspaceRepository: IWorkspaceRepository) {
@@ -11,7 +12,7 @@ export class CreateManySiteAttendancesCommandHandler {
         const isMember = await this.workspaceRepository.existsMember(command.workspaceId, command.userId);
 
         if (!isMember) {
-            throw new Error("워크스페이스 멤버가 아닙니다.");
+            throw new ForbiddenException("워크스페이스 멤버가 아닙니다.");
         }
 
         const siteAttendances = await this.siteAttendanceRepository.addMany(command.talentPoolId, command.siteAttendances);

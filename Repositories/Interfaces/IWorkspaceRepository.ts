@@ -1,4 +1,5 @@
 import { Company, Site, TalentPool, Workspace, WorkspaceMember, WorkspaceOwner } from "@/src/generated/prisma";
+import { MemberWithRelations } from "./IMemberRepository";
 
 export type WorkspaceWithRelations = Workspace & {
     companies: Company[];
@@ -15,4 +16,6 @@ export interface IWorkspaceRepository {
     delete(workspaceId: number): Promise<void>;
     getById(workspaceId: number): Promise<WorkspaceWithRelations | null>;
     getByUserId(userId: number): Promise<WorkspaceWithRelations[]>;
+    inviteByUserId(workspaceId: number, inviterId: number, inviteeId: number): Promise<MemberWithRelations>;
+    inviteByEmail(workspaceId: number, inviterId: number, email: string): Promise<MemberWithRelations>;
 }

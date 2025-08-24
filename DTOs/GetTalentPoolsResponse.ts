@@ -1,6 +1,31 @@
 import { TalentPoolWithRelations } from "@/Repositories/Interfaces/ITalentPoolRepository";
 
-export class GetTalentPoolsResponse {
-    constructor(public readonly talentPools: TalentPoolWithRelations[]) {
+class TalentPoolResponse {
+    public readonly id: number;
+    public readonly name: string;
+    public readonly birthday: Date;
+    public readonly phone: string;
+    public readonly address: string;
+    public readonly memo: string | null;
+    public readonly createdAt: Date;
+    public readonly updatedAt: Date;
+
+    constructor(talentPool: TalentPoolWithRelations) {
+        this.id = talentPool.id;
+        this.name = talentPool.name;
+        this.birthday = talentPool.birthday;
+        this.phone = talentPool.phone;
+        this.address = talentPool.address;
+        this.memo = talentPool.memo;
+        this.createdAt = talentPool.createdAt;
+        this.updatedAt = talentPool.updatedAt;
     }
-}   
+}
+
+export class GetTalentPoolsResponse {
+    public readonly talentPools: TalentPoolResponse[];
+
+    constructor(talentPools: TalentPoolWithRelations[]) {
+        this.talentPools = talentPools.map(talentPool => new TalentPoolResponse(talentPool));
+    }
+}

@@ -1,3 +1,5 @@
+import { InternalServerErrorException } from "@/Exceptions/Exceptions";
+
 export interface NaverConfiguration {
   clientId: string;
   clientSecret: string;
@@ -58,7 +60,7 @@ export class NaverService {
     });
 
     if (!response.ok) {
-      throw new Error(`액세스 토큰 요청 실패: ${response.status} ${response.statusText}`);
+      throw new InternalServerErrorException(`액세스 토큰 요청 실패: ${response.status} ${response.statusText}`);
     }
 
     return await response.json();
@@ -72,7 +74,7 @@ export class NaverService {
     });
 
     if (!response.ok) {
-      throw new Error(`사용자 정보 요청 실패: ${response.status} ${response.statusText}`);
+      throw new InternalServerErrorException(`사용자 정보 요청 실패: ${response.status} ${response.statusText}`);
     }
 
     return await response.json();

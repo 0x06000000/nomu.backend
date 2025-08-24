@@ -1,7 +1,9 @@
 import { IWorkspaceRepository, WorkspaceWithRelations } from "@/Repositories/Interfaces/IWorkspaceRepository";
-import { PrismaClient, Workspace } from "@/src/generated/prisma";
+import { PrismaClient } from "@/src/generated/prisma";
 import { createPrismaClient } from "@/lib/prisma";
 import { D1Database } from "@cloudflare/workers-types";
+import { MemberWithRelations } from "../Interfaces/IMemberRepository";
+import { InternalServerErrorException, NotFoundException } from "@/Exceptions/Exceptions";
 
 export class WorkspaceRepository implements IWorkspaceRepository {
     private prisma: PrismaClient;
@@ -35,11 +37,21 @@ export class WorkspaceRepository implements IWorkspaceRepository {
             });
 
             try {
+                const user = await this.prisma.user.findUnique({
+                    where: { id: createdBy },
+                    select: { primaryProfile: { select: { id: true } } }
+                });
+
+                if (!user?.primaryProfile) {
+                    throw new NotFoundException("사용자의 프로필을 찾을 수 없습니다.");
+                }
+
                 const workspaceMember = await this.prisma.workspaceMember.create({
                     data: {
                         workspaceId: workspace.id,
                         userId: createdBy,
-                    }
+                        profileId: user?.primaryProfile.id
+                    },
                 });
 
                 await this.prisma.workspaceOwner.create({
@@ -61,7 +73,7 @@ export class WorkspaceRepository implements IWorkspaceRepository {
                 });
 
                 if (!createdWorkspace) {
-                    throw new Error('워크스페이스 조회에 실패했습니다.');
+                    throw new NotFoundException('워크스페이스 조회에 실패했습니다.');
                 }
 
                 return createdWorkspace;
@@ -72,7 +84,7 @@ export class WorkspaceRepository implements IWorkspaceRepository {
                 throw error;
             }
         } catch (error) {
-            throw new Error("워크스페이스 생성 중 오류가 발생했습니다: " + error);
+            throw new InternalServerErrorException("워크스페이스 생성 중 오류가 발생했습니다: " + error);
         }
     }
 
@@ -126,5 +138,40 @@ export class WorkspaceRepository implements IWorkspaceRepository {
         });
 
         return workspaces;
+    }
+
+    async inviteByUserId(workspaceId: number, inviterId: number, inviteeId: number): Promise<MemberWithRelations> {
+        const user = await this.prisma.user.findUnique({
+            where: { id: inviteeId },
+            select: { primaryProfile: { select: { id: true } } }
+        });
+
+        if (!user?.primaryProfile) {
+            throw new Error("사용자의 프로필을 찾을 수 없습니다.");
+        }
+
+        const member = await this.prisma.workspaceMember.create({
+            data: { workspaceId, userId: inviteeId, inviterId, profileId: user?.primaryProfile.id },
+            include: {
+                user: true,
+                inviter: true,
+                workspace: true
+            }
+        });
+
+        return member;
+    }
+
+    async inviteByEmail(workspaceId: number, inviterId: number, email: string): Promise<MemberWithRelations> {
+        const user = await this.prisma.user.findUnique({
+            where: { email },
+            select: { id: true }
+        });
+
+        if (!user) {
+            throw new Error("사용자를 찾을 수 없습니다.");
+        }
+
+        return this.inviteByUserId(workspaceId, inviterId, user.id);
     }
 }

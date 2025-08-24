@@ -7,9 +7,10 @@ export class UpdateSiteCommand {
     public readonly location: string;
     public readonly startDate: Date;
     public readonly endDate: Date;
+    public readonly managementNumber?: string;
     public readonly memo?: string;
 
-    constructor(workspaceId: number, userId: number, id: number, companyId: number, name: string, location: string, startDate: Date, endDate: Date, memo?: string) {
+    constructor(workspaceId: number, userId: number, id: number, companyId: number, name: string, location: string, startDate: Date, endDate: Date, managementNumber?: string, memo?: string) {
         this.workspaceId = workspaceId;
         this.userId = userId;
         this.id = id;
@@ -18,6 +19,7 @@ export class UpdateSiteCommand {
         this.location = location;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.managementNumber = managementNumber;
         this.memo = memo;
     }
 }

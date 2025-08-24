@@ -5,9 +5,7 @@ import { Factory } from "@/lib/factory";
 
 export class NaverLoginController {
   static async login(corsHeaders: Record<string, string>, env: Env): Promise<Response> {
-    const state = crypto.randomUUID();
-
-    const loginUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${env.NAVER_CLIENT_ID}&redirect_uri=${env.NAVER_REDIRECT_URI}&state=${state}`;
+    const loginUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${env.NAVER_CLIENT_ID}&redirect_uri=${env.NAVER_REDIRECT_URI}`;
 
     const responseData = {
       loginUrl,

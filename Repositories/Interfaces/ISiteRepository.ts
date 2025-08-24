@@ -10,8 +10,8 @@ export type SiteWithRelations = Site & {
 };
 
 export interface ISiteRepository {
-    add(workspaceId: number, companyId: number, name: string, location: string, startDate: Date, endDate: Date, memo?: string): Promise<SiteWithRelations>;
-    update(id: number, name: string, location: string, startDate: Date, endDate: Date, memo?: string): Promise<SiteWithRelations>;
+    add(workspaceId: number, companyId: number, name: string, location: string, startDate: Date, endDate: Date, managementNumber?: string, memo?: string): Promise<SiteWithRelations>;
+    update(id: number, companyId: number, name: string, location: string, startDate: Date, endDate: Date, managementNumber?: string, memo?: string): Promise<SiteWithRelations>;
     delete(id: number): Promise<void>;
     getByWorkspaceId(workspaceId: number): Promise<SiteWithRelations[]>;
     getByCompanyId(companyId: number): Promise<SiteWithRelations[]>;

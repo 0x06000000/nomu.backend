@@ -6,6 +6,7 @@ export class CreateSiteCommand {
     public readonly location: string;
     public readonly startDate: Date;
     public readonly endDate: Date;
+    public readonly managementNumber?: string;
     public readonly memo?: string;
 
     constructor(
@@ -16,6 +17,7 @@ export class CreateSiteCommand {
         location: string,
         startDate: Date,
         endDate: Date,
+        managementNumber?: string,
         memo?: string
     ) {
         this.workspaceId = workspaceId;
@@ -25,6 +27,7 @@ export class CreateSiteCommand {
         this.location = location;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.managementNumber = managementNumber;
         this.memo = memo;
     }
 }

@@ -7,5 +7,6 @@ export type UserWithProfile = User & { profiles: Profile[], primaryProfile: Prim
 
 export interface IUserRepository {
   add(email: string, name: string, birthday?: Date, address?: string, phone?: string): Promise<UserWithProfile>;
+  getById(id: number): Promise<UserWithProfile | null>;
   getByEmail(email: string): Promise<UserWithProfile | null>;
 }

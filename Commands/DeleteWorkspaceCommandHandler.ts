@@ -1,5 +1,6 @@
 import { IWorkspaceRepository } from "@/Repositories/Interfaces/IWorkspaceRepository";
 import { DeleteWorkspaceCommand } from "./DeleteWorkspaceCommand";
+import { ForbiddenException } from "@/Exceptions/Exceptions";
 
 export class DeleteWorkspaceCommandHandler {
     constructor(private readonly workspaceRepository: IWorkspaceRepository) {
@@ -9,7 +10,7 @@ export class DeleteWorkspaceCommandHandler {
         const isMember = await this.workspaceRepository.existsMember(command.userId, command.id);
 
         if (!isMember) {
-            throw new Error("워크스페이스 멤버가 아닙니다.");
+            throw new ForbiddenException("워크스페이스 멤버가 아닙니다.");
         }
 
         await this.workspaceRepository.delete(command.id);

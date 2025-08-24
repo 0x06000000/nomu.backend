@@ -2,6 +2,7 @@ import { User, Workspace, WorkspaceMember } from "@/src/generated/prisma";
 
 export type MemberWithRelations = WorkspaceMember & {
     user: User;
+    inviter: WorkspaceMember | null;
     workspace: Workspace;
 };
 

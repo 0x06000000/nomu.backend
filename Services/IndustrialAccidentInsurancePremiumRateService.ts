@@ -1,3 +1,4 @@
+import { InternalServerErrorException } from '@/Exceptions/Exceptions';
 import { xml2json } from 'xml-js';
 
 export interface IndustrialAccidentInsuranceConfiguration {
@@ -51,13 +52,13 @@ export class IndustrialAccidentInsurancePremiumRateService {
 
             // fetch 옵션 추가
             const response = await fetch(apiUrl.toString(), {
-                method: 'GET'
+                method: 'GET',
             });
 
             if (!response.ok) {
                 const errorText = await response.text();
                 console.error('API 오류 응답:', errorText);
-                throw new Error(`API 요청 실패: ${response.status} ${response.statusText}`);
+                throw new InternalServerErrorException(`산재보험료율 API 요청 실패: ${response.status} ${response.statusText}`);
             }
 
             const xmlText = await response.text();
@@ -65,19 +66,15 @@ export class IndustrialAccidentInsurancePremiumRateService {
 
             // XML이 비어있는지 확인
             if (!xmlText || xmlText.trim() === '') {
-                throw new Error('API가 빈 응답을 반환했습니다');
+                throw new InternalServerErrorException('산재보험료율 API가 빈 응답을 반환했습니다');
             }
 
-            const jsonData = JSON.parse(xml2json(xmlText, {compact: true, spaces: 2}));
+            const jsonData = JSON.parse(xml2json(xmlText, { compact: true, spaces: 2 }));
             console.log('변환된 JSON:', JSON.stringify(jsonData, null, 2));
 
             return jsonData as ApiResponse;
         } catch (error) {
             console.error('산재보험료율 검색 오류:', error);
-            if (error instanceof Error) {
-                console.error('오류 상세:', error.message);
-                console.error('오류 스택:', error.stack);
-            }
             throw error;
         }
     }

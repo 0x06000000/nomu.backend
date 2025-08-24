@@ -19,4 +19,6 @@ export interface ISiteAttendanceRepository {
     getByEmployeeId(employeeId: number): Promise<SiteAttendanceWithRelations[]>;
     getBySiteId(siteId: number): Promise<SiteAttendanceWithRelations[]>;
     getById(id: number): Promise<SiteAttendanceWithRelations | null>;
+    getByYearMonth(year: number, month: number): Promise<SiteAttendanceWithRelations[]>;
+    getByYearMonthAndSiteId(year: number, month: number, siteId: number): Promise<SiteAttendanceWithRelations[]>;
 }

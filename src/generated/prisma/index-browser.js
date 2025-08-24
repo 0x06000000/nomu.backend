@@ -154,6 +154,8 @@ exports.Prisma.WorkspaceMemberScalarFieldEnum = {
   id: 'id',
   workspaceId: 'workspaceId',
   userId: 'userId',
+  profileId: 'profileId',
+  inviterId: 'inviterId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -162,30 +164,6 @@ exports.Prisma.WorkspaceOwnerScalarFieldEnum = {
   id: 'id',
   workspaceId: 'workspaceId',
   workspaceMemberId: 'workspaceMemberId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.WorkspaceInvitationScalarFieldEnum = {
-  id: 'id',
-  workspaceId: 'workspaceId',
-  createdBy: 'createdBy',
-  invitationType: 'invitationType',
-  invitationCode: 'invitationCode',
-  expiresAt: 'expiresAt',
-  maxUses: 'maxUses',
-  currentUses: 'currentUses',
-  isActive: 'isActive',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.WorkspaceInvitationUserScalarFieldEnum = {
-  id: 'id',
-  invitationId: 'invitationId',
-  profileId: 'profileId',
-  status: 'status',
-  acceptedAt: 'acceptedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -227,9 +205,28 @@ exports.Prisma.OwnerScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ProjectOwnerScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  name: 'name',
+  address: 'address',
+  phone: 'phone',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ProjectScalarFieldEnum = {
+  id: 'id',
+  workspaceId: 'workspaceId',
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SiteScalarFieldEnum = {
   id: 'id',
   workspaceId: 'workspaceId',
+  projectId: 'projectId',
   companyId: 'companyId',
   name: 'name',
   location: 'location',
@@ -272,8 +269,8 @@ exports.Prisma.IndustrialAccidentInsurancePremiumRateScalarFieldEnum = {
   firstLevelCode: 'firstLevelCode',
   secondLevel: 'secondLevel',
   secondLevelCode: 'secondLevelCode',
-  thirdLevel: 'thirdLevel',
-  thirdLevelCode: 'thirdLevelCode',
+  industryName: 'industryName',
+  industryCode: 'industryCode',
   date: 'date',
   rate: 'rate',
   createdAt: 'createdAt',
@@ -297,16 +294,7 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-exports.InvitationType = exports.$Enums.InvitationType = {
-  PUBLIC: 'PUBLIC',
-  PRIVATE: 'PRIVATE'
-};
 
-exports.InvitationStatus = exports.$Enums.InvitationStatus = {
-  PENDING: 'PENDING',
-  ACCEPTED: 'ACCEPTED',
-  DECLINED: 'DECLINED'
-};
 
 exports.Prisma.ModelName = {
   User: 'User',
@@ -315,12 +303,12 @@ exports.Prisma.ModelName = {
   Workspace: 'Workspace',
   WorkspaceMember: 'WorkspaceMember',
   WorkspaceOwner: 'WorkspaceOwner',
-  WorkspaceInvitation: 'WorkspaceInvitation',
-  WorkspaceInvitationUser: 'WorkspaceInvitationUser',
   Company: 'Company',
   Employee: 'Employee',
   DayLaborer: 'DayLaborer',
   Owner: 'Owner',
+  ProjectOwner: 'ProjectOwner',
+  Project: 'Project',
   Site: 'Site',
   SiteAttendance: 'SiteAttendance',
   TalentPool: 'TalentPool',

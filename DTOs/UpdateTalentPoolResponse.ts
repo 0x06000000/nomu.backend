@@ -7,6 +7,8 @@ export class UpdateTalentPoolResponse {
     public readonly phone: string;
     public readonly address: string;
     public readonly memo: string | null;
+    public readonly createdAt: Date;
+    public readonly updatedAt: Date;
 
     constructor(talentPool: TalentPoolWithRelations) {
         this.id = talentPool.id;
@@ -15,5 +17,7 @@ export class UpdateTalentPoolResponse {
         this.phone = talentPool.phone;
         this.address = talentPool.address;
         this.memo = talentPool.memo;
+        this.createdAt = talentPool.createdAt;
+        this.updatedAt = talentPool.updatedAt;
     }
 }   

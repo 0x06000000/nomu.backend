@@ -1,3 +1,5 @@
+import { InternalServerErrorException } from "@/Exceptions/Exceptions";
+
 export interface JusoConfiguration {
   apiKey: string;
   apiUrl: string;
@@ -82,28 +84,24 @@ export class JusoService {
       if (!apiResponse.ok) {
         const errorText = await apiResponse.text();
         console.error('Juso API Error Response:', errorText);
-        throw new Error(`Juso API request failed: ${apiResponse.status} ${apiResponse.statusText} - ${errorText}`);
+        throw new InternalServerErrorException(`Juso API 요청 실패: ${apiResponse.status} ${apiResponse.statusText} - ${errorText}`);
       }
 
       const apiDataText = await apiResponse.text();
-      console.log('Juso API Raw Response:', apiDataText);
-      
-      // JSONP 응답을 JSON으로 변환
+
       let apiData: JusoApiResponse;
       try {
-        // JSONP 응답에서 JSON 부분만 추출 (callback(...) 형태에서 ... 부분만)
         const jsonMatch = apiDataText.match(/^[^(]*\((.+)\)$/);
         if (jsonMatch) {
           apiData = JSON.parse(jsonMatch[1]);
         } else {
-          // 일반 JSON 응답인 경우
           apiData = JSON.parse(apiDataText);
         }
       } catch (parseError) {
         console.error('JSON Parse Error:', parseError);
-        throw new Error(`JSON 파싱 실패: ${parseError instanceof Error ? parseError.message : 'Unknown parse error'}`);
+        throw new InternalServerErrorException(`JSON 파싱 실패: ${parseError instanceof Error ? parseError.message : 'Unknown parse error'}`);
       }
-      
+
       return apiData;
 
     } catch (error) {

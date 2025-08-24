@@ -2,6 +2,7 @@ import { CompanyWithRelations } from "@/Repositories/Interfaces/ICompanyReposito
 
 class CompanyResponse {
     public readonly id: number;
+    public readonly workspaceId: number;
     public readonly name: string;
     public readonly location: string;
     public readonly employeeCount: number;
@@ -13,6 +14,7 @@ class CompanyResponse {
 
     constructor(company: CompanyWithRelations) {
         this.id = company.id;
+        this.workspaceId = company.workspaceId;
         this.name = company.name;
         this.location = company.location;
         this.employeeCount = company.employeeCount;

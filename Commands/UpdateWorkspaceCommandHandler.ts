@@ -1,5 +1,6 @@
 import { UpdateWorkspaceCommand } from "@/Commands/UpdateWorkspaceCommand";
 import { UpdateWorkspaceResponse } from "@/DTOs/UpdateWorkspaceResponse";
+import { ForbiddenException } from "@/Exceptions/Exceptions";
 import { IWorkspaceRepository } from "@/Repositories/Interfaces/IWorkspaceRepository";
 
 export class UpdateWorkspaceCommandHandler {
@@ -11,7 +12,7 @@ export class UpdateWorkspaceCommandHandler {
         const isMember = await this.workspaceRepository.existsMember(command.id, command.userId);
 
         if (!isMember) {
-            throw new Error("워크스페이스 멤버가 아닙니다.");
+            throw new ForbiddenException("워크스페이스 멤버가 아닙니다.");
         }
 
         const workspace = await this.workspaceRepository.update(command.id, command.name);

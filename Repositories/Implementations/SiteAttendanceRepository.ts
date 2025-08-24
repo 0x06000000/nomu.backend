@@ -1,3 +1,4 @@
+import { InternalServerErrorException } from "@/Exceptions/Exceptions";
 import { createPrismaClient } from "@/lib/prisma";
 import { ISiteAttendanceRepository, SiteAttendanceWithRelations } from "@/Repositories/Interfaces/ISiteAttendanceRepository";
 import { PrismaClient, SiteAttendance } from "@/src/generated/prisma";
@@ -15,18 +16,17 @@ export class SiteAttendanceRepository implements ISiteAttendanceRepository {
                 talentPoolId,
                 siteId: attendance.siteId,
                 date: attendance.date,
-                startTime: attendance.startTime, 
+                startTime: attendance.startTime,
                 endTime: attendance.endTime,
                 amount: attendance.amount
             }))
         });
 
-        // createMany는 relations를 포함하지 않으므로 별도로 조회
         const result = await this.prisma.siteAttendance.findMany({
             where: {
                 talentPoolId,
                 id: {
-                    gte: createdSiteAttendances.count // 방금 생성된 레코드들
+                    gte: createdSiteAttendances.count
                 }
             },
             include: {
@@ -59,7 +59,7 @@ export class SiteAttendanceRepository implements ISiteAttendanceRepository {
                         await this.prisma.siteAttendance.delete({
                             where: { id }
                         });
-                        
+
                         rollbackOperations.push(async () => {
                             await this.prisma.siteAttendance.create({
                                 data: {
@@ -88,7 +88,7 @@ export class SiteAttendanceRepository implements ISiteAttendanceRepository {
                     try {
                         const upserted = await this.prisma.siteAttendance.upsert({
                             where: {
-                                id: attendance.id ?? -1 // id가 없으면 create로 처리되도록
+                                id: attendance.id ?? -1
                             },
                             create: {
                                 talentPoolId,
@@ -99,6 +99,7 @@ export class SiteAttendanceRepository implements ISiteAttendanceRepository {
                                 amount: attendance.amount
                             },
                             update: {
+                                siteId: attendance.siteId,
                                 date: attendance.date,
                                 startTime: attendance.startTime,
                                 endTime: attendance.endTime,
@@ -147,7 +148,8 @@ export class SiteAttendanceRepository implements ISiteAttendanceRepository {
 
             return updatedRecords;
         } catch (error) {
-            throw error;
+            console.error(error);
+            throw new InternalServerErrorException("출역을 등록하는 중 오류가 발생했습니다.");
         }
     }
 
@@ -189,7 +191,7 @@ export class SiteAttendanceRepository implements ISiteAttendanceRepository {
         });
     }
 
-    async getByTalentPoolId(talentPoolId: number): Promise<SiteAttendanceWithRelations[]> { 
+    async getByTalentPoolId(talentPoolId: number): Promise<SiteAttendanceWithRelations[]> {
         const siteAttendances = await this.prisma.siteAttendance.findMany({
             where: { talentPoolId },
             include: {
@@ -248,4 +250,28 @@ export class SiteAttendanceRepository implements ISiteAttendanceRepository {
 
         return siteAttendance;
     }
-}   
+
+    async getByYearMonth(year: number, month: number): Promise<SiteAttendanceWithRelations[]> {
+        const siteAttendances = await this.prisma.siteAttendance.findMany({
+            where: { date: { gte: new Date(year, month - 1, 1), lte: new Date(year, month, 0) } },
+            include: {
+                site: true,
+                talentPool: true,
+            },
+        });
+
+        return siteAttendances;
+    }
+
+    async getByYearMonthAndSiteId(year: number, month: number, siteId: number): Promise<SiteAttendanceWithRelations[]> {
+        const siteAttendances = await this.prisma.siteAttendance.findMany({
+            where: { date: { gte: new Date(year, month - 1, 1), lte: new Date(year, month, 0) }, siteId },
+            include: {  
+                site: true,
+                talentPool: true,
+            },
+        });
+
+        return siteAttendances;
+    }
+}
