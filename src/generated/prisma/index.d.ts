@@ -24252,6 +24252,7 @@ export namespace Prisma {
 
   export type IndustrialAccidentInsurancePremiumRateWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    firstLevel_firstLevelCode_secondLevel_secondLevelCode_industryName_industryCode_date?: IndustrialAccidentInsurancePremiumRateFirstLevelFirstLevelCodeSecondLevelSecondLevelCodeIndustryNameIndustryCodeDateCompoundUniqueInput
     AND?: IndustrialAccidentInsurancePremiumRateWhereInput | IndustrialAccidentInsurancePremiumRateWhereInput[]
     OR?: IndustrialAccidentInsurancePremiumRateWhereInput[]
     NOT?: IndustrialAccidentInsurancePremiumRateWhereInput | IndustrialAccidentInsurancePremiumRateWhereInput[]
@@ -24266,7 +24267,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"IndustrialAccidentInsurancePremiumRate"> | Date | string
     updatedAt?: DateTimeFilter<"IndustrialAccidentInsurancePremiumRate"> | Date | string
     companyIndustryCodes?: CompanyIndustryCodeListRelationFilter
-  }, "id">
+  }, "id" | "firstLevel_firstLevelCode_secondLevel_secondLevelCode_industryName_industryCode_date">
 
   export type IndustrialAccidentInsurancePremiumRateOrderByWithAggregationInput = {
     id?: SortOrder
@@ -26561,6 +26562,16 @@ export namespace Prisma {
     id?: SortOrder
     workspaceId?: SortOrder
     profileId?: SortOrder
+  }
+
+  export type IndustrialAccidentInsurancePremiumRateFirstLevelFirstLevelCodeSecondLevelSecondLevelCodeIndustryNameIndustryCodeDateCompoundUniqueInput = {
+    firstLevel: string
+    firstLevelCode: number
+    secondLevel: string
+    secondLevelCode: number
+    industryName: string
+    industryCode: number
+    date: string
   }
 
   export type IndustrialAccidentInsurancePremiumRateCountOrderByAggregateInput = {
