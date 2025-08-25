@@ -85,6 +85,8 @@ export class IndustrialAccidentInsurancePremiumRateRepository implements IIndust
                 secondLevelCode: true
             },
             where: {
+                secondLevel: { not: null },
+                secondLevelCode: { not: null },
                 firstLevelCode: firstLevelCode
             }
         });
@@ -106,6 +108,8 @@ export class IndustrialAccidentInsurancePremiumRateRepository implements IIndust
                 industryCode: true
             },
             where: {
+                industryName: { not: null },
+                industryCode: { not: null },
                 firstLevelCode: firstLevelCode,
                 secondLevelCode: secondLevelCode
             }
